@@ -1,49 +1,97 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
+const latest = posts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 5);
+
+const lastUpdated = new Date().toLocaleDateString("en-AU", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<SiteLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+
+<!-- Intro -->
+<section class="mb-16 space-y-4">
+  <span class="text-xs text-(--text-secondary) font-mono tracking-widest">developer / melbourne / ai</span>
+  <h1 class="text-4xl"><span id="typewriter"></span><span class="cursor">_</span></h1>
+  <p class="text-lg">I make things with code. Some of them even work.</p>
+  <p class="text-sm text-(--text-secondary) italic">This is where I write about what I'm learning, what I'm building, and the tools and systems I work with.</p>
+  <a href="/about" class="block font-mono text-sm hover:text-(--accent) transition-colors duration-200">
+    <span class="text-(--text-secondary)">></span> read more about me
+  </a>
+</section>
+
+<!-- Latest Posts -->
+<section class="mb-16 space-y-4">
+    <h2 class="font-display tracking-wide text-2xl pb-2 border-b border-secondary">
+      latest posts [{posts.length}]
+    </h2>
+    <ul class="flex flex-col gap-4 text-sm">
+      {latest.map((post) => (
+        <li>
+          <a href={`/blog/${post.id.replace(/\.mdx?$/, "")}`} class="flex justify-between items-baseline gap-4 no-underline group">
+            <span class="font-mono lowercase group-hover:text-(--accent) transition-colors duration-200">
+              <span class="text-(--text-secondary) mr-1">> </span>
+              {post.data.title}
+            </span>
+            <span class="text-xs font-mono text-(--text-secondary) shrink-0">
+              {post.data.pubDate.toLocaleDateString("en-AU", { year: "numeric", month: "short", day: "numeric" })}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+</section>
+
+<!-- Contact -->
+<section class="font-mono text-sm space-y-4">
+    <h2 class="font-display tracking-wide text-2xl pb-2 border-b border-secondary">
+     find me
+    </h2>
+  <div class="space-y-1">
+    <a href="https://twitter.com/ari" class="group flex items-center gap-2 no-underline">
+      <span class="text-(--accent)">arian@dev:~$</span>
+      <span class="group-hover:text-(--accent) transition-colors duration-200">open x</span>
+    </a>
+    <a href="https://github.com/arianmcnz" class="group flex items-center gap-2 no-underline">
+      <span class="text-(--accent)">arian@dev:~$</span>
+      <span class="group-hover:text-(--accent) transition-colors duration-200">open github</span>
+    </a>
+    <p class="text-(--accent)">arian@dev:~$ <span class="cursor">_</span></p>
+  </div>
+</section>
+
+</SiteLayout>
+
+<style>
+  .cursor {
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+</style>
+
+<script>
+  const text = "hi, i'm arian.";
+  const el = document.getElementById("typewriter") as HTMLElement;
+  let i = 0;
+
+  function type() {
+    if (i < text.length) {
+      el.textContent += text[i];
+      i++;
+      setTimeout(type, 80);
+    }
+  }
+
+  type();
+</script>

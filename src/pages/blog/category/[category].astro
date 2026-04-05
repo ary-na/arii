@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import { categoryHref } from '../../../consts';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	const categories = [...new Set(posts.flatMap((post) => post.data.category ?? []))];
+
+	return categories.map((category) => ({
+		params: { category },
+		props: { category },
+	}));
+}
+
+const { category } = Astro.props;
+
+const posts = (await getCollection('blog'))
+	.filter((post) => post.data.category?.includes(category))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const description = `Posts filed under ${category}.`;
+---
+
+<SiteLayout title={`${category} | Categories`} description={description}>
+	<section class="max-w-4xl">
+		<p class="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-[rgb(var(--gray))]">
+			Category archive
+		</p>
+		<h1 class="mb-4">{category}</h1>
+		<p class="mb-8 text-[rgb(var(--gray))]">
+			{posts.length} {posts.length === 1 ? 'post' : 'posts'} in this category.
+		</p>
+
+		<ul class="m-0 grid list-none gap-4 p-0">
+			{
+				posts.map((post) => (
+					<li class="rounded-3xl border border-[rgba(var(--gray),0.14)] bg-white/80 p-5 shadow-[0_12px_28px_rgba(34,41,57,0.06)]">
+						<a class="no-underline" href={`/blog/${post.id}/`}>
+							<h2 class="mb-2 text-2xl text-[rgb(var(--black))]">{post.data.title}</h2>
+							<p class="m-0 text-[rgb(var(--gray))]">{post.data.description}</p>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+
+		<p class="mt-8">
+			<a href={categoryHref(category)}>Share this category link</a>
+		</p>
+	</section>
+</SiteLayout>

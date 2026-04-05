@@ -1,0 +1,17 @@
+/* src/styles/theme.css */
+@theme {
+  --font-body: 'DMSans', sans-serif;
+  --font-display: 'Bytesized', monospace;
+  --font-mono: 'DMMono', monospace;
+
+  --color-primary: var(--bg-primary);
+  --color-secondary: var(--bg-secondary);
+
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-accent: var(--accent);
+  --box-shadow: var(--box-shadow);
+
+  --text-primary: var(--text-primary);
+  --text-secondary: var(--text-secondary);
+}

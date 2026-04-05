@@ -1,86 +1,76 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
+import SiteLayout from './SiteLayout.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, category } = Astro.props;
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
+<SiteLayout {title} {description} image={heroImage}>
+  <article class="space-y-10">
+    <header class="space-y-4">
+      <a href="/blog" class="block font-mono text-xs text-(--text-secondary) transition-colors duration-200 hover:text-(--accent)">
+        > back to posts
+      </a>
+      {
+        description && (
+          <span class="font-mono text-xs tracking-widest text-(--text-secondary)">
+            {description}
+          </span>
+        )
+      }
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
-</html>
+      <h1 class="text-4xl pb-2 border-b border-secondary">{title}</h1>
+
+      <div class="flex flex-wrap items-center gap-4 font-mono text-xs text-(--text-secondary)">
+        <span class="flex items-center gap-2">
+          <FormattedDate date={pubDate} />
+        </span>
+        {
+          updatedDate && (
+            <span class="italic">
+              // updated <FormattedDate date={updatedDate} />
+            </span>
+          )
+        }
+        {
+          category && category.length > 0 && (
+            <div class="ms-auto flex flex-wrap gap-3">
+              {category.map((cat) => (
+                <a
+                  href={`/blog/category/${cat}`}
+                  class="no-underline transition-colors duration-200 hover:text-(--accent)"
+                >
+                  #{cat}
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </header>
+
+    {
+      heroImage && (
+        <div class="w-full">
+          <Image width={1020} height={510} src={heroImage} alt="" class="w-full" />
+        </div>
+      )
+    }
+
+    <div class="prose dark:prose-invert max-w-none">
+      <slot />
+    </div>
+
+    <footer
+      class="border-t border-(--text-secondary) pt-6 font-mono text-xs text-(--text-secondary)"
+    >
+      <a href="/blog" class="transition-colors duration-200 hover:text-(--accent)">
+        > back to posts
+      </a>
+    </footer>
+  </article>
+</SiteLayout>

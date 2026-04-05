@@ -1,0 +1,8 @@
+/* src/styles/__root.css */
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@import './fonts.css';
+@import './variables.css';
+@import './variables-dark.css';
+@import './theme.css';
+@import './global.css';

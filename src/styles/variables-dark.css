@@ -1,0 +1,11 @@
+/* src/styles/variables-dark.css */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --accent: #6ba3ff;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
