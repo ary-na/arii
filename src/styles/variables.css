@@ -1,9 +1,17 @@
 /* src/styles/variables.css */
+
 :root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --text-primary: #1a1a1a;
-  --text-secondary: #666666;
-  --accent: #2337ff;
-  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --primary: #a259ff;
+  --secondary: #c77dff;
+  --accent: #ff2a9d;
+
+  --bg-primary: #f5f4f8;
+  --bg-secondary: #eae8f0;
+
+  --text-primary: #1a1726;
+  --text-secondary: #6b5f8a;
+  --text-muted: #8a7fa6;
+
+  --box-shadow: 0 2px 8px rgba(26, 23, 38, 0.15);
 }
+
