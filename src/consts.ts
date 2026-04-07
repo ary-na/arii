@@ -1,8 +1,8 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-export const SITE_TITLE = 'arian.dev';
-export const SITE_DESCRIPTION = 'Welcome to my website!';
+export const SITE_TITLE = 'arii';
+export const SITE_DESCRIPTION = "// a developer's log. code, AI, and things worth writing down.";
 
 export type NavItem = {
   href: string;
@@ -11,9 +11,9 @@ export type NavItem = {
 };
 
 export const PRIMARY_NAV: NavItem[] = [
-  { href: '/', label: 'Home', description: 'Landing page and intro' },
-  { href: '/blog', label: 'Blog', description: 'All published posts' },
-  { href: '/about', label: 'About', description: 'Background and story' },
+  { href: '/', label: 'Home', description: 'start here' },
+  { href: '/blog', label: 'Blog', description: 'things i write about' },
+  { href: '/about', label: 'About', description: 'who i am' },
 ];
 
 export const BLOG_CATEGORIES: NavItem[] = [];
