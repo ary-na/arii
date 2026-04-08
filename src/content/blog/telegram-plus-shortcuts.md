@@ -2,7 +2,6 @@
 title: 'telegram + shortcuts app'
 description: 'a walkthrough of how i connected telegram bots with apple shortcuts to build a personal notification system that actually works the way i want.'
 pubDate: 'Apr 06 2026'
-heroImage: '../../assets/blog-placeholder-2.jpg'
 category:
 - tutorial
 ---
@@ -11,6 +10,6 @@ Telegram is a quite powerful cloud-based  messaging app and it comes with many f
 
 ## Automation workflows
 
-I use telegram in order to 
+I use telegram in order to
 
 
