@@ -10,13 +10,13 @@ const isActive = hrefStr === pathname || (hrefStr !== '/' && pathname.startsWith
 ---
 
 <div class="group/nav flex flex-col gap-0">
-<a
+  <a
     {href}
     class:list={[
       'font-display block px-4 py-1 tracking-widest lowercase no-underline transition-all duration-200 before:-mr-2',
       { "text-text-primary opacity-100 before:content-['>']": isActive },
       {
-        "text-text-secondary/80 opacity-60 before:content-['_'] hover:text-text-primary hover:opacity-100 hover:before:content-['>']":
+        "text-text-secondary/80 hover:text-text-primary opacity-60 before:content-['_'] hover:opacity-100 hover:before:content-['>']":
           !isActive,
       },
       className,
@@ -25,20 +25,22 @@ const isActive = hrefStr === pathname || (hrefStr !== '/' && pathname.startsWith
   >
     <slot />
   </a>
-  {description && (
-    <p
-      class:list={[
-        'font-mono px-5 -mt-1 text-[0.6rem] tracking-widest leading-none lowercase transition-colors duration-200',
-        isActive ? 'text-text-secondary' : 'text-text-secondary/30 group-hover/nav:text-text-secondary/60',
-      ]}
-    >
-      <span
-        class="typewriter-text"
-        data-description={description}
-        style="visibility: hidden;"
-      >{description}</span>
-    </p>
-  )}
+  {
+    description && (
+      <p
+        class:list={[
+          '-mt-1 px-5 font-mono text-[0.6rem] leading-none tracking-widest lowercase transition-colors duration-200',
+          isActive
+            ? 'text-text-secondary'
+            : 'text-text-secondary/30 group-hover/nav:text-text-secondary/60',
+        ]}
+      >
+        <span class="typewriter-text" data-description={description} style="visibility: hidden;">
+          {description}
+        </span>
+      </p>
+    )
+  }
 </div>
 
 <script>

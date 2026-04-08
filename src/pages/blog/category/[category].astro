@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import { categoryHref } from '../../../consts';
-import SiteLayout from '../../../layouts/SiteLayout.astro';
+import { categoryHref } from '@/consts';
+import SiteLayout from '@layouts/SiteLayout.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');

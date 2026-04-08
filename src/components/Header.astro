@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { categoryHref, SITE_TITLE, PRIMARY_NAV } from '../consts';
+import { categoryHref, SITE_TITLE, PRIMARY_NAV } from '@/consts';
 import HeaderLink from './HeaderLink.astro';
 
 const posts = await getCollection('blog');
@@ -14,7 +14,7 @@ const categories = [...new Set(posts.flatMap((post) => post.data.category ?? [])
       id="mobile-toggle"
       aria-label="Toggle menu"
       aria-expanded="false"
-      class="group relative flex h-11 w-11 items-center justify-center rounded-full border border-text-secondary/20 bg-surface-primary/85 text-text-primary shadow-(--box-shadow) backdrop-blur-md transition hover:bg-surface-primary"
+      class="group border-text-secondary/20 bg-surface-primary/85 text-text-primary hover:bg-surface-primary relative flex h-11 w-11 items-center justify-center rounded-full border shadow-(--box-shadow) backdrop-blur-md transition"
     >
       <span class="sr-only">Toggle navigation menu</span>
       <span
@@ -32,7 +32,7 @@ const categories = [...new Set(posts.flatMap((post) => post.data.category ?? [])
   <!-- Mobile fullscreen menu -->
   <div
     id="mobile-menu"
-    class="bg-surface-primary fixed inset-0 z-40 flex flex-col items-start justify-center gap-6 ps-10 text-text-primary md:hidden"
+    class="bg-surface-primary text-text-primary fixed inset-0 z-40 flex flex-col items-start justify-center gap-6 ps-10 md:hidden"
   >
     <span class="font-display border-primary w-200 border-b pb-2 text-3xl font-bold tracking-tight">
       <a href="/">{SITE_TITLE}</a>
@@ -64,7 +64,7 @@ const categories = [...new Set(posts.flatMap((post) => post.data.category ?? [])
       id="tablet-toggle"
       aria-label="Toggle menu"
       aria-expanded="false"
-      class="group relative flex h-11 w-11 items-center justify-center rounded-full border border-text-secondary/20 bg-surface-primary/85 text-text-primary shadow-(--box-shadow) backdrop-blur-md transition hover:bg-surface-primary"
+      class="group border-text-secondary/20 bg-surface-primary/85 text-text-primary hover:bg-surface-primary relative flex h-11 w-11 items-center justify-center rounded-full border shadow-(--box-shadow) backdrop-blur-md transition"
     >
       <span class="sr-only">Toggle navigation menu</span>
       <span
@@ -82,7 +82,7 @@ const categories = [...new Set(posts.flatMap((post) => post.data.category ?? [])
   <!-- Tablet slide-in panel -->
   <div
     id="tablet-menu"
-    class="bg-surface-primary fixed top-0 right-0 z-40 hidden h-full w-68 flex-col items-start justify-center gap-6 border-l border-text-secondary/15 px-8 text-text-primary shadow-(--box-shadow) md:flex xl:hidden"
+    class="bg-surface-primary border-text-secondary/15 text-text-primary fixed top-0 right-0 z-40 hidden h-full w-68 flex-col items-start justify-center gap-6 border-l px-8 shadow-(--box-shadow) md:flex xl:hidden"
   >
     <span class="font-display border-primary w-100 border-b pb-2 text-3xl font-bold tracking-tight">
       <a href="/">{SITE_TITLE}</a>
@@ -110,11 +110,9 @@ const categories = [...new Set(posts.flatMap((post) => post.data.category ?? [])
 
   <!-- Desktop (xl+): right sidebar unchanged -->
   <nav
-    class="hidden xl:fixed xl:top-0 xl:right-0 xl:flex xl:h-full xl:w-68 xl:flex-col xl:items-start xl:justify-center xl:gap-6 xl:bg-surface-primary/35 xl:px-8 xl:backdrop-blur-sm"
+    class="xl:bg-surface-primary/35 hidden xl:fixed xl:top-0 xl:right-0 xl:flex xl:h-full xl:w-68 xl:flex-col xl:items-start xl:justify-center xl:gap-6 xl:px-8 xl:backdrop-blur-sm"
   >
-    <span
-      class="font-display border-primary w-100 border-b pb-2 text-3xl font-bold tracking-tight"
-    >
+    <span class="font-display border-primary w-100 border-b pb-2 text-3xl font-bold tracking-tight">
       <a href="/">{SITE_TITLE}</a>
     </span>
     <div class="flex w-100 flex-col gap-2">
