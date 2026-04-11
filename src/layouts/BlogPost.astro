@@ -3,14 +3,30 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from '@components/FormattedDate.astro';
 import SiteLayout from './SiteLayout.astro';
+import ImageLightbox from '@components/ImageLightbox.astro';
 type Props = CollectionEntry<'blog'>['data'];
 const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, category, tags } =
   Astro.props;
 ---
 
 <SiteLayout {title} {description} image={heroImage}>
-  <article class="space-y-10 pt-15">
-    <header class="space-y-4">
+  <ImageLightbox />
+  <article class="space-y-10">
+    <header class="space-y-6">
+      {
+        category && (
+          <div class="font-mono text-xs text-(--text-secondary)">
+            cat:
+            <a
+              href={`/blog/category/${category}`}
+              class="no-underline transition-colors duration-200 hover:text-(--accent)"
+            >
+              {category}
+            </a>
+          </div>
+        )
+      }
+      <h1 class="text-4xl">{title}</h1>
       {
         description && (
           <span class="text-secondary block font-mono text-xs leading-normal italic">
@@ -18,28 +34,13 @@ const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, categ
           </span>
         )
       }
-      <h1 class="text-4xl">{title}</h1>
-      <div class="flex flex-wrap items-center gap-4 font-mono text-xs text-(--text-secondary)">
-        <span class="flex items-center gap-2">
-          <FormattedDate date={pubDate} />
-        </span>
+      <div class="flex flex-col gap-1 border-t border-secondary pt-6 font-mono text-xs text-(--text-secondary)">
+        <FormattedDate date={pubDate} />
         {
           updatedDate && (
             <span class="italic">
-              // updated <FormattedDate date={updatedDate} />
+              updated <FormattedDate date={updatedDate} />
             </span>
-          )
-        }
-        {
-          category && (
-            <div class="ms-auto flex flex-wrap gap-3">
-              <a
-                href={`/blog/category/${category}`}
-                class="no-underline transition-colors duration-200 hover:text-(--accent)"
-              >
-                // {category}
-              </a>
-            </div>
           )
         }
       </div>
@@ -53,7 +54,7 @@ const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, categ
             quality={100}
             src={heroImage}
             alt={heroImageAlt ?? title}
-            class="w-full rounded-md"
+            class="rounded-md"
           />
         </div>
       )
@@ -61,9 +62,8 @@ const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, categ
     <div class="prose dark:prose-invert max-w-none">
       <slot />
     </div>
-    <footer
-      class="space-y-6 pt-6 font-mono text-xs text-(--text-secondary)"
-    >
+
+    <footer class="space-y-6 font-mono text-xs text-(--text-secondary)">
       {
         tags && tags.length > 0 && (
           <div class="flex flex-wrap gap-4">

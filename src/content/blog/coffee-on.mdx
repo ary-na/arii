@@ -1,32 +1,43 @@
 ---
 title: 'coffee on'
 description: 'a full-stack web app for ordering coffee drinks with user authentication, shopping cart, and barista management'
-pubDate: 'Apr 09 2026'
-heroImage: '@assets/blog/coffee-on/hero.webp'
+pubDate: 'Jan 10 2024'
+updatedDate: 'Apr 11 2026'
+heroImage: '@assets/blog/coffee-on.webp'
 heroImageAlt: 'coffee on landing page with dark blurred background and logo'
 category: 'project'
 tags:
+  - coffee-shop
   - full-stack
   - javascript
-  - node.js
   - mongodb
-  - web-application
+  - node.js
   - rest-api
-  - coffee-shop
+  - web-application
 ---
-
-A full-stack coffee shop ordering system with two user roles —
-customers can browse and order drinks, baristas manage incoming orders.
 
 import ProjectLinks from '@components/ProjectLink.astro';
 
+A full-stack coffee shop ordering system with two user roles. Customers can browse and order drinks with a favorites system for quick reordering. Baristas manage incoming orders through a dedicated dashboard.
+
 <ProjectLinks
-  demo="https://endearing-manatee-fc92e7.netlify.app" demoCrossed
+  demo="https://endearing-manatee-fc92e7.netlify.app"
+  demoCrossed
   github="https://github.com/ary-na/digexmp1-a3-frontend"
   githubBackend="https://github.com/ary-na/digexmp1-a3-backend"
 />
 
-## Tech Stack
+## key features
+
+- User authentication (JWT)
+- Browse and order drinks
+- Shopping cart
+- Favorites system (preferred barista and drinks)
+- Order history and quick reordering system
+- Order management
+- Barista dashboard
+
+## tech stack
 
 ```bash
 # frontend
@@ -38,9 +49,97 @@ lit.js | parcel | sass | gsap
 node.js | express.js | mongodb | mongoose | jwt
 ```
 
-## Key Features
+## api architecture
 
-- User authentication (JWT)
-- Browse and order drinks
-- Shopping cart
-- Favourites system
+the backend exposes 40+ rest endpoints across five route groups.
+
+```bash
+/auth        # login and token validation
+/users       # profile, favorites, cart
+/drinks      # product catalog and inventory
+/orders      # creation, tracking, status updates
+/home        # database seed and initialization
+```
+
+## highlights
+
+a few screens from the app, showcasing the user interface and functionality for both customers and baristas.
+
+<figure>
+  <img class="rounded-md" src="/blog/coffee-on/welcome.webp" alt="welcome screen" />
+  <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">welcome page</figcaption>
+</figure>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img class="rounded-md" src="/blog/coffee-on/login.webp" alt="login screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">login page</figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/coffee-on/register.webp" alt="register screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">register page</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img class="rounded-md" src="/blog/coffee-on/home.webp" alt="home screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">home page</figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/coffee-on/cart.webp" alt="cart screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">cart page</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img class="rounded-md" src="/blog/coffee-on/baristas.webp" alt="barista screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">barista page</figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/coffee-on/drinks.webp" alt="drinks screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">drinks page</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img
+      class="rounded-md"
+      src="/blog/coffee-on/fav-baristas.webp"
+      alt="favorite baristas screen"
+    />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">
+      favorite baristas page
+    </figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/coffee-on/fav-drinks.webp" alt="favorite drinks screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">
+      favorite drinks page
+    </figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img class="rounded-md" src="/blog/coffee-on/profile.webp" alt="profile screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">profile page</figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/coffee-on/edit-profile.webp" alt="edit profile screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">
+      edit profile page
+    </figcaption>
+  </figure>
+</div>
+
+building coffee on was my first time designing a multi-role system from scratch.
+the trickiest part was managing state across user types. a customer's cart and
+favorites behave differently from a barista's order queue, and keeping that logic
+clean on a Lit.js frontend without a framework like React took real thought.
+
+JWT authentication also clicked for me here. not just implementing it, but
+understanding why stateless auth matters when you have two different user flows
+hitting the same endpoints.
