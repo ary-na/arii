@@ -1,0 +1,149 @@
+---
+title: 'hart'
+description: 'a portfolio site for showcasing original artworks with google oauth, role-based access, contact form, and a protected admin dashboard'
+pubDate: 'Dec 02 2025'
+updatedDate: 'Mar 20 2026'
+heroImage: '@assets/blog/hart.webp'
+heroImageAlt: "hart portfolio website displaying Hilda's original artworks and gallery"
+category: 'project'
+tags:
+  - next.js
+  - react
+  - typescript
+  - portfolio
+  - e-commerce
+  - mongodb
+  - tailwind-css
+  - nextauth
+  - oauth
+---
+
+import ProjectLinks from '@components/ProjectLink.astro';
+
+A portfolio site built with Next.js for showcasing original artworks. Visitors can browse the gallery, shop with a full checkout flow, and reach out via a contact form — with Google OAuth or credentials-based sign-in and a role-protected admin dashboard behind the scenes. still under active development.
+
+<ProjectLinks
+  demo="https://hart-delta.vercel.app"
+  demoLabel="live demo"
+  github="https://github.com/ary-na/hart"
+  githubLabel="github"
+/>
+
+## key features
+
+- Public portfolio pages (home, about, contact, shop, privacy)
+- Art gallery with artwork showcase
+- Shopping cart with multiple payment methods (card, PayPal, Apple Pay, Google Pay)
+- Dual authentication: Google OAuth + credentials provider
+- Role-based access control (admin vs customer)
+- Contact form with optional image uploads to AWS S3
+- Protected admin dashboard
+- Admin message management (view and delete)
+- Dynamic admin user creation via init endpoint
+- Responsive design with Tailwind CSS and DaisyUI
+
+## tech stack
+
+```bash
+# frontend
+next.js | react 19 | typescript | tailwind css | daisyui
+```
+
+```bash
+# backend & auth
+next.js api routes | nextauth (google oauth + credentials) | mongodb | mongoose
+```
+
+```bash
+# infrastructure
+aws s3 | vercel deployment
+```
+
+## api endpoints
+
+The backend exposes API routes across four route groups.
+
+```bash
+/api/contact          # contact form submission with optional S3 upload
+/api/admin/messages   # fetch and delete contact messages (protected)
+/api/admin/initAdmin  # create initial admin user
+/api/auth             # nextauth session and provider handling
+```
+
+## highlights
+
+Portfolio showcase, Google sign-in, shopping checkout, and admin dashboard.
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img class="rounded-md" src="/blog/hart/sign-in.webp" alt="sign in screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">login page</figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/hart/sign-up.webp" alt="sign up screen" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">sign up page</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img class="rounded-md" src="/blog/hart/gallery.webp" alt="artwork gallery" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">artwork gallery</figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/hart/drawing.webp" alt="artwork detail" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">artwork detail</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img class="rounded-md" src="/blog/hart/cart.webp" alt="shopping cart" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">shopping cart</figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/hart/checkout.webp" alt="checkout page" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">checkout page</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img class="rounded-md" src="/blog/hart/profile.webp" alt="user profile" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">user profile</figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/hart/contact.webp" alt="contact page" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">contact page</figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img class="rounded-md" src="/blog/hart/admin-dashboard.webp" alt="admin dashboard" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">admin dashboard</figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/hart/create-drawing.webp" alt="create drawing modal" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">
+      create drawing modal
+    </figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img class="rounded-md" src="/blog/hart/messages.webp" alt="messages page" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">contact messages</figcaption>
+  </figure>
+  <figure>
+    <img class="rounded-md" src="/blog/hart/archived-messages.webp" alt="archived messages" />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">
+      archived messages
+    </figcaption>
+  </figure>
+</div>
+
+Supporting two auth methods in the same app was trickier than expected. Google OAuth and credentials both feed into NextAuth but create users differently, and getting the role assignment and session shape consistent across both flows meant revisiting the schema a few times before it felt right.
+
+The checkout flow added a different kind of complexity. Managing cart state across pages, handling multiple payment methods, and keeping that logic clean on the client while auth-gating the right routes server-side was the most layered thing I'd built in a single Next.js project.
