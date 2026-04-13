@@ -3,25 +3,32 @@
   id="lightbox"
   class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm"
 >
+  <!-- Close button -->
   <button
     id="lightbox-close"
-    class="absolute top-4 right-4 cursor-pointer font-mono text-xs text-white/60 transition-colors hover:text-white"
+    aria-label="Close lightbox"
+    class="bg-surface-primary/85 border-text-secondary/20 text-text-primary hover:bg-surface-primary absolute top-4 right-4 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border shadow-(--box-shadow) backdrop-blur-md transition"
   >
-    [close]
+    <span class="lightbox-line lightbox-line--top absolute block h-0.5 w-5 rounded-full bg-current" style="transform: rotate(45deg)"></span>
+    <span class="lightbox-line lightbox-line--bottom absolute block h-0.5 w-5 rounded-full bg-current" style="transform: rotate(-45deg)"></span>
   </button>
 
+  <!-- Prev button -->
   <button
     id="lightbox-prev"
-    class="absolute left-4 cursor-pointer font-mono text-xs text-white/60 transition-colors hover:text-white"
+    aria-label="Previous image"
+    class="bg-surface-primary/85 border-text-secondary/20 text-text-primary hover:bg-surface-primary absolute left-4 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border shadow-(--box-shadow) backdrop-blur-md transition"
   >
-    [←]
+    <span class="font-mono text-sm">&lt;</span>
   </button>
 
+  <!-- Next button -->
   <button
     id="lightbox-next"
-    class="absolute right-4 cursor-pointer font-mono text-xs text-white/60 transition-colors hover:text-white"
+    aria-label="Next image"
+    class="bg-surface-primary/85 border-text-secondary/20 text-text-primary hover:bg-surface-primary absolute right-4 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border shadow-(--box-shadow) backdrop-blur-md transition"
   >
-    [→]
+    <span class="font-mono text-sm">&gt;</span>
   </button>
 
   <div class="flex flex-col items-center gap-3">
@@ -29,6 +36,14 @@
     <figcaption id="lightbox-caption" class="font-mono text-xs text-white/50"></figcaption>
   </div>
 </div>
+
+<style>
+  .lightbox-line {
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+  }
+</style>
 
 <script>
   const lightbox = document.getElementById('lightbox') as HTMLDivElement;
