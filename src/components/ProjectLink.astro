@@ -3,13 +3,14 @@ const {
   demo,
   github,
   githubBackend,
+  trello,
   demoCrossed,
   demoLabel = 'live demo',
-  githubLabel = 'github frontend',
+  githubLabel = 'github',
   githubBackendLabel = 'github backend',
+  trelloLabel = 'trello',
 } = Astro.props;
 ---
-
 <div class="my-4 flex flex-wrap gap-2 font-mono text-sm sm:gap-4">
   {
     demo && (
@@ -49,6 +50,20 @@ const {
       >
         <span class="text-accent">[</span>
         <span>{githubBackendLabel}</span>
+        <span class="text-accent">]</span>
+      </a>
+    )
+  }
+  {
+    trello && (
+      <a
+        href={trello}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group text-text-secondary hover:text-text-primary no-underline transition-colors duration-200"
+      >
+        <span class="text-accent">[</span>
+        <span>{trelloLabel}</span>
         <span class="text-accent">]</span>
       </a>
     )
