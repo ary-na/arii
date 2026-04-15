@@ -1,5 +1,5 @@
 {
-  "name": "arii",
+  "name": "arii.dev",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -18,6 +18,9 @@
     "@tailwindcss/typography": "^0.5.19",
     "astro": "^6.1.1",
     "sharp": "^0.34.3"
+  },
+  "overrides": {
+    "vite": "^7"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.2",
