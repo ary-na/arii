@@ -14,7 +14,7 @@ const categories = [...new Set(posts.flatMap((post) => post.data.category ?? [])
       id="mobile-toggle"
       aria-label="Toggle menu"
       aria-expanded="false"
-      class="group border-text-secondary/20 bg-surface-primary/85 text-text-primary hover:bg-surface-primary relative flex h-11 w-11 items-center justify-center rounded-full border shadow-(--box-shadow) backdrop-blur-md transition"
+      class="group cursor-pointer border-text-secondary/20 bg-surface-primary/85 text-text-primary hover:bg-surface-primary relative flex h-11 w-11 items-center justify-center rounded-full border shadow-(--box-shadow) backdrop-blur-md transition"
     >
       <span class="sr-only">Toggle navigation menu</span>
       <span
@@ -64,7 +64,7 @@ const categories = [...new Set(posts.flatMap((post) => post.data.category ?? [])
       id="tablet-toggle"
       aria-label="Toggle menu"
       aria-expanded="false"
-      class="group border-text-secondary/20 bg-surface-primary/85 text-text-primary hover:bg-surface-primary relative flex h-11 w-11 items-center justify-center rounded-full border shadow-(--box-shadow) backdrop-blur-md transition"
+      class="group cursor-pointer border-text-secondary/20 bg-surface-primary/85 text-text-primary hover:bg-surface-primary relative flex h-11 w-11 items-center justify-center rounded-full border shadow-(--box-shadow) backdrop-blur-md transition"
     >
       <span class="sr-only">Toggle navigation menu</span>
       <span
