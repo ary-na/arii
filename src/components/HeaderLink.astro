@@ -44,43 +44,53 @@ const isActive = hrefStr === pathname || (hrefStr !== '/' && pathname.startsWith
 </div>
 
 <script>
-  document.querySelectorAll<HTMLElement>('.group\\/nav').forEach((nav) => {
-    const link = nav.querySelector('a');
-    const typewriterEl = nav.querySelector<HTMLSpanElement>('.typewriter-text');
-    if (!link || !typewriterEl) return;
+  const initHeaderLinkTypewriters = () => {
+    document.querySelectorAll<HTMLElement>('.group\\/nav').forEach((nav) => {
+      const link = nav.querySelector('a');
+      const typewriterEl = nav.querySelector<HTMLSpanElement>('.typewriter-text');
+      if (!link || !typewriterEl || link.dataset.typewriterBound === 'true') return;
 
-    const description = typewriterEl.dataset.description ?? '';
-    const isActive = link.classList.contains('text-text-primary');
-    let timeout: ReturnType<typeof setTimeout>;
-    let index = 0;
+      link.dataset.typewriterBound = 'true';
 
-    if (isActive) {
-      typewriterEl.style.visibility = 'visible';
-      return;
-    }
+      const description = typewriterEl.dataset.description ?? '';
+      const isActive = link.classList.contains('text-text-primary');
+      let timeout: ReturnType<typeof setTimeout> | undefined;
+      let index = 0;
 
-    link.addEventListener('mouseenter', () => {
-      typewriterEl.textContent = '';
-      typewriterEl.style.visibility = 'visible';
-      index = 0;
+      if (isActive) {
+        typewriterEl.style.visibility = 'visible';
+        typewriterEl.textContent = description;
+        return;
+      }
 
-      const type = () => {
-        if (index < description.length) {
-          typewriterEl.textContent += description[index];
-          index++;
-          timeout = setTimeout(type, 55);
-        }
-      };
-      type();
+      link.addEventListener('mouseenter', () => {
+        if (timeout) clearTimeout(timeout);
+        typewriterEl.textContent = '';
+        typewriterEl.style.visibility = 'visible';
+        index = 0;
+
+        const type = () => {
+          if (index < description.length) {
+            typewriterEl.textContent += description[index];
+            index++;
+            timeout = setTimeout(type, 55);
+          }
+        };
+
+        type();
+      });
+
+      link.addEventListener('mouseleave', () => {
+        if (timeout) clearTimeout(timeout);
+        typewriterEl.style.visibility = 'hidden';
+        typewriterEl.textContent = description;
+        index = 0;
+      });
     });
+  };
 
-    link.addEventListener('mouseleave', () => {
-      clearTimeout(timeout);
-      typewriterEl.style.visibility = 'hidden';
-      typewriterEl.textContent = description;
-      index = 0;
-    });
-  });
+  document.addEventListener('astro:page-load', initHeaderLinkTypewriters);
+  initHeaderLinkTypewriters();
 </script>
 
 <style>
