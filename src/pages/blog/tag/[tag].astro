@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { BLOG_PAGE_SIZE, tagHref, tagPageHref } from '@/consts';
+import { BLOG_PAGE_SIZE, tagPageHref } from '@/consts';
 import BlogArchive from '@components/BlogArchive.astro';
 
 export async function getStaticPaths() {
@@ -31,8 +31,6 @@ const countLabel = `${posts.length} ${posts.length === 1 ? 'post' : 'posts'} wit
   description={description}
   hrefForPage={(page) => tagPageHref(tag, page)}
   posts={paginatedPosts}
-  shareHref={tagHref(tag)}
-  shareLabel="Share this tag link"
   title={`${tag} | Tags`}
   totalPages={totalPages}
 />

@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogArchive from '@components/BlogArchive.astro';
-import { BLOG_PAGE_SIZE, categoryHref, categoryPageHref } from '@/consts';
+import { BLOG_PAGE_SIZE, categoryPageHref } from '@/consts';
 
 type BlogPostEntry = CollectionEntry<'blog'>;
 
@@ -52,8 +52,6 @@ const canonicalPath = categoryPageHref(category, page.currentPage);
   description={description}
   hrefForPage={(page) => categoryPageHref(category, page)}
   posts={page.data}
-  shareHref={categoryHref(category)}
-  shareLabel="Share this category link"
   title={`${category} | Categories | Page ${page.currentPage}`}
   totalPages={page.lastPage}
 />

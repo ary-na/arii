@@ -1,10 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import FormattedDate from '@components/FormattedDate.astro';
 import PaginationNav from '@components/PaginationNav.astro';
 import SiteLayout from '@layouts/SiteLayout.astro';
 import { BLOG_PAGE_SIZE, SITE_DESCRIPTION, SITE_TITLE, blogPageHref } from '@/consts';
+
+type BlogPostEntry = CollectionEntry<'blog'>;
 
 const allPosts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -20,7 +22,7 @@ const totalPages = Math.ceil(allPosts.length / BLOG_PAGE_SIZE);
     </h2>
     <ul class="flex flex-col">
       {
-        posts.map((post) => (
+        posts.map((post: BlogPostEntry) => (
           <li class="border-b border-(--border-secondary) last:border-b-0">
             <a href={`/blog/${post.id}/`} class="group flex items-center gap-4 py-4 no-underline">
               {post.data.heroImage && (

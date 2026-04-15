@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import { categoryHref } from '@/consts';
 import BlogArchive from '@components/BlogArchive.astro';
 import { BLOG_PAGE_SIZE, categoryPageHref } from '@/consts';
 
@@ -32,8 +31,6 @@ const countLabel = `${posts.length} ${posts.length === 1 ? 'post' : 'posts'} in 
   description={description}
   hrefForPage={(page) => categoryPageHref(category, page)}
   posts={paginatedPosts}
-  shareHref={categoryHref(category)}
-  shareLabel="Share this category link"
   title={`${category} | Categories`}
   totalPages={totalPages}
 />
