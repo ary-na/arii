@@ -77,6 +77,7 @@ const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, Astro.site);
 <!-- Structured Data -->
 <script
   type="application/ld+json"
+  is:inline
   set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Person',
