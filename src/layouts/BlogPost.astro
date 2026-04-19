@@ -4,8 +4,9 @@ import type { CollectionEntry } from 'astro:content'
 import FormattedDate from '@components/FormattedDate.astro'
 import SiteLayout from './SiteLayout.astro'
 import ImageLightbox from '@components/ImageLightbox.astro'
+import ReadingTime from '@components/ReadingTime.astro'
 import { categoryHref, tagHref } from '@/consts'
-type Props = CollectionEntry<'blog'>['data']
+type Props = CollectionEntry<'blog'>['data'] & { body?: string }
 const {
   title,
   description,
@@ -15,6 +16,7 @@ const {
   heroImageAlt,
   category,
   tags,
+  body,
 } = Astro.props
 ---
 
@@ -52,9 +54,10 @@ const {
         class="border-secondary flex flex-col gap-1 border-t pt-6 font-mono text-xs text-(--text-secondary)"
       >
         <FormattedDate date={pubDate} />
+        <ReadingTime body={body ?? ''} />
         {
           updatedDate && (
-            <span class="italic">
+            <span class="italic mt-2">
               updated <FormattedDate date={updatedDate} />
             </span>
           )
