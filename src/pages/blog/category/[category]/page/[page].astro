@@ -42,16 +42,18 @@ export const getStaticPaths: GetStaticPaths = async ({
 }
 
 const { category, page } = Astro.props as Props
-const description = `Posts filed under ${category}.`
-const countLabel = `${page.total} ${page.total === 1 ? 'post' : 'posts'} in this category.`
+const description = `Posts filed under ${category}`
+const countLabel = 'posts in this category';
+const countNumber = page.total;
 const canonicalPath = categoryPageHref(category, page.currentPage)
 ---
 
 <BlogArchive
   archiveLabel="Category archive"
-  archiveTitle={category}
+  archiveTitle={category + "s"}
   canonicalPath={canonicalPath}
   countLabel={countLabel}
+  countNumber={countNumber}
   currentPage={page.currentPage}
   description={description}
   hrefForPage={(page) => categoryPageHref(category, page)}

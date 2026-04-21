@@ -1,9 +1,6 @@
 ---
-import { Image } from 'astro:assets'
 import { type CollectionEntry, getCollection } from 'astro:content'
-import FormattedDate from '@components/FormattedDate.astro'
-import PaginationNav from '@components/PaginationNav.astro'
-import SiteLayout from '@layouts/SiteLayout.astro'
+import BlogArchive from '@components/BlogArchive.astro'
 import {
   BLOG_PAGE_SIZE,
   SITE_DESCRIPTION,
@@ -16,60 +13,22 @@ type BlogPostEntry = CollectionEntry<'blog'>
 const allPosts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 )
+
 const posts = allPosts.slice(0, BLOG_PAGE_SIZE)
 const totalPages = Math.ceil(allPosts.length / BLOG_PAGE_SIZE)
+const countLabel = 'all posts'
+const countNumber = allPosts.length
 ---
 
-<SiteLayout
-  title={SITE_TITLE}
+<BlogArchive
+  archiveLabel="all posts"
+  archiveTitle=""
+  countLabel={countLabel}
+  countNumber={countNumber}
+  currentPage={1}
   description={SITE_DESCRIPTION}
-  contentClass="page-container"
->
-  <section class="mb-16 space-y-4">
-    <h2 class="font-display text-2xl tracking-wide">
-      all posts [{allPosts.length}]
-    </h2>
-    <ul class="flex flex-col">
-      {
-        posts.map((post: BlogPostEntry) => (
-          <li>
-            <a
-              href={`/blog/${post.id}/`}
-              class="group flex items-center gap-4 py-4 no-underline"
-            >
-              {post.data.heroImage && (
-                <div class="shrink-0">
-                  <Image
-                    width={160}
-                    height={100}
-                    src={post.data.heroImage}
-                    alt={post.data.heroImageAlt ?? ''}
-                    class="rounded object-cover opacity-60 transition-opacity duration-200 group-hover:opacity-100"
-                    style="width: 80px; height: 50px;"
-                  />
-                </div>
-              )}
-              <div class="flex min-w-0 flex-1 justify-between gap-4">
-                <div class="flex min-w-0 flex-col gap-1">
-                  <span class="truncate font-mono text-sm text-(--text-secondary) lowercase transition-colors duration-200 group-hover:text-(--highlight)">
-                    <span class="mr-1">{'>'}</span>
-                    {post.data.title}
-                  </span>
-                  {post.data.description && (
-                    <span class="truncate text-xs text-(--text-secondary) opacity-70">
-                      {post.data.description}
-                    </span>
-                  )}
-                </div>
-                <span class="shrink-0 self-start pt-0.5 font-mono text-xs text-(--text-secondary)">
-                  <FormattedDate date={post.data.pubDate} />
-                </span>
-              </div>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <PaginationNav currentPage={1} {totalPages} hrefForPage={blogPageHref} />
-  </section>
-</SiteLayout>
+  hrefForPage={blogPageHref}
+  posts={posts as BlogPostEntry[]}
+  title={SITE_TITLE}
+  totalPages={totalPages}
+/>

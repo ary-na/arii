@@ -14,19 +14,21 @@ export async function getStaticPaths() {
 }
 
 const { category } = Astro.props;
-const description = `Posts filed under ${category}.`;
+const description = `Posts filed under ${category}`;
 const posts = (await getCollection('blog'))
   .filter((post) => post.data.category?.includes(category))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const paginatedPosts = posts.slice(0, BLOG_PAGE_SIZE);
 const totalPages = Math.ceil(posts.length / BLOG_PAGE_SIZE);
-const countLabel = `${posts.length} ${posts.length === 1 ? 'post' : 'posts'} in this category.`;
+const countLabel = 'posts in this category';
+const countNumber = posts.length;
 ---
 
 <BlogArchive
   archiveLabel="Category archive"
-  archiveTitle={category}
+  archiveTitle={category + "s"}
   countLabel={countLabel}
+  countNumber={countNumber}
   currentPage={1}
   description={description}
   hrefForPage={(page) => categoryPageHref(category, page)}

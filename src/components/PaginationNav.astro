@@ -22,14 +22,14 @@ const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
     currentPage > 1 ? (
       <a
         href={hrefForPage(currentPage - 1)}
-        class="bg-surface-primary/85 border-text-secondary/20 text-text-primary hover:bg-surface-primary flex h-11 w-11 items-center justify-center rounded-full border no-underline shadow-(--box-shadow) backdrop-blur-md transition"
+        class="flex h-9 w-9 items-center justify-center rounded border border-dashed border-secondary text-(--text-secondary) no-underline transition-all duration-200 hover:border-highlight hover:text-highlight"
         aria-label="Previous page"
       >
-        <span class="text-sm">&lt;</span>
+        <span class="text-xs">&lt;</span>
       </a>
     ) : (
-      <span class="bg-surface-primary/85 border-text-secondary/20 text-text-secondary flex h-11 w-11 items-center justify-center rounded-full border opacity-30 shadow-(--box-shadow)">
-        <span class="text-sm">&lt;</span>
+      <span class="flex h-9 w-9 items-center justify-center rounded border border-dashed border-secondary text-(--text-secondary) opacity-30">
+        <span class="text-xs">&lt;</span>
       </span>
     )
   }
@@ -39,13 +39,13 @@ const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
       pages.map((page) => {
         const isCurrent = page === currentPage;
         return isCurrent ? (
-          <span class="bg-surface-primary border-text-primary text-text-primary flex h-11 w-11 items-center justify-center rounded-full border shadow-(--box-shadow)">
+          <span class="flex h-9 w-9 items-center justify-center rounded border border-dashed border-highlight bg-highlight/10 text-xs text-highlight">
             {page}
           </span>
         ) : (
-          <a
+<a
             href={hrefForPage(page)}
-            class="bg-surface-primary/85 border-text-secondary/20 text-text-secondary hover:bg-surface-primary hover:text-text-primary flex h-11 w-11 items-center justify-center rounded-full border no-underline shadow-(--box-shadow) backdrop-blur-md transition"
+            class="flex h-9 w-9 items-center justify-center rounded border border-dashed border-secondary text-xs text-(--text-secondary) no-underline transition-all duration-200 hover:border-highlight hover:text-highlight"
           >
             {page}
           </a>
@@ -56,16 +56,16 @@ const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   {
     currentPage < totalPages ? (
-      <a
+<a
         href={hrefForPage(currentPage + 1)}
-        class="bg-surface-primary/85 border-text-secondary/20 text-text-primary hover:bg-surface-primary flex h-11 w-11 items-center justify-center rounded-full border no-underline shadow-(--box-shadow) backdrop-blur-md transition"
+        class="flex h-9 w-9 items-center justify-center rounded border border-dashed border-secondary text-(--text-secondary) no-underline transition-all duration-200 hover:border-highlight hover:text-highlight"
         aria-label="Next page"
       >
-        <span class="text-sm">&gt;</span>
+        <span class="text-xs">&gt;</span>
       </a>
     ) : (
-      <span class="bg-surface-primary/85 border-text-secondary/20 text-text-secondary flex h-11 w-11 items-center justify-center rounded-full border opacity-30 shadow-(--box-shadow)">
-        <span class="text-sm">&gt;</span>
+      <span class="flex h-9 w-9 items-center justify-center rounded border border-dashed border-secondary text-(--text-secondary) opacity-30">
+        <span class="text-xs">&gt;</span>
       </span>
     )
   }

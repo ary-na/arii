@@ -38,8 +38,9 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }: GetStaticPath
 };
 
 const { page, tag } = Astro.props as Props;
-const description = `Posts filed under ${tag}.`;
-const countLabel = `${page.total} ${page.total === 1 ? 'post' : 'posts'} with this tag.`;
+const description = `Posts filed under ${tag}`;
+const countLabel = 'posts with this tag';
+const countNumber = page.total;
 const canonicalPath = tagPageHref(tag, page.currentPage);
 ---
 
@@ -48,6 +49,7 @@ const canonicalPath = tagPageHref(tag, page.currentPage);
   archiveTitle={`#${tag}`}
   canonicalPath={canonicalPath}
   countLabel={countLabel}
+  countNumber={countNumber}
   currentPage={page.currentPage}
   description={description}
   hrefForPage={(page) => tagPageHref(tag, page)}

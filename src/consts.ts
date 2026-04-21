@@ -17,7 +17,7 @@ export const PRIMARY_NAV: NavItem[] = [
   { href: '/about', label: 'About', description: 'who i am' },
 ];
 
-export const BLOG_PAGE_SIZE = 10;
+export const BLOG_PAGE_SIZE = 8;
 
 export const categoryHref = (category: string) => `/blog/category/${encodeURIComponent(category)}`;
 export const tagHref = (tag: string) => `/blog/tag/${encodeURIComponent(tag)}`;
