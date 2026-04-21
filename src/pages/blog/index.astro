@@ -13,13 +13,12 @@ const posts = (await getCollection('blog')).sort(
 )
 const paginatedPosts = posts.slice(0, BLOG_PAGE_SIZE)
 const totalPages = Math.ceil(posts.length / BLOG_PAGE_SIZE)
-const countLabel = 'all posts'
 ---
 
 <BlogArchive
   archiveLabel="all posts"
   archiveTitle=""
-  countLabel={countLabel}
+  countLabel="all posts"
   countNumber={posts.length}
   currentPage={1}
   description={SITE_DESCRIPTION}
