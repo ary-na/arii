@@ -46,13 +46,13 @@ c++ | regex | unicode terminal output | cli
 
 The base game, including the board, scoring, save/load, and turn loop, was built collaboratively by the group in earlier milestones. Milestone 3 was the individual enhancements phase. Everything below was implemented by me on top of that foundation.
 
-**AI single-player mode** — run with `./qwirkle --ai`. I introduced a `Computer` player object and integrated it into the game loop. The AI searches for legal placements using the same legality checks as a human player, evaluates candidates by temporarily placing a tile and calling the real score calculator, then undoes the placement. If no legal move exists it replaces a random tile and retries. No separate rule set, no shortcuts.
+**AI single-player mode**: Run with `./qwirkle --ai`. I introduced a `Computer` player object and integrated it into the game loop. The AI searches for legal placements using the same legality checks as a human player, evaluates candidates by temporarily placing a tile and calling the real score calculator, then undoes the placement. If no legal move exists it replaces a random tile and retries. No separate rule set, no shortcuts.
 
-**Multi-tile placement** — allows placing multiple tiles before ending a turn using `place multiple` and `stop place multiple`. The hardest part was tracking state across multiple inputs in the same turn without breaking the original single-move structure. A `MultipleMoves` helper records the rows and columns used during the sequence and enforces that all placements stay in the same row or column.
+**Multi-tile placement**: Allows placing multiple tiles before ending a turn using `place multiple` and `stop place multiple`. The hardest part was tracking state across multiple inputs in the same turn without breaking the original single-move structure. A `MultipleMoves` helper records the rows and columns used during the sequence and enforces that all placements stay in the same row or column.
 
-**Command UX** — added `help` as a real in-game command and improved invalid input feedback. Command recognition is handled through regex patterns so new commands can be added cleanly and error messages stay consistent across the whole game.
+**Command UX**: Added `help` as a real in-game command and improved invalid input feedback. Command recognition is handled through regex patterns so new commands can be added cleanly and error messages stay consistent across the whole game.
 
-**Terminal presentation** — tile color coding and unicode/emoji shape symbols. Cosmetic changes, but in a CLI game they make the board significantly easier to read as it grows.
+**Terminal presentation**: Tile color coding and unicode/emoji shape symbols. Cosmetic changes, but in a CLI game they make the board significantly easier to read as it grows.
 
 ## testing
 
