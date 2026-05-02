@@ -1,0 +1,100 @@
+---
+title: 'lilac valley'
+description: 'a fictitious farm stay landing page built with plain html, css, and javascript featuring responsive navigation, smooth scrolling, a css grid gallery, and an embedded google map'
+pubDate: 'May 14 2023'
+heroImage: '@assets/blog/lilac-valley.webp'
+heroImageAlt: 'Lilac Valley farm stay homepage with gallery and booking section'
+category: 'project'
+tags:
+  - html
+  - css
+  - javascript
+  - responsive-design
+  - netlify
+  - google-maps
+---
+
+import ProjectLinks from '@components/ProjectLink.astro';
+
+A fictitious farm stay landing page for a rustic accommodation in the Blue Mountains, built with plain HTML, CSS, and JavaScript. No framework, just layout, responsiveness, and small interactive details that make a static site feel polished.
+
+<ProjectLinks
+  demo="https://inquisitive-conkies-fd473b.netlify.app"
+  demoLabel="live website"
+  github="https://github.com/ary-na/lilac-valley"
+  githubLabel="github"
+/>
+
+## key features
+
+- Responsive hamburger nav on mobile and tablet, fixed vertical nav on desktop
+- Smooth scrolling for internal anchor links with keyboard focus handling
+- Back-to-top button that appears only after scrolling down
+- Gallery with progressive enhancement: column layout on mobile, 2-column grid on tablet, 4-column grid with hover zoom on desktop
+- Booking form section
+- Google Maps embed using `importLibrary` and `AdvancedMarkerElement`
+- Custom `@font-face` (Cormorant Garamond) and CSS design tokens throughout
+
+## tech stack
+
+```bash
+# core
+html5 | css3 | vanilla javascript
+```
+
+```bash
+# deployment
+netlify | google maps api
+```
+
+## highlights
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img
+      class="rounded-md"
+      src="/blog/lilac-valley/home.webp"
+      alt="Home page, hero section with background image and call to action"
+    />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">
+      home page, hero section with background image and call to action
+    </figcaption>
+  </figure>
+  <figure>
+    <img
+      class="rounded-md"
+      src="/blog/lilac-valley/gallery.webp"
+      alt="Gallery section with responsive grid layout"
+    />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">
+      gallery section with responsive grid layout
+    </figcaption>
+  </figure>
+</div>
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <figure>
+    <img
+      class="rounded-md"
+      src="/blog/lilac-valley/booking.webp"
+      alt="Booking section with form inputs"
+    />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">
+      booking section with form inputs
+    </figcaption>
+  </figure>
+  <figure>
+    <img
+      class="rounded-md"
+      src="/blog/lilac-valley/contact.webp"
+      alt="Contact section with embedded Google Map"
+    />
+    <figcaption class="mt-2 font-mono text-xs text-(--text-secondary)">
+      contact section with embedded google map
+    </figcaption>
+  </figure>
+</div>
+
+A landing page looks simple but has a lot of moving parts once you care about responsiveness. Splitting the CSS into three files by breakpoint (mobile, tablet, desktop) kept the styles manageable and made the progressive enhancement logic easy to follow without a build tool.
+
+The small interactions were the most satisfying part. Smooth scrolling with keyboard focus handling, a back-to-top button that only appears when needed, and nav transitions on hover are the kind of details that separate something that looks finished from something that feels finished.
