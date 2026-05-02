@@ -7,7 +7,7 @@ const posts = await getCollection("blog");
 
 const latest = posts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 9);
+  .slice(0, 5);
 ---
 
 <SiteLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
