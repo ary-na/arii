@@ -9,15 +9,16 @@ interface Props {
   image?: import('astro').ImageMetadata
   canonicalPath?: string
   contentClass?: string
+  schema?: Record<string, unknown>
 }
 
-const { title, description, image, canonicalPath, contentClass } = Astro.props
+const { title, description, image, canonicalPath, contentClass, schema } = Astro.props
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead {title} {description} {image} {canonicalPath} />
+    <BaseHead {title} {description} {image} {canonicalPath} {schema} />
   </head>
   <body class="flex min-h-screen flex-col">
     <Header />

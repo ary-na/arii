@@ -1,12 +1,12 @@
 ---
-import { Image } from 'astro:assets'
-import type { CollectionEntry } from 'astro:content'
-import FormattedDate from '@components/FormattedDate.astro'
-import SiteLayout from './SiteLayout.astro'
-import ImageLightbox from '@components/ImageLightbox.astro'
-import ReadingTime from '@components/ReadingTime.astro'
-import { categoryHref, tagHref } from '@/consts'
-type Props = CollectionEntry<'blog'>['data'] & { body?: string }
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from '@components/FormattedDate.astro';
+import SiteLayout from './SiteLayout.astro';
+import ImageLightbox from '@components/ImageLightbox.astro';
+import ReadingTime from '@components/ReadingTime.astro';
+import { categoryHref, tagHref, SITE_AUTHOR } from '@/consts';
+type Props = CollectionEntry<'blog'>['data'] & { body?: string };
 const {
   title,
   description,
@@ -17,13 +17,22 @@ const {
   category,
   tags,
   body,
-} = Astro.props
+} = Astro.props;
 ---
 
 <SiteLayout
   {title}
   {description}
   image={heroImage}
+  schema={{
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    datePublished: pubDate.toISOString(),
+    ...(updatedDate && { dateModified: updatedDate.toISOString() }),
+    author: { '@type': 'Person', name: SITE_AUTHOR },
+    ...(heroImage && { image: heroImage.src }),
+  }}
 >
   <ImageLightbox />
   <article class="space-y-10 page-container py-12">
