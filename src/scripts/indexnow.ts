@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 const KEY = process.env.INDEXNOW_KEY;
 const HOST = 'arii.dev';
 
-const sitemap = readFileSync('dist/sitemap-index.xml', 'utf-8');
+const sitemap = readFileSync('dist/sitemap-0.xml', 'utf-8');
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]);
 
 const res = await fetch('https://api.indexnow.org/indexnow', {
