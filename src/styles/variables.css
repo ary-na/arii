@@ -1,14 +1,13 @@
 /* src/styles/variables.css */
-
 :root {
   --primary: #7c3aed;
-  --secondary: #c77dff;
-  --accent: #ff2a9d;
-  --highlight: #0f766e;
+  --secondary: #7c3aed;       
+  --accent: #c4006e;
+  --highlight: #0a5c56;
   --bg-primary: #f5f4f8;
   --bg-secondary: #eae8f0;
   --text-primary: #1a1726;
-  --text-secondary: #5a4e78;
-  --text-muted: #6b5f8a;
+  --text-secondary: #4a3f68;
+  --text-muted: #524775;
   --box-shadow: 0 2px 8px rgba(26, 23, 38, 0.15);
 }
