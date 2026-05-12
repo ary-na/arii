@@ -6,7 +6,7 @@ import HeaderLink from './HeaderLink.astro'
 const posts = await getCollection('blog')
 const categories = [
   ...new Set(posts.flatMap((post) => post.data.category ?? [])),
-]
+].sort()
 ---
 
 <header class="text-text-primary">
