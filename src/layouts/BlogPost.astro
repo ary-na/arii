@@ -1,12 +1,12 @@
 ---
-import { Image } from 'astro:assets'
-import type { CollectionEntry } from 'astro:content'
-import FormattedDate from '@components/FormattedDate.astro'
-import SiteLayout from './SiteLayout.astro'
-import ImageLightbox from '@components/ImageLightbox.astro'
-import ReadingTime from '@components/ReadingTime.astro'
-import { categoryHref, tagHref, SITE_AUTHOR } from '@/consts'
-type Props = CollectionEntry<'blog'>['data'] & { body?: string }
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from '@components/FormattedDate.astro';
+import SiteLayout from './SiteLayout.astro';
+import ImageLightbox from '@components/ImageLightbox.astro';
+import ReadingTime from '@components/ReadingTime.astro';
+import { categoryHref, tagHref, SITE_AUTHOR } from '@/consts';
+type Props = CollectionEntry<'blog'>['data'] & { body?: string };
 const {
   title,
   description,
@@ -17,7 +17,7 @@ const {
   category,
   tags,
   body,
-} = Astro.props
+} = Astro.props;
 ---
 
 <SiteLayout
@@ -98,7 +98,7 @@ const {
               <a
                 rel="tag"
                 href={tagHref(tag)}
-                class="text-text-secondary/50 no-underline transition-colors duration-200 hover:text-(--accent)"
+                class="text-secondary no-underline transition-colors duration-200 hover:text-(--accent)"
               >
                 #{tag}
               </a>
