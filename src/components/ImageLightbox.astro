@@ -1,5 +1,4 @@
 <!-- src/components/ImageViewer.astro -->
-
 <div
   id="lightbox"
   class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm"
@@ -11,8 +10,12 @@
     aria-label="Close lightbox"
     class="bg-surface-primary/85 border-text-secondary/20 text-text-primary hover:bg-surface-primary absolute top-4 right-4 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border shadow-(--box-shadow) backdrop-blur-md transition"
   >
-    <span class="lightbox-line absolute block h-0.5 w-5 rounded-full bg-current" style="transform: rotate(45deg)"></span>
-    <span class="lightbox-line absolute block h-0.5 w-5 rounded-full bg-current" style="transform: rotate(-45deg)"></span>
+    <span
+      class="lightbox-line absolute block h-0.5 w-5 rounded-full bg-current"
+      style="transform: rotate(45deg)"></span>
+    <span
+      class="lightbox-line absolute block h-0.5 w-5 rounded-full bg-current"
+      style="transform: rotate(-45deg)"></span>
   </button>
 
   <!-- Prev -->
@@ -40,10 +43,8 @@
       alt=""
       class="max-h-[85vh] max-w-[90vw] rounded-md"
     />
-    <figcaption
-      id="lightbox-caption"
-      class="font-mono text-xs text-white/50"
-    ></figcaption>
+    <figcaption id="lightbox-caption" class="font-mono text-xs text-white/50">
+    </figcaption>
   </div>
 </div>
 
@@ -60,116 +61,123 @@
 </style>
 
 <script is:inline>
-let tries = 0;
+  let tries = 0;
 
-function initLightbox() {
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  const lightboxCaption = document.getElementById('lightbox-caption');
-  const closeBtn = document.getElementById('lightbox-close');
-  const prevBtn = document.getElementById('lightbox-prev');
-  const nextBtn = document.getElementById('lightbox-next');
+  function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closeBtn = document.getElementById('lightbox-close');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
 
-  if (!lightbox || !lightboxImg || !lightboxCaption || !closeBtn || !prevBtn || !nextBtn) {
-    return;
-  }
-
-  const imgs = document.querySelectorAll('article figure img');
-
-  // retry safely (max 10 attempts)
-  if (imgs.length === 0) {
-    if (tries < 10) {
-      tries++;
-      setTimeout(initLightbox, 100);
+    if (
+      !lightbox ||
+      !lightboxImg ||
+      !lightboxCaption ||
+      !closeBtn ||
+      !prevBtn ||
+      !nextBtn
+    ) {
+      return;
     }
-    return;
-  }
 
-  const images = [];
-  let currentIndex = 0;
+    const imgs = document.querySelectorAll('article figure img');
 
-  const show = (index) => {
-    if (!images.length) return;
+    // retry safely (max 10 attempts)
+    if (imgs.length === 0) {
+      if (tries < 10) {
+        tries++;
+        setTimeout(initLightbox, 100);
+      }
+      return;
+    }
 
-    currentIndex = (index + images.length) % images.length;
-    const img = images[currentIndex];
+    const images = [];
+    let currentIndex = 0;
 
-    lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt;
-    lightboxCaption.textContent = img.caption;
+    const show = (index) => {
+      if (!images.length) return;
 
-    prevBtn.style.display = images.length <= 1 ? 'none' : '';
-    nextBtn.style.display = images.length <= 1 ? 'none' : '';
-  };
+      currentIndex = (index + images.length) % images.length;
+      const img = images[currentIndex];
 
-  const open = (index) => {
-    show(index);
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = img.caption;
 
-    lightbox.classList.remove('hidden');
-    lightbox.classList.add('flex');
+      prevBtn.style.display = images.length <= 1 ? 'none' : '';
+      nextBtn.style.display = images.length <= 1 ? 'none' : '';
+    };
 
-    lightbox.style.opacity = '1';
-    lightbox.style.pointerEvents = 'auto';
+    const open = (index) => {
+      show(index);
 
-    document.body.style.overflow = 'hidden';
-  };
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
 
-  const close = () => {
-    lightbox.classList.add('hidden');
-    lightbox.classList.remove('flex');
+      lightbox.style.opacity = '1';
+      lightbox.style.pointerEvents = 'auto';
 
-    lightbox.style.opacity = '0';
-    lightbox.style.pointerEvents = 'none';
+      document.body.style.overflow = 'hidden';
+    };
 
-    document.body.style.overflow = '';
-  };
+    const close = () => {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
 
-  imgs.forEach((img, i) => {
-    if (img.dataset.lightboxBound === 'true') return;
-    img.dataset.lightboxBound = 'true';
+      lightbox.style.opacity = '0';
+      lightbox.style.pointerEvents = 'none';
 
-    const figure = img.closest('figure');
-    const caption =
-      figure?.querySelector('figcaption')?.textContent ?? img.alt ?? '';
+      document.body.style.overflow = '';
+    };
 
-    images.push({
-      src: img.getAttribute('src') ?? '',
-      alt: img.alt ?? '',
-      caption,
+    imgs.forEach((img, i) => {
+      if (img.dataset.lightboxBound === 'true') return;
+      img.dataset.lightboxBound = 'true';
+
+      const figure = img.closest('figure');
+      const caption =
+        figure?.querySelector('figcaption')?.textContent ?? img.alt ?? '';
+
+      images.push({
+        src: img.getAttribute('src') ?? '',
+        alt: img.alt ?? '',
+        caption,
+      });
+
+      img.classList.add('cursor-zoom-in');
+      img.onclick = () => open(i);
     });
 
-    img.classList.add('cursor-zoom-in');
-    img.onclick = () => open(i);
-  });
+    closeBtn.onclick = close;
+    prevBtn.onclick = () => show(currentIndex - 1);
+    nextBtn.onclick = () => show(currentIndex + 1);
 
-  closeBtn.onclick = close;
-  prevBtn.onclick = () => show(currentIndex - 1);
-  nextBtn.onclick = () => show(currentIndex + 1);
+    // prevent duplicate lightbox click binding
+    if (!lightbox.dataset.bound) {
+      lightbox.dataset.bound = 'true';
 
-  // prevent duplicate lightbox click binding
-  if (!lightbox.dataset.bound) {
-    lightbox.dataset.bound = 'true';
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) close();
+      });
+    }
 
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) close();
-    });
+    // prevent duplicate keyboard binding
+    if (!window.__lightboxKeyBound) {
+      window.__lightboxKeyBound = true;
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') show(currentIndex - 1);
+        if (e.key === 'ArrowRight') show(currentIndex + 1);
+      });
+    }
   }
 
-  // prevent duplicate keyboard binding
-  if (!window.__lightboxKeyBound) {
-    window.__lightboxKeyBound = true;
+  // Astro navigation-safe init
+  document.addEventListener('astro:page-load', initLightbox);
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft') show(currentIndex - 1);
-      if (e.key === 'ArrowRight') show(currentIndex + 1);
-    });
-  }
-}
-
-// Astro navigation-safe init
-document.addEventListener('astro:page-load', initLightbox);
-
-// initial load
-initLightbox();
+  // initial load
+  initLightbox();
 </script>

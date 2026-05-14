@@ -1,12 +1,12 @@
 ---
-import { getCollection } from 'astro:content'
-import { categoryHref, SITE_TITLE, PRIMARY_NAV } from '@/consts'
-import HeaderLink from './HeaderLink.astro'
+import { getCollection } from 'astro:content';
+import { categoryHref, SITE_TITLE, PRIMARY_NAV } from '@/consts';
+import HeaderLink from './HeaderLink.astro';
 
-const posts = await getCollection('blog')
+const posts = await getCollection('blog');
 const categories = [
   ...new Set(posts.flatMap((post) => post.data.category ?? [])),
-].sort()
+].sort();
 ---
 
 <header class="text-text-primary">
@@ -235,32 +235,34 @@ const categories = [
 
 <script>
   const bindMenuToggle = (toggleId: string, menuId: string) => {
-    const toggle = document.getElementById(toggleId) as HTMLButtonElement | null
-    const menu = document.getElementById(menuId) as HTMLElement | null
+    const toggle = document.getElementById(
+      toggleId,
+    ) as HTMLButtonElement | null;
+    const menu = document.getElementById(menuId) as HTMLElement | null;
 
-    if (!toggle || !menu || toggle.dataset.bound === 'true') return
+    if (!toggle || !menu || toggle.dataset.bound === 'true') return;
 
-    toggle.dataset.bound = 'true'
+    toggle.dataset.bound = 'true';
     toggle.addEventListener('click', () => {
-      const isOpen = menu.classList.contains('is-open')
+      const isOpen = menu.classList.contains('is-open');
 
       if (isOpen) {
-        menu.classList.remove('is-open')
-        toggle.classList.remove('is-open')
-        toggle.setAttribute('aria-expanded', 'false')
+        menu.classList.remove('is-open');
+        toggle.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
       } else {
-        menu.classList.add('is-open')
-        toggle.classList.add('is-open')
-        toggle.setAttribute('aria-expanded', 'true')
+        menu.classList.add('is-open');
+        toggle.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
       }
-    })
-  }
+    });
+  };
 
   const initHeaderMenus = () => {
-    bindMenuToggle('mobile-toggle', 'mobile-menu')
-    bindMenuToggle('tablet-toggle', 'tablet-menu')
-  }
+    bindMenuToggle('mobile-toggle', 'mobile-menu');
+    bindMenuToggle('tablet-toggle', 'tablet-menu');
+  };
 
-  document.addEventListener('astro:page-load', initHeaderMenus)
-  initHeaderMenus()
+  document.addEventListener('astro:page-load', initHeaderMenus);
+  initHeaderMenus();
 </script>

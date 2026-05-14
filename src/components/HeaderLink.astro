@@ -63,9 +63,11 @@ const isActive =
   const initHeaderLinkTypewriters = () => {
     document.querySelectorAll<HTMLElement>('.group\\/nav').forEach((nav) => {
       const link = nav.querySelector('a');
-      const typewriterEl = nav.querySelector<HTMLSpanElement>('.typewriter-text');
+      const typewriterEl =
+        nav.querySelector<HTMLSpanElement>('.typewriter-text');
 
-      if (!link || !typewriterEl || link.dataset.typewriterBound === 'true') return;
+      if (!link || !typewriterEl || link.dataset.typewriterBound === 'true')
+        return;
 
       link.dataset.typewriterBound = 'true';
 

@@ -43,7 +43,7 @@ const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
             {page}
           </span>
         ) : (
-<a
+          <a
             href={hrefForPage(page)}
             class="flex h-9 w-9 items-center justify-center rounded border border-dashed border-secondary text-xs text-(--text-secondary) no-underline transition-all duration-200 hover:border-highlight hover:text-highlight"
           >
@@ -56,7 +56,7 @@ const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   {
     currentPage < totalPages ? (
-<a
+      <a
         href={hrefForPage(currentPage + 1)}
         class="flex h-9 w-9 items-center justify-center rounded border border-dashed border-secondary text-(--text-secondary) no-underline transition-all duration-200 hover:border-highlight hover:text-highlight"
         aria-label="Next page"
