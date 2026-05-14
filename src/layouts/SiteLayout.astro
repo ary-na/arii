@@ -1,18 +1,19 @@
 ---
-import BaseHead from '@components/BaseHead.astro'
-import Header from '@components/Header.astro'
-import Footer from '@components/Footer.astro'
+import BaseHead from '@components/BaseHead.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
 
 interface Props {
-  title: string
-  description: string
-  image?: import('astro').ImageMetadata
-  canonicalPath?: string
-  contentClass?: string
-  schema?: Record<string, unknown>
+  title: string;
+  description: string;
+  image?: import('astro').ImageMetadata;
+  canonicalPath?: string;
+  contentClass?: string;
+  schema?: Record<string, unknown>;
 }
 
-const { title, description, image, canonicalPath, contentClass, schema } = Astro.props
+const { title, description, image, canonicalPath, contentClass, schema } =
+  Astro.props;
 ---
 
 <!doctype html>
