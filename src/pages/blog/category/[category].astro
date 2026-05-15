@@ -4,13 +4,15 @@ import BlogArchive from '@components/BlogArchive.astro';
 import { BLOG_PAGE_SIZE, categoryPageHref } from '@/consts';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	const categories = [...new Set(posts.flatMap((post) => post.data.category ?? []))];
+  const posts = await getCollection('blog');
+  const categories = [
+    ...new Set(posts.flatMap((post) => post.data.category ?? [])),
+  ];
 
-	return categories.map((category) => ({
-		params: { category },
-		props: { category },
-	}));
+  return categories.map((category) => ({
+    params: { category },
+    props: { category },
+  }));
 }
 
 const { category } = Astro.props;
