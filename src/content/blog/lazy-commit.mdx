@@ -1,0 +1,80 @@
+---
+title: 'lazy-commit'
+description: 'a tiny node cli that turns your staged git diff into a conventional commit message using openai, anthropic, or groq — with a config wizard, dry-run mode, and a confirmation prompt before committing'
+pubDate: 'May 14 2026'
+updatedDate: 'May 15 2026'
+heroImage: '@assets/blog/lazy-commit.webp'
+heroImageAlt: 'Terminal output showing a generated conventional commit message and a y/n prompt'
+category: 'project'
+tags:
+  - git
+  - cli
+  - typescript
+  - nodejs
+  - openai
+  - anthropic
+  - groq
+  - developer-tools
+---
+
+import ProjectLinks from '@components/ProjectLink.astro';
+
+I built lazy-commit because writing commit messages is one of those small tasks that adds friction every single day. It takes whatever you have staged, generates a conventional commit message from the real diff, and asks you before it commits. Fast enough to use constantly, safe enough that you don't accidentally commit something you didn't mean to.
+
+<ProjectLinks
+  github="https://github.com/ary-na/lazy-commit"
+  githubLabel="github"
+/>
+
+## key features
+
+- Reads staged diff via `git diff --staged`
+- Sends diff to an LLM with a strict conventional commits prompt
+- Confirmation prompt before committing — always asks `y/n`
+- Dry-run mode to preview without committing
+- Interactive config wizard for provider, API key, custom rules, and prefix
+- Multi-provider support: OpenAI, Anthropic, Groq
+- Exits early with a clear message if there are no staged changes
+
+## tech stack
+
+```bash
+# core
+typescript | node.js | readline
+```
+
+```bash
+# providers
+openai (gpt-4o-mini) | anthropic (claude-haiku) | groq (llama3-8b)
+```
+
+## how it works
+
+The flow is split into small files that each do one job. `git.ts` retrieves the staged diff and exits cleanly if the command fails. `prompt.ts` prints the suggested message and waits for `y/n`. `config.ts` stores settings at `~/.config/lazy-commit/config.json` and runs a readline wizard when you call `lazy-commit config`. `providers/index.ts` builds the system prompt including any custom instructions or prefix rules, then routes to the chosen provider adapter.
+
+The CLI entry point in `index.ts` wires it all together: fetch diff, load config, generate message, confirm, commit.
+
+## usage
+
+```bash
+# install globally
+npm install -g @ariian/lazy-commit
+
+# set up provider and api key
+lazy-commit config
+
+# stage your changes then run
+git add .
+lazy-commit
+
+# preview only
+lazy-commit --dry-run
+```
+
+## highlights
+
+The confirmation step is what makes this usable without anxiety. Automating a `git commit` sounds dangerous until there is always a `y/n` between the suggestion and the actual commit. That one prompt is the difference between a tool you trust and one you avoid.
+
+You can also customise the output via `lazy-commit config`. Set your own commit rules under `instructions` (e.g. "always use present tense" or "keep messages under 50 characters") and an optional `prefix` that gets prepended to every message. The tool stays out of your way but adapts to however you like to write commits.
+
+Keeping the diff retrieval, provider logic, and config in separate files also made the CLI layer surprisingly clean. Each piece has one job and the orchestration in `index.ts` reads almost like a plain English description of what the tool does.
