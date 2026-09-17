@@ -6,6 +6,7 @@ interface Props {
   npm?: string;
   trello?: string;
   email?: string;
+  writeup?: string;
   demoCrossed?: boolean;
   demoLabel?: string;
   githubLabel?: string;
@@ -13,6 +14,8 @@ interface Props {
   npmLabel?: string;
   trelloLabel?: string;
   emailLabel?: string;
+  writeupLabel?: string;
+  variant?: "inline" | "card";
 }
 
 const {
@@ -22,97 +25,82 @@ const {
   npm,
   trello,
   email,
+  writeup,
   demoCrossed,
-  demoLabel = 'live demo',
-  githubLabel = 'github',
-  githubBackendLabel = 'github backend',
-  npmLabel = 'npm',
-  trelloLabel = 'trello',
-  emailLabel = 'email',
+  demoLabel = "Live demo",
+  githubLabel = "GitHub",
+  githubBackendLabel = "GitHub backend",
+  npmLabel = "npm",
+  trelloLabel = "Trello",
+  emailLabel = "Email",
+  writeupLabel = "Write-up",
+  variant = "inline",
 } = Astro.props;
+
+const isCard = variant === "card";
+const wrapClass = isCard
+  ? "mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"
+  : "my-4 flex flex-wrap gap-x-4 gap-y-2 text-sm";
+
+type Item = {
+  href: string;
+  label: string;
+  external?: boolean;
+  crossed?: boolean;
+  mailto?: boolean;
+};
+
+const items: Item[] = [];
+if (writeup) items.push({ href: writeup, label: writeupLabel });
+if (demo)
+  items.push({
+    href: demo,
+    label: demoLabel,
+    external: true,
+    crossed: demoCrossed,
+  });
+if (github) items.push({ href: github, label: githubLabel, external: true });
+if (githubBackend)
+  items.push({
+    href: githubBackend,
+    label: githubBackendLabel,
+    external: true,
+  });
+if (npm) items.push({ href: npm, label: npmLabel, external: true });
+if (trello) items.push({ href: trello, label: trelloLabel, external: true });
+if (email)
+  items.push({
+    href: `mailto:${email}`,
+    label: emailLabel,
+    mailto: true,
+  });
 ---
 
-<div class="my-4 flex flex-wrap gap-2 font-mono text-sm sm:gap-4">
-  {
-    demo && (
-      <a
-        href={demo}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group text-text-secondary hover:text-text-primary no-underline transition-colors duration-200"
-      >
-        <span class="text-accent">[</span>
-        <span class:list={[{ 'line-through': demoCrossed }]}>{demoLabel}</span>
-        <span class="text-accent">]</span>
-      </a>
-    )
-  }
-  {
-    github && (
-      <a
-        href={github}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group text-text-secondary hover:text-text-primary no-underline transition-colors duration-200"
-      >
-        <span class="text-accent">[</span>
-        <span>{githubLabel}</span>
-        <span class="text-accent">]</span>
-      </a>
-    )
-  }
-  {
-    githubBackend && (
-      <a
-        href={githubBackend}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group text-text-secondary hover:text-text-primary no-underline transition-colors duration-200"
-      >
-        <span class="text-accent">[</span>
-        <span>{githubBackendLabel}</span>
-        <span class="text-accent">]</span>
-      </a>
-    )
-  }
-  {
-    npm && (
-      <a
-        href={npm}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group text-text-secondary hover:text-text-primary no-underline transition-colors duration-200"
-      >
-        <span class="text-accent">[</span>
-        <span>{npmLabel}</span>
-        <span class="text-accent">]</span>
-      </a>
-    )
-  }
-  {
-    trello && (
-      <a
-        href={trello}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group text-text-secondary hover:text-text-primary no-underline transition-colors duration-200"
-      >
-        <span class="text-accent">[</span>
-        <span>{trelloLabel}</span>
-        <span class="text-accent">]</span>
-      </a>
-    )
-  }
-  {
-    email && (
-      <a
-        href={`mailto:${email}`}
-        class="group text-text-secondary hover:text-text-primary no-underline transition-colors duration-200"
-      >
-        <span class="text-accent">[</span>
-        <span>{emailLabel}</span>
-        <span class="text-accent">]</span>
-      </a>
-    )
-  }
-</div>
+{
+  items.length > 0 && (
+    <div class={wrapClass}>
+      {items.map((item) => (
+        <a
+          href={item.href}
+          target={item.external ? "_blank" : undefined}
+          rel={item.external ? "noopener noreferrer" : undefined}
+          class="group text-highlight hover:text-text-primary inline-flex items-center gap-1 font-medium no-underline transition-colors duration-200"
+        >
+          <span class:list={[{ "line-through opacity-70": item.crossed }]}>
+            {item.label}
+          </span>
+          {item.external && (
+            <span aria-hidden="true" class="text-xs opacity-70">
+              ↗
+            </span>
+          )}
+          {!item.external && !item.mailto && (
+            <span aria-hidden="true" class="text-xs opacity-70">
+              →
+            </span>
+          )}
+        </a>
+      ))}
+    </div>
+  )
+}

@@ -1,13 +1,13 @@
 ---
-import { Image } from 'astro:assets'
-import type { CollectionEntry } from 'astro:content'
-import FormattedDate from '@components/FormattedDate.astro'
-import SiteLayout from './SiteLayout.astro'
-import ImageLightbox from '@components/ImageLightbox.astro'
-import ReadingTime from '@components/ReadingTime.astro'
-import { categoryHref, tagHref, SITE_AUTHOR } from '@/consts'
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "@components/FormattedDate.astro";
+import SiteLayout from "./SiteLayout.astro";
+import ImageLightbox from "@components/ImageLightbox.astro";
+import ReadingTime from "@components/ReadingTime.astro";
+import { categoryHref, tagHref, SITE_AUTHOR } from "@/consts";
 
-type Props = CollectionEntry<'blog'>['data'] & { body?: string }
+type Props = CollectionEntry<"blog">["data"] & { body?: string };
 const {
   title,
   description,
@@ -18,7 +18,7 @@ const {
   category,
   tags,
   body,
-} = Astro.props
+} = Astro.props;
 ---
 
 <SiteLayout
@@ -29,12 +29,12 @@ const {
   publishedTime={pubDate.toISOString()}
   modifiedTime={updatedDate?.toISOString()}
   schema={{
-    '@type': 'BlogPosting',
+    "@type": "BlogPosting",
     headline: title,
     description,
     datePublished: pubDate.toISOString(),
     ...(updatedDate && { dateModified: updatedDate.toISOString() }),
-    author: { '@type': 'Person', name: SITE_AUTHOR },
+    author: { "@type": "Person", name: SITE_AUTHOR },
     ...(heroImage && { image: heroImage.src }),
   }}
 >
@@ -42,23 +42,23 @@ const {
 
   {
     heroImage && (
-      <div class="w-full overflow-hidden aspect-[3/2] sm:aspect-auto sm:max-h-[52vh] sm:min-h-[260px]">
+      <div class="aspect-[3/2] w-full overflow-hidden sm:aspect-auto sm:max-h-[52vh] sm:min-h-[260px]">
         <Image
           width={2040}
           height={816}
           quality={85}
           src={heroImage}
           alt={heroImageAlt ?? title}
-          class="w-full h-full object-cover"
+          class="h-full w-full object-cover"
         />
       </div>
     )
   }
 
-  <div class="mx-auto w-full max-w-[74rem] px-6 md:px-10 py-16">
+  <div class="mx-auto w-full max-w-[74rem] px-6 py-16 md:px-10">
     <div class="grid grid-cols-1 gap-12 xl:grid-cols-[1fr_200px] xl:gap-16">
       <article
-        class="min-w-0 flex flex-col gap-8 max-w-2xl mx-auto w-full xl:max-w-none xl:mx-0"
+        class="mx-auto flex w-full max-w-2xl min-w-0 flex-col gap-8 xl:mx-0 xl:max-w-none"
       >
         <header class="flex flex-col gap-5">
           <div class="flex flex-col gap-3">
@@ -66,35 +66,39 @@ const {
               category && (
                 <a
                   href={categoryHref(category)}
-                  class="font-mono text-xs text-highlight no-underline w-fit hover:underline"
+                  class="text-highlight w-fit text-xs font-medium tracking-wide no-underline hover:underline"
                 >
                   {category}
                 </a>
               )
             }
-            <h1 class="text-section font-semibold">{title}</h1>
+            <h1
+              class="text-[clamp(1.65rem,1.2rem+1.8vw,2.35rem)] font-semibold tracking-[-0.03em]"
+            >
+              {title}
+            </h1>
           </div>
 
           {
             description && (
-              <p class="border-l-2 border-(--highlight)/40 pl-4 text-sm leading-relaxed text-text-secondary">
+              <p class="text-text-secondary border-l-2 border-(--highlight)/40 pl-4 text-sm leading-relaxed">
                 {description}
               </p>
             )
           }
 
           <div
-            class="flex flex-wrap items-center gap-3 font-mono text-xs text-text-tertiary"
+            class="text-text-tertiary flex flex-wrap items-center gap-3 text-sm"
           >
             <FormattedDate date={pubDate} />
             <span class="text-(--text-secondary)/30">·</span>
-            <ReadingTime body={body ?? ''} />
+            <ReadingTime body={body ?? ""} />
             {
               updatedDate && (
                 <>
                   <span class="text-(--text-secondary)/30">·</span>
                   <span>
-                    updated <FormattedDate date={updatedDate} />
+                    Updated <FormattedDate date={updatedDate} />
                   </span>
                 </>
               )
@@ -114,7 +118,7 @@ const {
                   <a
                     rel="tag"
                     href={tagHref(tag)}
-                    class="font-mono text-xs text-text-tertiary no-underline hover:text-highlight"
+                    class="text-text-tertiary hover:text-highlight text-sm no-underline"
                   >
                     #{tag}
                   </a>
@@ -122,24 +126,23 @@ const {
               </div>
             )
           }
-          <div class="border-t border-(--text-secondary)/10 pt-6">
+          <div class="border-border border-t pt-6">
             <a
               href="/blog"
-              class="font-mono text-xs text-highlight no-underline hover:underline"
+              class="text-highlight text-sm font-medium no-underline hover:underline"
             >
-              ← back to posts
+              ← All writing
             </a>
           </div>
         </footer>
       </article>
 
-      <aside id="toc-sidebar" class="hidden xl:block w-[200px] shrink-0">
+      <aside id="toc-sidebar" class="hidden w-[200px] shrink-0 xl:block">
         <div class="sticky top-24">
           <p
-            class="mb-3 font-mono text-[9px] tracking-widest uppercase"
-            style="color: color-mix(in srgb, var(--text-secondary) 45%, transparent)"
+            class="text-text-tertiary mb-3 text-[11px] font-medium tracking-[0.14em] uppercase"
           >
-            on this page
+            On this page
           </p>
           <nav id="toc-nav" class="flex flex-col gap-0.5"></nav>
         </div>
@@ -150,54 +153,54 @@ const {
 
 <script>
   function initToC() {
-    const nav = document.getElementById('toc-nav')
-    const sidebar = document.getElementById('toc-sidebar')
-    if (!nav || !sidebar) return
+    const nav = document.getElementById("toc-nav");
+    const sidebar = document.getElementById("toc-sidebar");
+    if (!nav || !sidebar) return;
 
-    nav.innerHTML = ''
+    nav.innerHTML = "";
 
     const headings = Array.from(
-      document.querySelectorAll<HTMLHeadingElement>('article h2, article h3'),
-    )
+      document.querySelectorAll<HTMLHeadingElement>("article h2, article h3"),
+    );
 
     if (headings.length < 2) {
-      sidebar.style.display = 'none'
-      return
+      sidebar.style.display = "none";
+      return;
     }
 
-    sidebar.style.display = ''
+    sidebar.style.display = "";
 
     headings.forEach((heading) => {
       if (!heading.id) {
         heading.id = heading
           .textContent!.toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/(^-|-$)/g, '')
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "");
       }
 
-      const link = document.createElement('a')
-      link.href = '#' + heading.id
-      link.textContent = heading.textContent
-      link.className = 'toc-link' + (heading.tagName === 'H3' ? ' toc-h3' : '')
-      link.dataset.heading = heading.id
-      link.dataset.active = 'false'
-      nav.appendChild(link)
-    })
+      const link = document.createElement("a");
+      link.href = "#" + heading.id;
+      link.textContent = heading.textContent;
+      link.className = "toc-link" + (heading.tagName === "H3" ? " toc-h3" : "");
+      link.dataset.heading = heading.id;
+      link.dataset.active = "false";
+      nav.appendChild(link);
+    });
 
     const updateActive = () => {
-      let activeId = headings[0]?.id ?? ''
+      let activeId = headings[0]?.id ?? "";
       for (const h of headings) {
-        if (h.getBoundingClientRect().top <= 120) activeId = h.id
+        if (h.getBoundingClientRect().top <= 120) activeId = h.id;
       }
-      nav.querySelectorAll<HTMLAnchorElement>('.toc-link').forEach((l) => {
-        l.dataset.active = String(l.dataset.heading === activeId)
-      })
-    }
+      nav.querySelectorAll<HTMLAnchorElement>(".toc-link").forEach((l) => {
+        l.dataset.active = String(l.dataset.heading === activeId);
+      });
+    };
 
-    window.addEventListener('scroll', updateActive, { passive: true })
-    updateActive()
+    window.addEventListener("scroll", updateActive, { passive: true });
+    updateActive();
   }
 
-  document.addEventListener('astro:page-load', initToC)
-  initToC()
+  document.addEventListener("astro:page-load", initToC);
+  initToC();
 </script>

@@ -1,20 +1,20 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import '@styles/__root.css'
-import type { ImageMetadata } from 'astro'
-import FallbackImage from '@assets/og-image.jpg'
-import { SITE_TITLE, SITE_TAGLINE, SITE_AUTHOR, SOCIAL_LINKS } from '@/consts'
+import "@styles/__root.css";
+import type { ImageMetadata } from "astro";
+import FallbackImage from "@assets/og-image.jpg";
+import { SITE_TITLE, SITE_TAGLINE, SITE_AUTHOR, SOCIAL_LINKS } from "@/consts";
 
 interface Props {
-  title: string
-  description: string
-  image?: ImageMetadata
-  canonicalPath?: string
-  schema?: Record<string, unknown>
-  type?: 'website' | 'article'
-  publishedTime?: string
-  modifiedTime?: string
+  title: string;
+  description: string;
+  image?: ImageMetadata;
+  canonicalPath?: string;
+  schema?: Record<string, unknown>;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
 const {
@@ -23,16 +23,36 @@ const {
   image = FallbackImage,
   canonicalPath,
   schema,
-  type = 'website',
+  type = "website",
   publishedTime,
   modifiedTime,
-} = Astro.props
-const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, Astro.site)
+} = Astro.props;
+const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, Astro.site);
 const fullTitle =
   title === SITE_TITLE
     ? `${SITE_TAGLINE} — ${SITE_TITLE}`
-    : `${title} — ${SITE_TITLE}`
+    : `${title} — ${SITE_TITLE}`;
 ---
+
+<script is:inline>
+  (function () {
+    try {
+      var stored = localStorage.getItem("arii-theme");
+      var prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      var theme =
+        stored === "light" || stored === "dark"
+          ? stored
+          : prefersDark
+            ? "dark"
+            : "light";
+      document.documentElement.classList.toggle("dark", theme === "dark");
+      document.documentElement.classList.toggle("light", theme === "light");
+      document.documentElement.style.colorScheme = theme;
+    } catch (e) {}
+  })();
+</script>
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
@@ -40,12 +60,12 @@ const fullTitle =
 <meta name="color-scheme" content="light dark" />
 <meta
   name="theme-color"
-  content="#0a0b10"
+  content="#0b0c12"
   media="(prefers-color-scheme: dark)"
 />
 <meta
   name="theme-color"
-  content="#f7f8fa"
+  content="#f4f5f8"
   media="(prefers-color-scheme: light)"
 />
 <meta
@@ -59,18 +79,11 @@ const fullTitle =
   rel="alternate"
   type="application/rss+xml"
   title={SITE_TITLE}
-  href={new URL('rss.xml', Astro.site)}
+  href={new URL("rss.xml", Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
-<link
-  rel="preload"
-  href="/fonts/Bytesized-Regular.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin
-/>
 <link
   rel="preload"
   href="/fonts/DMSans-VariableFont_opsz,wght.woff2"
@@ -105,12 +118,12 @@ const fullTitle =
 <meta property="og:image:width" content={String(image.width)} />
 <meta property="og:image:height" content={String(image.height)} />
 {
-  type === 'article' && publishedTime && (
+  type === "article" && publishedTime && (
     <meta property="article:published_time" content={publishedTime} />
   )
 }
 {
-  type === 'article' && modifiedTime && (
+  type === "article" && modifiedTime && (
     <meta property="article:modified_time" content={modifiedTime} />
   )
 }
@@ -129,16 +142,16 @@ const fullTitle =
   is:inline
   set:html={JSON.stringify(
     schema
-      ? { '@context': 'https://schema.org', ...schema }
+      ? { "@context": "https://schema.org", ...schema }
       : {
-          '@context': 'https://schema.org',
-          '@type': 'Person',
+          "@context": "https://schema.org",
+          "@type": "Person",
           name: SITE_AUTHOR,
           alternateName: SITE_TITLE,
           url: Astro.site,
-          jobTitle: 'Software Developer',
-          knowsAbout: ['AI', 'Machine Learning', 'Software Development'],
-          sameAs: SOCIAL_LINKS.filter((l) => l.href.startsWith('http')).map(
+          jobTitle: "Software Developer",
+          knowsAbout: ["AI", "Machine Learning", "Software Development"],
+          sameAs: SOCIAL_LINKS.filter((l) => l.href.startsWith("http")).map(
             (l) => l.href,
           ),
         },

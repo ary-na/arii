@@ -1,23 +1,23 @@
 ---
-import SiteLayout from '@layouts/SiteLayout.astro'
-import type { CollectionEntry } from 'astro:content'
-import FormattedDate from '@components/FormattedDate.astro'
-import PaginationNav from './PaginationNav.astro'
+import SiteLayout from "@layouts/SiteLayout.astro";
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+import PaginationNav from "./PaginationNav.astro";
 
-type Post = CollectionEntry<'blog'>
+type Post = CollectionEntry<"blog">;
 
 interface Props {
-  archiveLabel: string
-  archiveTitle: string
-  countLabel: string
-  countNumber?: number
-  description: string
-  canonicalPath?: string
-  currentPage?: number
-  hrefForPage?: (page: number) => string
-  title: string
-  totalPages?: number
-  posts: Post[]
+  archiveLabel: string;
+  archiveTitle: string;
+  countLabel: string;
+  countNumber?: number;
+  description: string;
+  canonicalPath?: string;
+  currentPage?: number;
+  hrefForPage?: (page: number) => string;
+  title: string;
+  totalPages?: number;
+  posts: Post[];
 }
 
 const {
@@ -32,54 +32,53 @@ const {
   title,
   totalPages = 1,
   posts,
-} = Astro.props
+} = Astro.props;
 
-const isFiltered = !!archiveTitle
-const gridPosts = posts
+const isFiltered = !!archiveTitle;
+const gridPosts = posts;
 ---
 
 <SiteLayout {title} {description} {canonicalPath}>
-  <section class="page-container py-16 flex flex-col gap-8">
+  <section class="page-container flex flex-col gap-8 py-16">
     <div class="flex flex-col gap-3">
       {
         isFiltered && (
           <a
             href="/blog"
-            class="inline-flex items-center gap-1.5 font-mono text-xs text-text-secondary no-underline transition-colors duration-200 hover:text-highlight w-fit"
+            class="text-text-secondary hover:text-highlight inline-flex w-fit items-center gap-1.5 text-sm no-underline transition-colors duration-200"
           >
-            ← all posts
+            ← All writing
           </a>
         )
       }
       <div class="flex flex-col gap-2">
-        <span class="font-mono text-xs text-highlight">blog</span>
+        <p class="text-highlight text-sm font-medium">Writing</p>
         <h1 class="text-section font-semibold">
           {isFiltered ? archiveTitle : archiveLabel}
         </h1>
-        <p class="font-mono text-xs text-text-tertiary">
-          {countLabel}{countNumber !== undefined && ` [${countNumber}]`}
+        <p class="text-text-tertiary text-sm">
+          {countLabel}
+          {countNumber !== undefined && ` · ${countNumber}`}
         </p>
       </div>
     </div>
 
     {
       gridPosts.length > 0 && (
-        <ul class="flex flex-col divide-y divide-(--text-secondary)/10 border-t border-b border-(--text-secondary)/10">
+        <ul class="flex flex-col gap-3">
           {gridPosts.map((post, i) => (
             <li data-animate style={`--animate-delay: ${i * 50}ms`}>
               <a
                 href={`/blog/${post.id}/`}
-                class="group flex flex-col sm:flex-row sm:items-baseline sm:gap-6 py-4 no-underline"
+                class="project-card group flex flex-col gap-1 rounded-xl border border-(--border) bg-(--bg-elevated) px-5 py-4 no-underline sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
               >
-                <span class="text-sm text-text-primary group-hover:text-highlight transition-colors flex-1">
+                <span class="text-text-primary group-hover:text-highlight text-[0.95rem] font-medium transition-colors">
                   {post.data.title}
                 </span>
-                {post.data.category && (
-                  <span class="font-mono text-xs text-text-tertiary shrink-0 hidden sm:block">
-                    {post.data.category}
-                  </span>
-                )}
-                <span class="font-mono text-xs text-text-tertiary shrink-0">
+                <span class="text-text-tertiary flex shrink-0 items-baseline gap-4 text-sm">
+                  {post.data.category && (
+                    <span class="hidden sm:inline">{post.data.category}</span>
+                  )}
                   <FormattedDate date={post.data.pubDate} />
                 </span>
               </a>

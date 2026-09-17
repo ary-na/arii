@@ -1,0 +1,108 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  class:list={[
+    "text-text-secondary hover:text-text-primary inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-(--border) bg-(--bg-elevated) transition-colors duration-200 hover:border-(--highlight)/35",
+    className,
+  ]}
+  aria-label="Toggle color theme"
+>
+  <svg
+    class="theme-icon theme-icon--sun h-4 w-4"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path
+      d="M12 3v2M12 19v2M5 12H3M21 12h-2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M6.3 17.7l1.4-1.4M16.3 7.7l1.4-1.4"
+    ></path>
+  </svg>
+  <svg
+    class="theme-icon theme-icon--moon h-4 w-4"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    aria-hidden="true"
+  >
+    <path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"></path>
+  </svg>
+</button>
+
+<style>
+  html.dark .theme-icon--sun {
+    display: none;
+  }
+  html:not(.dark) .theme-icon--moon {
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    html:not(.light):not(.dark) .theme-icon--sun {
+      display: none;
+    }
+    html:not(.light):not(.dark) .theme-icon--moon {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const THEME_KEY = "arii-theme";
+
+  const preferredTheme = (): "light" | "dark" => {
+    const stored = localStorage.getItem(THEME_KEY);
+    if (stored === "light" || stored === "dark") return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+
+  const applyTheme = (theme: "light" | "dark") => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.classList.toggle("light", theme === "light");
+    document.documentElement.style.colorScheme = theme;
+  };
+
+  const initThemeToggle = () => {
+    const toggles = document.querySelectorAll<HTMLButtonElement>(
+      "[data-theme-toggle]",
+    );
+
+    const syncLabel = () => {
+      const dark = document.documentElement.classList.contains("dark");
+      const label = dark ? "Switch to light theme" : "Switch to dark theme";
+      toggles.forEach((toggle) => toggle.setAttribute("aria-label", label));
+    };
+
+    toggles.forEach((toggle) => {
+      if (toggle.dataset.bound === "true") return;
+      toggle.dataset.bound = "true";
+      toggle.addEventListener("click", () => {
+        const next = document.documentElement.classList.contains("dark")
+          ? "light"
+          : "dark";
+        localStorage.setItem(THEME_KEY, next);
+        applyTheme(next);
+        syncLabel();
+      });
+    });
+
+    syncLabel();
+  };
+
+  document.addEventListener("astro:page-load", initThemeToggle);
+  initThemeToggle();
+</script>
