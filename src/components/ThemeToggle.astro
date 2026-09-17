@@ -62,14 +62,6 @@ const { class: className } = Astro.props;
 <script>
   const THEME_KEY = "arii-theme";
 
-  const preferredTheme = (): "light" | "dark" => {
-    const stored = localStorage.getItem(THEME_KEY);
-    if (stored === "light" || stored === "dark") return stored;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  };
-
   const applyTheme = (theme: "light" | "dark") => {
     document.documentElement.classList.toggle("dark", theme === "dark");
     document.documentElement.classList.toggle("light", theme === "light");
