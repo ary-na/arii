@@ -1,10 +1,13 @@
 /* src/styles/variables.css */
 :root {
   --highlight: #3450c7;
-  --bg-primary: #f7f8fa;
-  --bg-secondary: #ecedf3;
-  --text-primary: #14161c;
-  --text-secondary: #545765;
-  --text-tertiary: #8a8d9c;
-  --box-shadow: 0 1px 2px rgba(20, 22, 28, 0.06);
+  --bg-primary: #f4f5f8;
+  --bg-secondary: #e8eaf1;
+  --bg-elevated: #ffffff;
+  --text-primary: #12141a;
+  --text-secondary: #3e4150;
+  --text-tertiary: #5c6070;
+  --border: color-mix(in srgb, #12141a 10%, transparent);
+  --box-shadow:
+    0 1px 2px rgba(18, 20, 26, 0.05), 0 10px 28px rgba(18, 20, 26, 0.04);
 }

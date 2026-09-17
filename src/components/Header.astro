@@ -1,84 +1,88 @@
 ---
-import { PRIMARY_NAV } from '@/consts'
+import { PRIMARY_NAV, isNavActive } from "@/consts";
+import Wordmark from "./Wordmark.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 
-const navItems = PRIMARY_NAV.filter((item) => item.href !== '/')
-const pathname = Astro.url.pathname
+const pathname = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50">
+<header class="fixed top-0 right-0 left-0 z-50">
   <div
-    class="bg-surface-primary border-b border-(--text-secondary)/10 shadow-(--box-shadow)"
+    class="border-b border-(--border) bg-(--bg-primary)/85 shadow-(--box-shadow) backdrop-blur-md"
   >
     <div
-      class="flex h-14 w-full items-center justify-between px-6 md:px-10 lg:px-16"
+      class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 md:px-10 lg:px-16"
     >
-      <a href="/" class="flex items-baseline gap-0.5 no-underline">
-        <span
-          class="font-display text-xl font-bold tracking-tight text-text-primary"
-          >arii</span
-        >
-        <span
-          class="font-display text-xl font-bold tracking-tight text-highlight"
-          >.dev</span
-        >
-      </a>
+      <Wordmark />
 
-      <nav class="hidden lg:flex items-center gap-5">
+      <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
         {
-          navItems.map((item) => (
-            <a
-              href={item.href}
-              class:list={[
-                'font-mono text-xs no-underline transition-colors duration-200',
-                pathname === item.href || pathname.startsWith(item.href)
-                  ? 'text-highlight'
-                  : 'text-text-secondary hover:text-text-primary',
-              ]}
-            >
-              {item.label.toLowerCase()}
-            </a>
-          ))
+          PRIMARY_NAV.map((item) => {
+            const active = isNavActive(pathname, item.href);
+            return (
+              <a
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                class:list={[
+                  "rounded-md px-3 py-1.5 text-sm font-medium no-underline transition-colors duration-200",
+                  active
+                    ? "text-highlight"
+                    : "text-text-secondary hover:text-text-primary",
+                ]}
+              >
+                {item.label}
+              </a>
+            );
+          })
         }
+        <ThemeToggle class="ml-2" />
       </nav>
 
-      <button
-        id="mobile-toggle"
-        aria-label="Toggle menu"
-        aria-expanded="false"
-        class="lg:hidden cursor-pointer relative flex h-9 w-9 items-center justify-center rounded-lg border border-(--text-secondary)/10 bg-(--bg-secondary) text-text-primary transition"
-      >
-        <span
-          class="mobile-line mobile-line--top absolute block h-0.5 w-4 rounded-full bg-current transition-all duration-300 ease-out"
-        ></span>
-        <span
-          class="mobile-line mobile-line--middle absolute block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ease-out"
-        ></span>
-        <span
-          class="mobile-line mobile-line--bottom absolute block h-0.5 w-4 rounded-full bg-current transition-all duration-300 ease-out"
-        ></span>
-      </button>
+      <div class="flex items-center gap-2 md:hidden">
+        <ThemeToggle />
+        <button
+          id="mobile-toggle"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          class="text-text-primary relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-(--border) bg-(--bg-elevated) transition"
+        >
+          <span
+            class="mobile-line mobile-line--top absolute block h-0.5 w-4 rounded-full bg-current transition-all duration-300 ease-out"
+          ></span>
+          <span
+            class="mobile-line mobile-line--middle absolute block h-0.5 w-4 rounded-full bg-current transition-all duration-200 ease-out"
+          ></span>
+          <span
+            class="mobile-line mobile-line--bottom absolute block h-0.5 w-4 rounded-full bg-current transition-all duration-300 ease-out"
+          ></span>
+        </button>
+      </div>
     </div>
   </div>
 
   <div
     id="mobile-menu"
-    class="lg:hidden bg-surface-primary border-b border-(--text-secondary)/10"
+    class="bg-surface-primary border-b border-(--border) md:hidden"
   >
-    <div class="py-3 flex flex-col gap-1 px-6 md:px-10 lg:px-16">
+    <div class="flex flex-col gap-1 px-6 py-3">
       {
-        navItems.map((item) => (
-          <a
-            href={item.href}
-            class:list={[
-              'font-mono text-sm px-3 py-2.5 rounded-lg no-underline transition-all duration-200',
-              pathname === item.href || pathname.startsWith(item.href)
-                ? 'text-highlight bg-(--highlight)/10'
-                : 'text-text-secondary hover:text-text-primary hover:bg-(--bg-secondary)',
-            ]}
-          >
-            {item.label.toLowerCase()}
-          </a>
-        ))
+        PRIMARY_NAV.map((item) => {
+          const active = isNavActive(pathname, item.href);
+          return (
+            <a
+              href={item.href}
+              aria-current={active ? "page" : undefined}
+              class:list={[
+                "rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-all duration-200",
+                active
+                  ? "text-highlight bg-(--highlight)/10"
+                  : "text-text-secondary hover:text-text-primary hover:bg-(--bg-secondary)",
+              ]}
+            >
+              {item.label}
+            </a>
+          );
+        })
       }
     </div>
   </div>
@@ -122,26 +126,33 @@ const pathname = Astro.url.pathname
   #mobile-toggle.is-open .mobile-line--bottom {
     transform: rotate(-45deg);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    #mobile-menu,
+    .mobile-line {
+      transition: none;
+    }
+  }
 </style>
 
 <script>
   const initHeader = () => {
     const toggle = document.getElementById(
-      'mobile-toggle',
-    ) as HTMLButtonElement | null
-    const menu = document.getElementById('mobile-menu') as HTMLElement | null
+      "mobile-toggle",
+    ) as HTMLButtonElement | null;
+    const menu = document.getElementById("mobile-menu") as HTMLElement | null;
 
-    if (!toggle || !menu || toggle.dataset.bound === 'true') return
-    toggle.dataset.bound = 'true'
+    if (!toggle || !menu || toggle.dataset.bound === "true") return;
+    toggle.dataset.bound = "true";
 
-    toggle.addEventListener('click', () => {
-      const open = menu.classList.toggle('is-open')
-      toggle.classList.toggle('is-open', open)
-      toggle.setAttribute('aria-expanded', String(open))
-      menu.style.setProperty('--menu-height', menu.scrollHeight + 'px')
-    })
-  }
+    toggle.addEventListener("click", () => {
+      const open = menu.classList.toggle("is-open");
+      toggle.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      menu.style.setProperty("--menu-height", menu.scrollHeight + "px");
+    });
+  };
 
-  document.addEventListener('astro:page-load', initHeader)
-  initHeader()
+  document.addEventListener("astro:page-load", initHeader);
+  initHeader();
 </script>

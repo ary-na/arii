@@ -1,12 +1,29 @@
-/* src/styles/variables-dark.css */
+/* src/styles/variables-dark.css
+   Class-based tokens (html.dark) plus a no-JS fallback on prefers-color-scheme.
+   The inline boot script in BaseHead applies .dark / .light before paint. */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --highlight: #7c93ff;
-    --bg-primary: #0a0b10;
-    --bg-secondary: #14161e;
-    --text-primary: #f1f2f6;
-    --text-secondary: #a3a6b5;
-    --text-tertiary: #6a6d7c;
-    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  :root:not(.light) {
+    --highlight: #8b9cff;
+    --bg-primary: #0b0c12;
+    --bg-secondary: #15161f;
+    --bg-elevated: #12131b;
+    --text-primary: #f3f4f8;
+    --text-secondary: #c5c8d4;
+    --text-tertiary: #9aa0b2;
+    --border: color-mix(in srgb, #f3f4f8 11%, transparent);
+    --box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.45), 0 12px 32px rgba(0, 0, 0, 0.28);
   }
+}
+
+html.dark {
+  --highlight: #8b9cff;
+  --bg-primary: #0b0c12;
+  --bg-secondary: #15161f;
+  --bg-elevated: #12131b;
+  --text-primary: #f3f4f8;
+  --text-secondary: #c5c8d4;
+  --text-tertiary: #9aa0b2;
+  --border: color-mix(in srgb, #f3f4f8 11%, transparent);
+  --box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 12px 32px rgba(0, 0, 0, 0.28);
 }

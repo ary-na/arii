@@ -1,14 +1,10 @@
 ---
-import type { GetStaticPaths } from 'astro';
-import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogArchive from '@components/BlogArchive.astro';
-import {
-  BLOG_PAGE_SIZE,
-  blogPageHref,
-  SITE_DESCRIPTION,
-} from '@/consts';
+import type { GetStaticPaths } from "astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogArchive from "@components/BlogArchive.astro";
+import { BLOG_PAGE_SIZE, blogPageHref, SITE_DESCRIPTION } from "@/consts";
 
-type BlogPostEntry = CollectionEntry<'blog'>;
+type BlogPostEntry = CollectionEntry<"blog">;
 
 interface PaginatedPage<T> {
   currentPage: number;
@@ -26,7 +22,7 @@ type GetStaticPathsContext = Parameters<GetStaticPaths>[0];
 export const getStaticPaths: GetStaticPaths = async ({
   paginate,
 }: GetStaticPathsContext) => {
-  const posts = (await getCollection('blog')).sort(
+  const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   );
   return paginate(posts, { pageSize: BLOG_PAGE_SIZE });
@@ -34,11 +30,11 @@ export const getStaticPaths: GetStaticPaths = async ({
 
 const { page } = Astro.props as Props;
 const canonicalPath = blogPageHref(page.currentPage);
-const countLabel = 'all posts';
+const countLabel = "All posts";
 ---
 
 <BlogArchive
-  archiveLabel="all posts"
+  archiveLabel="All writing"
   archiveTitle=""
   countLabel={countLabel}
   countNumber={page.total}
@@ -47,6 +43,6 @@ const countLabel = 'all posts';
   canonicalPath={canonicalPath}
   hrefForPage={blogPageHref}
   posts={page.data as BlogPostEntry[]}
-  title={`blog | page ${page.currentPage}`}
+  title={`Writing | page ${page.currentPage}`}
   totalPages={page.lastPage}
 />

@@ -1,83 +1,84 @@
 ---
-import Layout from '@layouts/BlogPost.astro'
-import ProjectLink from '@components/ProjectLink.astro'
+import SiteLayout from "@layouts/SiteLayout.astro";
+import ProjectLink from "@components/ProjectLink.astro";
 ---
 
-<Layout
-  title="about me"
+<SiteLayout
+  title="About"
   description="Melbourne-based developer and CS grad student writing about code, AI, and the things I'm building"
-  pubDate={new Date('April 04 2026')}
 >
-  <img
-    src="/blog/about/arian.webp"
-    alt="Arian Najafi Yamchelo"
-    class="rounded-md object-cover"
-  />
-  <h2>who i am</h2>
-  <p>
-    My name is Arian. I'm based in Melbourne, Australia, and I build things with
-    code. I started out curious about how software works, and over time that
-    curiosity turned into a deeper interest in programming, problem solving, and
-    building systems that are actually useful.
-  </p>
+  <article class="page-container py-16 md:py-20">
+    <p class="text-highlight text-sm font-medium">About</p>
+    <h1 class="text-section mt-2 font-semibold">Arian Najafi Yamchelo</h1>
 
-  <p>
-    I have a habit of over engineering things and getting too deep into details
-    until a project becomes too complicated to finish. Lately I have been
-    working on changing that by focusing on shipping simple, imperfect things
-    instead of waiting for a perfect version that never gets released.
-  </p>
+    <div class="mt-10 grid items-start gap-10 md:grid-cols-[220px_1fr]">
+      <img
+        src="/blog/about/arian.webp"
+        alt="Arian Najafi Yamchelo"
+        class="w-full rounded-xl object-cover shadow-(--box-shadow)"
+      />
+      <div class="prose dark:prose-invert max-w-none">
+        <h2>Who I am</h2>
+        <p>
+          My name is Arian. I'm based in Melbourne, Australia, and I build
+          things with code. I started out curious about how software works, and
+          over time that curiosity turned into a deeper interest in programming,
+          problem solving, and building systems that are actually useful.
+        </p>
 
-  <p>
-    This site is where I write about what I'm learning, building, and thinking
-    about.
-  </p>
+        <p>
+          I have a habit of over engineering things and getting too deep into
+          details until a project becomes too complicated to finish. Lately I
+          have been working on changing that by focusing on shipping simple,
+          imperfect things instead of waiting for a perfect version that never
+          gets released.
+        </p>
 
-  <h2>what i do</h2>
-  <p>
-    I work across software development and AI/ML. I enjoy building full-stack
-    web applications, training and deploying machine learning models, and
-    exploring how these two areas intersect. Right now, I&apos;m focused on
-    finding a graduate role where I can continue developing both sides of this
-    skill set.
-  </p>
+        <p>
+          This site is where I write about what I'm learning, building, and
+          thinking about.
+        </p>
 
-  <h2>education</h2>
-  <h3>monash university</h3>
-  <div
-    class="rounded-lg border border-(--text-secondary)/10 p-6 font-mono text-sm"
-  >
-    <p>
-      <span class="text-accent">degree</span> &nbsp; Master of Computer Science with
-      Distinction
-    </p>
-    <p>
-      <span class="text-accent">period</span> &nbsp; Mar 2024 &ndash; May 2026
-    </p>
-    <p>
-      <span class="text-accent">focus &nbsp;</span> &nbsp;Artificial Intelligence
-    </p>
-  </div>
-  <h3>rmit university</h3>
-  <div
-    class="rounded-lg border border-(--text-secondary)/10 p-6 font-mono text-sm"
-  >
-    <p>
-      <span class="text-accent">degree</span> &nbsp; Bachelor of Information Technology
-      with Distinction
-    </p>
-    <p>
-      <span class="text-accent">period</span> &nbsp; Mar 2021 &ndash; Jan 2024
-    </p>
-    <p>
-      <span class="text-accent">minor &nbsp;</span> &nbsp;Digital Design
-    </p>
-  </div>
+        <h2>What I do</h2>
+        <p>
+          I work across software development and AI/ML. I enjoy building
+          full-stack web applications, training and deploying machine learning
+          models, and exploring how these two areas intersect. Right now,
+          I&apos;m focused on finding a graduate role where I can continue
+          developing both sides of this skill set.
+        </p>
+      </div>
+    </div>
 
-  <h2>get in touch</h2>
-  <p>
-    The best way to reach me is by email. Whether it's about a project, a
-    question, or just to say hi — I'm happy to hear from you.
-  </p>
-  <ProjectLink email="hi@arii.dev" emailLabel="hi@arii.dev" />
-</Layout>
+    <h2 class="text-section mt-14 font-semibold">Education</h2>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <div
+        class="rounded-xl border border-(--border) bg-(--bg-elevated) p-5 shadow-(--box-shadow)"
+      >
+        <p class="text-highlight text-sm font-medium">Monash University</p>
+        <p class="text-text-primary mt-2 font-medium">
+          Master of Computer Science with Distinction
+        </p>
+        <p class="text-text-secondary mt-1 text-sm">Artificial Intelligence</p>
+        <p class="text-text-tertiary mt-3 text-sm">Mar 2024 – May 2026</p>
+      </div>
+      <div
+        class="rounded-xl border border-(--border) bg-(--bg-elevated) p-5 shadow-(--box-shadow)"
+      >
+        <p class="text-highlight text-sm font-medium">RMIT University</p>
+        <p class="text-text-primary mt-2 font-medium">
+          Bachelor of Information Technology with Distinction
+        </p>
+        <p class="text-text-secondary mt-1 text-sm">Minor in Digital Design</p>
+        <p class="text-text-tertiary mt-3 text-sm">Mar 2021 – Jan 2024</p>
+      </div>
+    </div>
+
+    <h2 class="text-section mt-14 font-semibold">Get in touch</h2>
+    <p class="text-text-secondary mt-4 max-w-xl">
+      The best way to reach me is by email. Whether it's about a project, a
+      question, or just to say hi — I'm happy to hear from you.
+    </p>
+    <ProjectLink email="hi@arii.dev" emailLabel="hi@arii.dev" />
+  </article>
+</SiteLayout>

@@ -1,0 +1,33 @@
+---
+import SiteLayout from "@layouts/SiteLayout.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import { SHIPPED, SITE_TITLE } from "@/consts";
+---
+
+<SiteLayout
+  title={`Work — ${SITE_TITLE}`}
+  description="Selected projects — full-stack apps, CLIs, and machine learning systems."
+>
+  <section class="page-container-wide py-16 md:py-20">
+    <div class="mx-auto max-w-3xl">
+      <p class="text-highlight text-sm font-medium">Work</p>
+      <h1 class="text-section mt-2 font-semibold">Selected projects</h1>
+      <p class="text-text-secondary mt-3 max-w-xl">
+        Products and tools I’ve shipped — write-ups, source, and demos when they
+        exist. Older coursework and experiments live in
+        <a
+          href="/blog"
+          class="text-highlight underline-offset-2 hover:underline">writing</a
+        >.
+      </p>
+
+      <div class="mt-10 flex flex-col gap-4">
+        {
+          SHIPPED.map((project, i) => (
+            <ProjectCard project={project} index={i} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</SiteLayout>

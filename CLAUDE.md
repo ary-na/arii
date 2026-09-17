@@ -18,13 +18,13 @@ There is no ESLint config and no test suite. `astro check` + `prettier` are the 
 
 **Content collection.** Blog posts are `.mdx`/`.md` files in `src/content/blog/`, loaded via `glob()` and validated by the schema in `src/content.config.ts`: `title`, `description`, `pubDate` (coerced date), optional `updatedDate`, optional `heroImage` (an `image()` reference — pass an import-style string path, e.g. `'@assets/blog/foo.webp'`, not a URL), `heroImageAlt`, `category`, `tags`. Hero images live in `src/assets/blog/`.
 
-**Manual post registries in `src/consts.ts`.** `FEATURED_POSTS` (slugs shown on `/featured`) and `SHIPPED` (project cards on the homepage) are hardcoded arrays of slugs/hrefs — adding a new blog post file does **not** automatically surface it there. Update these by hand when a post should appear.
+**Manual post registries in `src/consts.ts`.** `SHIPPED` (project cards on the homepage and `/work`) and `FEATURED_POSTS` (legacy editorial slugs) are hardcoded — adding a new blog post file does **not** automatically surface it on the homepage. Update `SHIPPED` by hand when a project should appear. `/featured` 301s to `/work`.
 
 **Path aliases** (`tsconfig.json` + `astro.config.mjs`, keep both in sync): `@components/*`, `@layouts/*`, `@assets/*`, `@styles/*`, `@scripts/*`, `@/*` → `src/*`.
 
-**Style cascade.** Everything funnels through `src/styles/__root.css`, imported once from `BaseHead.astro`, in this order: `tailwindcss` → `@tailwindcss/typography` plugin → `fonts.css` → `variables.css` (light tokens on `:root`) → `variables-dark.css` (dark tokens, re-declared under `@media (prefers-color-scheme: dark)`) → `theme.css` (maps the raw `--bg-primary`/`--text-*`/etc. vars into Tailwind `@theme` tokens like `--color-surface-primary`) → `global.css`. Order matters: the dark media-query block must load after the light `:root` block to win the cascade.
+**Style cascade.** Everything funnels through `src/styles/__root.css`, imported once from `BaseHead.astro`, in this order: `tailwindcss` → `@tailwindcss/typography` plugin → `@custom-variant dark` (class-based `.dark`) → `fonts.css` → `variables.css` (light tokens on `:root`) → `variables-dark.css` (`html.dark` plus a `prefers-color-scheme` fallback for no-JS) → `theme.css` (maps the raw `--bg-primary`/`--text-*`/etc. vars into Tailwind `@theme` tokens like `--color-surface-primary`) → `global.css`. Order matters: dark tokens must load after the light `:root` block to win the cascade.
 
-**Dark mode is media-query only** — there is no class-based toggle, no `data-theme` attribute, and no theme switcher UI. `dark:` Tailwind variants (e.g. `dark:prose-invert` in `BlogPost.astro`) rely on Tailwind v4's default `prefers-color-scheme` strategy. The dark `theme-color` meta tag in `BaseHead.astro` and `variables-dark.css` must be kept in sync manually if palette colors change.
+**Dark mode** is class-based (`html.dark` / `html.light`) with a blocking boot script in `BaseHead.astro` that reads `localStorage['arii-theme']` or `prefers-color-scheme`. A header toggle writes the stored preference. Tailwind `dark:` variants use `@custom-variant dark (&:where(.dark, .dark *))`. Keep the dark `theme-color` meta tag and `variables-dark.css` in sync if palette colors change.
 
 **Table of contents** (`BlogPost.astro`) is generated client-side from `article h2, article h3` after render, and only shown if the post has 2+ headings (otherwise the `#toc-sidebar` is hidden). It only appears at the `xl` breakpoint — there is no mobile/tablet ToC.
 
@@ -32,7 +32,9 @@ There is no ESLint config and no test suite. `astro check` + `prettier` are the 
 
 **Pagination.** `BLOG_PAGE_SIZE = 8` (in `consts.ts`) drives `/blog/page/[page]`, `/blog/category/[category]/page/[page]`, and `/blog/tag/[tag]/page/[page]`. Category/tag values are derived from post frontmatter, not a separate taxonomy file.
 
-**Fonts** are self-hosted under `public/fonts` (no external font CDN) and preloaded explicitly in `BaseHead.astro`: Bytesized (display/headings), DM Sans (body), DM Mono (code). If you add a font, add both the `@font-face` and a matching preload link.
+**Fonts** are self-hosted under `public/fonts` (no external font CDN) and preloaded explicitly in `BaseHead.astro`: DM Sans (UI, headings, body) and DM Mono (code). Bytesized remains on disk for the old wordmark but is not preloaded or used in the UI. If you add a font, add both the `@font-face` and a matching preload link.
+
+**Nav.** Recruiter-facing labels: Work (`/work`), Writing (`/blog`), About (`/about`), Contact (`/#contact`). Post URLs under `/blog/...` are unchanged.
 
 ## Deploy
 
