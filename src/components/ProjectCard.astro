@@ -14,42 +14,35 @@ const writeup = `/blog/${project.slug}/`;
 <article
   data-animate
   style={`--animate-delay: ${index * 60}ms`}
-  class="project-card relative overflow-hidden rounded-xl border border-(--border) bg-(--bg-elevated) p-5 shadow-(--box-shadow) md:p-6"
+  class="project-card rounded-xl border border-(--border) bg-(--bg-elevated) p-5 shadow-(--box-shadow) md:p-6"
 >
-  <span
-    class="bg-highlight absolute inset-y-0 left-0 w-[3px]"
-    aria-hidden="true"></span>
-  <div class="pl-2">
-    <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-      <h3
-        class="text-card-title text-text-primary font-semibold tracking-tight"
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+    <h3 class="text-card-title text-text-primary font-semibold tracking-tight">
+      <a
+        href={writeup}
+        class="text-text-primary hover:text-highlight no-underline transition-colors duration-200"
       >
-        <a
-          href={writeup}
-          class="text-text-primary hover:text-highlight no-underline transition-colors duration-200"
-        >
-          {project.name}
-        </a>
-      </h3>
-    </div>
-    <p class="text-text-secondary mt-2 max-w-2xl text-sm leading-relaxed">
-      {project.outcome}
-    </p>
-    {
-      project.tech.length > 0 && (
-        <ul class="mt-4 flex flex-wrap gap-1.5">
-          {project.tech.map((item) => (
-            <li class="tech-chip">{item}</li>
-          ))}
-        </ul>
-      )
-    }
-    <ProjectLink
-      variant="card"
-      writeup={writeup}
-      github={project.github}
-      demo={project.demo}
-      npm={project.npm}
-    />
+        {project.name}
+      </a>
+    </h3>
   </div>
+  <p class="text-text-secondary mt-2 max-w-2xl text-sm leading-relaxed">
+    {project.outcome}
+  </p>
+  {
+    project.tech.length > 0 && (
+      <ul class="mt-4 flex flex-wrap gap-1.5">
+        {project.tech.map((item) => (
+          <li class="tech-chip">{item}</li>
+        ))}
+      </ul>
+    )
+  }
+  <ProjectLink
+    variant="card"
+    writeup={writeup}
+    github={project.github}
+    demo={project.demo}
+    npm={project.npm}
+  />
 </article>
