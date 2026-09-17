@@ -1,0 +1,17 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<a href="/" class:list={["inline-flex items-baseline no-underline", className]}>
+  <span
+    class="text-text-primary text-[1.125rem] font-semibold tracking-[-0.04em]"
+    >arii</span
+  >
+  <span class="text-highlight text-[1.125rem] font-semibold tracking-[-0.04em]"
+    >.dev</span
+  >
+</a>

@@ -21,19 +21,17 @@ const progress = Math.round((currentPage / totalPages) * 100);
         <a
           href={hrefForPage(currentPage - 1)}
           aria-label="Previous page"
-          class="font-mono text-xs text-text-secondary no-underline transition-colors duration-200 hover:text-highlight"
+          class="text-text-secondary hover:text-highlight text-sm no-underline transition-colors duration-200"
         >
-          ← prev
+          ← Prev
         </a>
       ) : (
-        <span class="font-mono text-xs text-text-secondary/25 select-none">
-          ← prev
-        </span>
+        <span class="text-text-secondary/25 text-sm select-none">← Prev</span>
       )
     }
 
-    <span class="font-mono text-xs text-text-secondary/60 tabular-nums">
-      <span class="text-highlight">{currentPage}</span>
+    <span class="text-text-tertiary text-sm tabular-nums">
+      <span class="text-highlight font-medium">{currentPage}</span>
       <span class="mx-1 opacity-40">/</span>
       {totalPages}
     </span>
@@ -43,21 +41,19 @@ const progress = Math.round((currentPage / totalPages) * 100);
         <a
           href={hrefForPage(currentPage + 1)}
           aria-label="Next page"
-          class="font-mono text-xs text-text-secondary no-underline transition-colors duration-200 hover:text-highlight"
+          class="text-text-secondary hover:text-highlight text-sm no-underline transition-colors duration-200"
         >
-          next →
+          Next →
         </a>
       ) : (
-        <span class="font-mono text-xs text-text-secondary/25 select-none">
-          next →
-        </span>
+        <span class="text-text-secondary/25 text-sm select-none">Next →</span>
       )
     }
   </div>
 
-  <div class="w-32 h-px bg-(--text-secondary)/10 rounded-full overflow-hidden">
+  <div class="h-px w-32 overflow-hidden rounded-full bg-(--text-secondary)/10">
     <div
-      class="h-full bg-highlight/60 rounded-full transition-all duration-500"
+      class="bg-highlight/60 h-full rounded-full transition-all duration-500"
       style={`width: ${progress}%`}
     >
     </div>

@@ -1,90 +1,285 @@
 ---
-import SiteLayout from '@layouts/SiteLayout.astro'
-import FormattedDate from '@components/FormattedDate.astro'
-import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts'
-import { getCollection } from 'astro:content'
+import SiteLayout from "@layouts/SiteLayout.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import {
+  CONTACT_EMAIL,
+  CONTACT_MAILTO,
+  GITHUB_LINK,
+  LINKEDIN_LINK,
+  SHIPPED,
+  SITE_AUTHOR,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+} from "@/consts";
+import { getCollection } from "astro:content";
 
-const posts = (await getCollection('blog')).sort(
+const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-)
+);
 
-const latest = posts.slice(0, 5)
+const latest = posts.slice(0, 4);
 ---
 
 <SiteLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  {/* Hero */}
-  <section class="page-container pt-24 pb-20 md:pt-32 md:pb-28">
-    <span class="block font-mono text-xs text-highlight mb-5">arii</span>
-    <h1 class="text-hero-name font-semibold leading-tight mb-5">
-      Arian Najafi Yamchelo
-    </h1>
-    <p class="max-w-xl text-text-secondary leading-relaxed">
-      I'm Arian — I build full-stack apps and machine learning systems, most
-      recently <a
-        href="/blog/lazy-commit"
-        class="text-highlight underline decoration-(--highlight)/30 underline-offset-2 hover:decoration-(--highlight)"
-        >lazy-commit</a
-      > and <a
-        href="/blog/hushlink"
-        class="text-highlight underline decoration-(--highlight)/30 underline-offset-2 hover:decoration-(--highlight)"
-        >hushlink</a
-      >. I write about the process on the <a
-        href="/blog"
-        class="text-highlight underline decoration-(--highlight)/30 underline-offset-2 hover:decoration-(--highlight)"
-        >blog</a
-      >.
-    </p>
-    <p class="mt-4 font-mono text-xs text-text-tertiary">
-      currently — finishing a Master's in AI at Monash, open to grad roles
-    </p>
-  </section>
-
-  {/* Writing */}
-  <section class="page-container py-14 flex flex-col gap-6">
-    <h2 class="text-section font-semibold">
-      writing <span class="text-text-tertiary font-mono text-sm font-normal"
-        >[{posts.length}]</span
-      >
-    </h2>
-    <ul
-      class="flex flex-col divide-y divide-(--text-secondary)/10 border-t border-b border-(--text-secondary)/10"
+  <div class="page-container-wide">
+    <div
+      class="lg:grid lg:grid-cols-[minmax(0,22.5rem)_minmax(0,1fr)] lg:items-start lg:gap-16 xl:gap-24"
     >
-      {
-        latest.map((post, i) => (
-          <li data-animate style={`--animate-delay: ${i * 60}ms`}>
+      {/* Hero — sticky identity column on large screens */}
+      <section
+        class="section-anchor flex flex-col pt-16 pb-12 lg:sticky lg:top-16 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto lg:py-20"
+        aria-labelledby="hero-name"
+      >
+        <h1
+          id="hero-name"
+          class="text-hero-name text-text-primary font-semibold tracking-[-0.045em]"
+        >
+          {SITE_AUTHOR}
+        </h1>
+        <p
+          class="text-text-primary mt-4 text-lg font-medium tracking-tight sm:text-xl"
+        >
+          Full-stack + ML/AI builder
+        </p>
+        <p class="text-text-secondary mt-3 max-w-md text-base leading-relaxed">
+          Master’s in AI at Monash. Based in Melbourne. I ship full-stack
+          products, CLIs, and machine learning systems — then write about the
+          process.
+        </p>
+        <p class="status-chip mt-6 w-fit">
+          <span
+            class="bg-highlight inline-block h-1.5 w-1.5 rounded-full"
+            aria-hidden="true"></span>
+          Open to graduate roles
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={CONTACT_MAILTO} class="btn-primary">Email</a>
+          <a href="#work" class="btn-secondary">View work</a>
+        </div>
+        <nav
+          class="mt-10 hidden flex-col gap-2 text-sm lg:flex"
+          aria-label="On this page"
+        >
+          <a
+            href="#work"
+            class="text-text-secondary hover:text-highlight w-fit text-sm font-medium no-underline"
+            >Work</a
+          >
+          <a
+            href="#now"
+            class="text-text-secondary hover:text-highlight w-fit text-sm font-medium no-underline"
+            >Now</a
+          >
+          <a
+            href="#writing"
+            class="text-text-secondary hover:text-highlight w-fit text-sm font-medium no-underline"
+            >Writing</a
+          >
+          <a
+            href="#about"
+            class="text-text-secondary hover:text-highlight w-fit text-sm font-medium no-underline"
+            >About</a
+          >
+          <a
+            href="#contact"
+            class="text-text-secondary hover:text-highlight w-fit text-sm font-medium no-underline"
+            >Contact</a
+          >
+        </nav>
+      </section>
+
+      <div class="flex flex-col gap-20 pb-20 lg:pt-20 lg:pb-28">
+        {/* Selected work */}
+        <section
+          id="work"
+          class="section-anchor flex flex-col gap-6"
+          aria-labelledby="work-heading"
+        >
+          <div class="flex items-end justify-between gap-4">
+            <h2 id="work-heading" class="text-section font-semibold">
+              Selected work
+            </h2>
             <a
-              href={`/blog/${post.id}/`}
-              class="group flex flex-col sm:flex-row sm:items-baseline sm:gap-6 py-4 no-underline"
+              href="/work"
+              class="text-highlight shrink-0 text-sm font-medium no-underline hover:underline"
             >
-              <span class="text-sm text-text-primary group-hover:text-highlight transition-colors flex-1">
-                {post.data.title}
-              </span>
-              {post.data.category && (
-                <span class="font-mono text-xs text-text-tertiary shrink-0 hidden sm:block">
-                  {post.data.category}
-                </span>
-              )}
-              <span class="font-mono text-xs text-text-tertiary shrink-0">
-                <FormattedDate date={post.data.pubDate} />
-              </span>
+              All work →
             </a>
-          </li>
-        ))
-      }
-    </ul>
-    <div class="flex gap-6">
-      <a
-        href="/blog"
-        class="font-mono text-xs text-highlight no-underline w-fit hover:underline"
-      >
-        all posts →
-      </a>
-      <a
-        href="/featured"
-        class="font-mono text-xs text-highlight no-underline w-fit hover:underline"
-      >
-        featured picks →
-      </a>
+          </div>
+          <div class="flex flex-col gap-4">
+            {
+              SHIPPED.map((project, i) => (
+                <ProjectCard project={project} index={i} />
+              ))
+            }
+          </div>
+        </section>
+
+        {/* Now / focus */}
+        <section id="now" class="section-anchor" aria-labelledby="now-heading">
+          <h2 id="now-heading" class="text-section font-semibold">Now</h2>
+          <ul
+            class="mt-6 grid gap-px overflow-hidden rounded-xl border border-(--border) bg-(--border) sm:grid-cols-3"
+          >
+            <li class="bg-(--bg-elevated) px-5 py-4">
+              <p
+                class="text-highlight text-[11px] font-medium tracking-[0.14em] uppercase"
+              >
+                Education
+              </p>
+              <p class="text-text-secondary mt-2 text-sm leading-relaxed">
+                Finishing a Master’s in AI at Monash.
+              </p>
+            </li>
+            <li class="bg-(--bg-elevated) px-5 py-4">
+              <p
+                class="text-highlight text-[11px] font-medium tracking-[0.14em] uppercase"
+              >
+                Shipping
+              </p>
+              <p class="text-text-secondary mt-2 text-sm leading-relaxed">
+                CLIs and developer tooling.
+              </p>
+            </li>
+            <li class="bg-(--bg-elevated) px-5 py-4">
+              <p
+                class="text-highlight text-[11px] font-medium tracking-[0.14em] uppercase"
+              >
+                Looking
+              </p>
+              <p class="text-text-secondary mt-2 text-sm leading-relaxed">
+                Grad SWE, ML, and full-stack roles.
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        {/* Writing */}
+        <section
+          id="writing"
+          class="section-anchor flex flex-col gap-6"
+          aria-labelledby="writing-heading"
+        >
+          <div class="flex items-end justify-between gap-4">
+            <h2 id="writing-heading" class="text-section font-semibold">
+              Writing
+            </h2>
+            <a
+              href="/blog"
+              class="text-highlight shrink-0 text-sm font-medium no-underline hover:underline"
+            >
+              All writing →
+            </a>
+          </div>
+          <ul class="flex flex-col gap-3">
+            {
+              latest.map((post, i) => (
+                <li data-animate style={`--animate-delay: ${i * 50}ms`}>
+                  <a
+                    href={`/blog/${post.id}/`}
+                    class="project-card group flex flex-col gap-1 rounded-xl border border-(--border) bg-(--bg-elevated) px-5 py-4 no-underline sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                  >
+                    <span class="text-text-primary group-hover:text-highlight text-[0.95rem] font-medium transition-colors">
+                      {post.data.title}
+                    </span>
+                    <span class="text-text-tertiary shrink-0 text-sm">
+                      <FormattedDate date={post.data.pubDate} />
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        {/* About snapshot */}
+        <section
+          id="about"
+          class="section-anchor flex flex-col gap-5"
+          aria-labelledby="about-heading"
+        >
+          <h2 id="about-heading" class="text-section font-semibold">About</h2>
+          <div
+            class="text-text-secondary max-w-2xl space-y-4 text-[0.95rem] leading-relaxed"
+          >
+            <p>
+              My name is Arian. I'm based in Melbourne, Australia, and I build
+              things with code. I started out curious about how software works,
+              and over time that curiosity turned into a deeper interest in
+              programming, problem solving, and building systems that are
+              actually useful.
+            </p>
+            <p>
+              I work across software development and AI/ML. I enjoy building
+              full-stack web applications, training and deploying machine
+              learning models, and exploring how these two areas intersect.
+              Right now, I'm focused on finding a graduate role where I can
+              continue developing both sides of this skill set.
+            </p>
+            <p>
+              This site is where I write about what I'm learning, building, and
+              thinking about.
+            </p>
+          </div>
+          <ul class="mt-1 flex flex-wrap gap-2">
+            <li class="tech-chip">Monash · MCS, Artificial Intelligence</li>
+            <li class="tech-chip">RMIT · BIT, Digital Design</li>
+          </ul>
+          <a
+            href="/about"
+            class="text-highlight w-fit text-sm font-medium no-underline hover:underline"
+          >
+            Full about →
+          </a>
+        </section>
+
+        {/* Contact strip */}
+        <section
+          id="contact"
+          class="section-anchor"
+          aria-labelledby="contact-heading"
+        >
+          <h2 id="contact-heading" class="text-section font-semibold">
+            Contact
+          </h2>
+          <div
+            class="mt-6 rounded-xl border border-(--border) bg-(--bg-elevated) p-6 shadow-(--box-shadow)"
+          >
+            <p class="text-text-secondary text-[0.95rem] leading-relaxed">
+              Open to graduate roles in SWE, ML, and full-stack. The best way to
+              reach me is by email.
+            </p>
+            <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <a href={CONTACT_MAILTO} class="btn-primary">{CONTACT_EMAIL}</a>
+              {
+                GITHUB_LINK && (
+                  <a
+                    href={GITHUB_LINK.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-highlight text-sm font-medium no-underline hover:underline"
+                  >
+                    {GITHUB_LINK.label} ↗
+                  </a>
+                )
+              }
+              {
+                LINKEDIN_LINK && (
+                  <a
+                    href={LINKEDIN_LINK.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-highlight text-sm font-medium no-underline hover:underline"
+                  >
+                    {LINKEDIN_LINK.label} ↗
+                  </a>
+                )
+              }
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
-  </section>
+  </div>
 </SiteLayout>

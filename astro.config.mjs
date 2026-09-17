@@ -18,7 +18,9 @@ function readBlogLastmods() {
     const raw = readFileSync(new URL(entry, blogDir), "utf-8");
     const frontmatter = raw.match(/^---\n([\s\S]*?)\n---/)?.[1];
     if (!frontmatter) continue;
-    const pubDate = frontmatter.match(/^pubDate:\s*['"]?([^'"\n]+)['"]?\s*$/m)?.[1];
+    const pubDate = frontmatter.match(
+      /^pubDate:\s*['"]?([^'"\n]+)['"]?\s*$/m,
+    )?.[1];
     const updatedDate = frontmatter.match(
       /^updatedDate:\s*['"]?([^'"\n]+)['"]?\s*$/m,
     )?.[1];
@@ -34,6 +36,9 @@ const blogLastmods = readBlogLastmods();
 
 export default defineConfig({
   site: "https://arii.dev",
+  redirects: {
+    "/featured": "/work",
+  },
   integrations: [
     mdx(),
     sitemap({

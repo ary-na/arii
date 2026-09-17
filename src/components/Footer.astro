@@ -1,45 +1,45 @@
 ---
-import { PRIMARY_NAV, SITE_AUTHOR, SOCIAL_LINKS } from '@/consts'
+import {
+  CONTACT_EMAIL,
+  CONTACT_MAILTO,
+  PRIMARY_NAV,
+  SITE_AUTHOR,
+  SOCIAL_LINKS,
+} from "@/consts";
+import Wordmark from "./Wordmark.astro";
 
-const today = new Date()
+const today = new Date();
 ---
 
 <footer class="relative z-10 mt-auto pt-10">
-  <div
-    class="bg-surface-primary overflow-hidden border-t border-(--text-secondary)/10"
-  >
+  <div class="bg-surface-primary overflow-hidden border-t border-(--border)">
     <div class="relative">
-      <div class="page-container py-16 relative z-10">
-        <div class="flex flex-col gap-8 sm:flex-row sm:justify-between">
-          <div class="flex flex-col gap-2">
-            <a href="/" class="flex items-baseline gap-0.5 no-underline">
-              <span
-                class="font-display text-xl font-bold tracking-tight text-text-primary"
-                >arii</span
-              >
-              <span
-                class="font-display text-xl font-bold tracking-tight text-highlight"
-                >.dev</span
-              >
-            </a>
-            <p
-              class="font-mono text-xs text-(--text-secondary) max-w-48 leading-relaxed"
-            >
-              code, AI, and things worth writing down.
+      <div class="page-container-wide relative z-10 py-16">
+        <div class="flex flex-col gap-10 sm:flex-row sm:justify-between">
+          <div class="flex max-w-xs flex-col gap-3">
+            <Wordmark />
+            <p class="text-text-secondary text-sm leading-relaxed">
+              Full-stack and ML/AI builder in Melbourne. Open to graduate roles.
             </p>
+            <a
+              href={CONTACT_MAILTO}
+              class="text-highlight text-sm font-medium no-underline hover:underline"
+            >
+              {CONTACT_EMAIL}
+            </a>
           </div>
 
-          <div class="flex gap-12">
+          <div class="flex gap-16">
             <div class="flex flex-col gap-2.5">
               <span
-                class="font-mono text-[10px] tracking-widest text-(--text-secondary)/60 uppercase"
-                >nav</span
+                class="text-text-tertiary text-[11px] font-medium tracking-[0.14em] uppercase"
+                >Nav</span
               >
               {
                 PRIMARY_NAV.map((item) => (
                   <a
                     href={item.href}
-                    class="font-mono text-xs text-(--text-secondary) no-underline transition-colors duration-200 hover:text-highlight"
+                    class="text-text-secondary hover:text-highlight text-sm no-underline transition-colors duration-200"
                   >
                     {item.label}
                   </a>
@@ -49,16 +49,22 @@ const today = new Date()
 
             <div class="flex flex-col gap-2.5">
               <span
-                class="font-mono text-[10px] tracking-widest text-(--text-secondary)/60 uppercase"
-                >find me</span
+                class="text-text-tertiary text-[11px] font-medium tracking-[0.14em] uppercase"
+                >Connect</span
               >
               {
                 SOCIAL_LINKS.map((link) => (
                   <a
                     href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="font-mono text-xs text-(--text-secondary) no-underline transition-colors duration-200 hover:text-highlight"
+                    target={
+                      link.href.startsWith("mailto:") ? undefined : "_blank"
+                    }
+                    rel={
+                      link.href.startsWith("mailto:")
+                        ? undefined
+                        : "noopener noreferrer"
+                    }
+                    class="text-text-secondary hover:text-highlight text-sm no-underline transition-colors duration-200"
                   >
                     {link.label}
                   </a>
@@ -69,15 +75,13 @@ const today = new Date()
         </div>
 
         <div
-          class="mt-8 flex flex-col gap-1 border-t border-(--text-secondary)/10 pt-6 sm:flex-row sm:items-center sm:justify-between"
+          class="mt-10 flex flex-col gap-1 border-t border-(--border) pt-6 sm:flex-row sm:items-center sm:justify-between"
         >
-          <p class="font-mono text-[10px] text-(--text-secondary)/60">
+          <p class="text-text-tertiary text-xs">
             &copy; {today.getFullYear()}
             {SITE_AUTHOR}. All rights reserved.
           </p>
-          <p class="font-mono text-[10px] text-(--text-secondary)/40">
-            built with astro
-          </p>
+          <p class="text-text-tertiary text-xs">Built with Astro</p>
         </div>
       </div>
     </div>

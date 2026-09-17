@@ -1,20 +1,22 @@
 /* src/styles/theme.css */
 @theme {
-  --font-body: 'DMSans', sans-serif;
-  --font-display: 'Bytesized', monospace;
-  --font-mono: 'DMMono', monospace;
+  --font-body: "DMSans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "DMSans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "DMMono", ui-monospace, monospace;
 
   --color-surface-primary: var(--bg-primary);
   --color-surface-secondary: var(--bg-secondary);
+  --color-surface-elevated: var(--bg-elevated);
 
   --color-highlight: var(--highlight);
   --color-accent: var(--highlight);
+  --color-border: var(--border);
 
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-tertiary: var(--text-tertiary);
 
-  /* Fluid type — reserved for headline-tier text only; body and labels stay fixed */
-  --text-hero-name: clamp(1.5rem, 1.32rem + 0.9vw, 1.875rem);
-  --text-section: clamp(1.35rem, 1.2rem + 0.75vw, 1.625rem);
+  --text-hero-name: clamp(2.35rem, 1.05rem + 5.2vw, 4.15rem);
+  --text-section: clamp(1.4rem, 1.18rem + 1vw, 1.85rem);
+  --text-card-title: clamp(1.05rem, 0.98rem + 0.4vw, 1.2rem);
 }

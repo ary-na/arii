@@ -2,6 +2,17 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light) {
+    color-scheme: dark;
+  }
 }
 
 /* Body styling */
@@ -9,6 +20,7 @@ body {
   text-align: left;
   background-color: var(--bg-primary);
   color: var(--text-primary);
+  font-family: var(--font-body);
   word-wrap: break-word;
   overflow-wrap: break-word;
   font-size: 16px;
@@ -19,29 +31,29 @@ body {
 }
 
 @property --g1-x {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   inherits: false;
   initial-value: 12%;
 }
 @property --g1-y {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   inherits: false;
   initial-value: 20%;
 }
 @property --g2-x {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   inherits: false;
   initial-value: 88%;
 }
 @property --g2-y {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   inherits: false;
   initial-value: 70%;
 }
 
 /* Ambient background — single accent hue, two soft blobs, drifts on scroll */
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -49,7 +61,7 @@ body::before {
   background-image:
     radial-gradient(
       ellipse 70% 55% at var(--g1-x) var(--g1-y),
-      color-mix(in srgb, var(--highlight) 8%, transparent),
+      color-mix(in srgb, var(--highlight) 9%, transparent),
       transparent 65%
     ),
     radial-gradient(
@@ -83,13 +95,41 @@ h4,
 h5,
 h6 {
   font-family: var(--font-body);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
 @layer components {
   .page-container {
-    @apply max-w-3xl px-6 mx-auto w-full;
+    @apply mx-auto w-full max-w-3xl px-6 md:px-10;
+  }
+
+  .page-container-wide {
+    @apply mx-auto w-full max-w-6xl px-6 md:px-10 lg:px-16;
+  }
+
+  .section-anchor {
+    scroll-margin-top: 6rem;
+  }
+
+  .btn-primary {
+    @apply bg-highlight inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium text-white no-underline shadow-(--box-shadow) transition-[transform,background-color,box-shadow] duration-200 hover:bg-(--highlight);
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.06);
+  }
+
+  .btn-secondary {
+    @apply border-highlight/35 text-highlight hover:border-highlight hover:bg-highlight/10 inline-flex items-center justify-center rounded-lg border bg-transparent px-4 py-2.5 text-sm font-medium no-underline transition-[transform,background-color,border-color] duration-200;
+  }
+
+  .tech-chip {
+    @apply border-border bg-surface-secondary text-text-secondary rounded-full border px-2.5 py-0.5 text-[11px] font-medium tracking-wide;
+  }
+
+  .status-chip {
+    @apply border-highlight/25 bg-highlight/10 text-highlight inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium;
   }
 }
 
@@ -125,23 +165,23 @@ h6 {
 /* Table of contents sidebar */
 .toc-link {
   display: block;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6875rem;
-  line-height: 1.6;
+  font-size: 0.8125rem;
+  line-height: 1.55;
   text-decoration: none;
   color: var(--text-secondary);
-  opacity: 0.45;
+  opacity: 0.78;
   transition:
     opacity 150ms ease,
     color 150ms ease;
 }
 .toc-link:hover {
-  opacity: 0.9;
-  color: var(--highlight);
-}
-.toc-link[data-active='true'] {
   opacity: 1;
   color: var(--highlight);
+}
+.toc-link[data-active="true"] {
+  opacity: 1;
+  color: var(--highlight);
+  font-weight: 500;
 }
 .toc-link.toc-h3 {
   padding-left: 0.625rem;
@@ -202,5 +242,34 @@ h6 {
       opacity: 1;
       transform: none;
     }
+  }
+
+  .project-card {
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--highlight) 45%, var(--border));
+    box-shadow: var(--box-shadow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body::before {
+    animation: none;
+  }
+
+  .project-card,
+  .btn-primary,
+  .btn-secondary {
+    transition: none;
   }
 }

@@ -1,16 +1,16 @@
 ---
-import BaseHead from '@components/BaseHead.astro';
-import Header from '@components/Header.astro';
-import Footer from '@components/Footer.astro';
+import BaseHead from "@components/BaseHead.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
 
 interface Props {
   title: string;
   description: string;
-  image?: import('astro').ImageMetadata;
+  image?: import("astro").ImageMetadata;
   canonicalPath?: string;
   contentClass?: string;
   schema?: Record<string, unknown>;
-  type?: 'website' | 'article';
+  type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
 }
@@ -42,15 +42,15 @@ const {
       {modifiedTime}
     />
   </head>
-  <body class="flex min-h-screen flex-col pt-14">
+  <body class="flex min-h-screen flex-col pt-16">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-highlight focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:text-white focus:no-underline"
+      class="focus:bg-highlight sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:px-4 focus:py-2 focus:text-sm focus:text-white focus:no-underline"
     >
-      skip to content
+      Skip to content
     </a>
     <Header />
-    <main id="main-content" class:list={['flex flex-1 flex-col', contentClass]}>
+    <main id="main-content" class:list={["flex flex-1 flex-col", contentClass]}>
       <slot />
     </main>
     <Footer />
@@ -58,7 +58,7 @@ const {
 </html>
 
 <script>
-  import { initScrollAnimations } from '@/scripts/scroll-animate';
-  document.addEventListener('astro:page-load', initScrollAnimations);
+  import { initScrollAnimations } from "@/scripts/scroll-animate";
+  document.addEventListener("astro:page-load", initScrollAnimations);
   initScrollAnimations();
 </script>
