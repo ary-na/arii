@@ -150,6 +150,10 @@ const fullTitle =
           alternateName: SITE_TITLE,
           url: Astro.site,
           jobTitle: "Software Developer",
+          alumniOf: {
+            "@type": "CollegeOrUniversity",
+            name: "Monash University",
+          },
           knowsAbout: ["AI", "Machine Learning", "Software Development"],
           sameAs: SOCIAL_LINKS.filter((l) => l.href.startsWith("http")).map(
             (l) => l.href,
