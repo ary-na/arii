@@ -5,7 +5,7 @@ export const SITE_TITLE = "arii.dev";
 export const SITE_TAGLINE = "Full-stack & ML/AI builder";
 export const SITE_AUTHOR = "Arian Najafi Yamchelo";
 export const SITE_DESCRIPTION =
-  "Arian Najafi Yamchelo — full-stack and ML/AI builder in Melbourne. Master of Computer Science (Artificial Intelligence) at Monash. Open to graduate roles.";
+  "Arian Najafi Yamchelo — full-stack and ML/AI builder in Melbourne. Master’s in AI from Monash. Open to roles in SWE, ML, and full-stack.";
 
 export type NavItem = {
   href: string;
