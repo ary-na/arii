@@ -13,18 +13,15 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/mdx": "^6.0.1",
-    "@astrojs/rss": "^4.0.18",
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/mdx": "^8.0.2",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/typography": "^0.5.19",
-    "astro": "^6.4.2",
+    "astro": "^7.3.4",
     "sharp": "^0.34.3"
   },
-  "overrides": {
-    "vite": "^7"
-  },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
+    "@astrojs/check": "^0.9.10",
     "@tailwindcss/vite": "^4.2.2",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
