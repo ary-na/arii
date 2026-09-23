@@ -10,13 +10,13 @@ const { class: className } = Astro.props;
   type="button"
   data-theme-toggle
   class:list={[
-    "text-text-secondary hover:text-text-primary inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-(--border) bg-(--bg-elevated) transition-colors duration-200 hover:border-(--highlight)/35",
+    "text-text-secondary hover:text-text-primary relative inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-(--border) bg-(--bg-elevated) transition-colors duration-200 hover:border-(--highlight)/35",
     className,
   ]}
   aria-label="Toggle color theme"
 >
   <svg
-    class="theme-icon theme-icon--sun h-4 w-4"
+    class="theme-icon theme-icon--sun absolute inset-0 m-auto h-4 w-4"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -30,7 +30,7 @@ const { class: className } = Astro.props;
     ></path>
   </svg>
   <svg
-    class="theme-icon theme-icon--moon h-4 w-4"
+    class="theme-icon theme-icon--moon absolute inset-0 m-auto h-4 w-4"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -43,18 +43,44 @@ const { class: className } = Astro.props;
 </button>
 
 <style>
+  .theme-icon {
+    transition:
+      opacity 350ms ease,
+      transform 350ms ease;
+  }
+
+  .theme-icon--sun {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+  .theme-icon--moon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+
   html.dark .theme-icon--sun {
-    display: none;
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
   }
-  html:not(.dark) .theme-icon--moon {
-    display: none;
+  html.dark .theme-icon--moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
+
   @media (prefers-color-scheme: dark) {
     html:not(.light):not(.dark) .theme-icon--sun {
-      display: none;
+      opacity: 0;
+      transform: rotate(90deg) scale(0.5);
     }
     html:not(.light):not(.dark) .theme-icon--moon {
-      display: block;
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-icon {
+      transition: none;
     }
   }
 </style>

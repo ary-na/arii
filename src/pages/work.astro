@@ -2,6 +2,16 @@
 import SiteLayout from "@layouts/SiteLayout.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import { SHIPPED, SITE_TITLE } from "@/consts";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
+const pubDateBySlug = new Map(
+  posts.map((post) => [post.id, post.data.pubDate.valueOf()]),
+);
+const shipped = [...SHIPPED].sort(
+  (a, b) =>
+    (pubDateBySlug.get(b.slug) ?? 0) - (pubDateBySlug.get(a.slug) ?? 0),
+);
 ---
 
 <SiteLayout
@@ -13,18 +23,17 @@ import { SHIPPED, SITE_TITLE } from "@/consts";
       <p class="text-highlight text-sm font-medium">Work</p>
       <h1 class="text-section mt-2 font-semibold">Selected projects</h1>
       <p class="text-text-secondary mt-3 max-w-xl">
-        Products and tools I’ve shipped — write-ups, source, and demos when they
-        exist. Older coursework and experiments live in
-        <a
-          href="/blog"
-          class="text-highlight underline-offset-2 hover:underline">writing</a
+        Products and tools I’ve shipped, with write-ups, source, and demos
+        when they exist. Older coursework and experiments live in{" "}
+        <a href="/blog" class="text-highlight underline-offset-2 hover:underline"
+          >writing</a
         >.
       </p>
 
       <div class="mt-10 flex flex-col gap-4">
         {
-          SHIPPED.map((project, i) => (
-            <ProjectCard project={project} index={i} />
+          shipped.map((project, i) => (
+            <ProjectCard project={project} index={i} showImage />
           ))
         }
       </div>

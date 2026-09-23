@@ -42,14 +42,6 @@ export type ShippedProject = {
 /** Homepage + /work project cards. Claims and links come from existing posts. */
 export const SHIPPED: ShippedProject[] = [
   {
-    slug: "hushlink",
-    name: "hushlink",
-    outcome:
-      "Zero-knowledge one-time secret sharing — AES-256-GCM encrypted in the browser, stored in DynamoDB, destroyed on first read.",
-    tech: ["Next.js", "TypeScript", "DynamoDB", "Web Crypto", "Vercel"],
-    github: "https://github.com/ary-na/hushlink",
-  },
-  {
     slug: "husk",
     name: "husk",
     outcome:
@@ -58,22 +50,13 @@ export const SHIPPED: ShippedProject[] = [
     github: "https://github.com/ary-na/husk",
   },
   {
-    slug: "lazy-commit",
-    name: "lazy-commit",
+    slug: "dtm",
+    name: "dtm",
     outcome:
-      "A Node.js CLI that writes conventional commit messages from the staged diff, with dry-run, editing, and confirmation before it commits.",
-    tech: ["TypeScript", "Node.js", "CLI", "OpenAI", "Git"],
-    github: "https://github.com/ary-na/lazy-commit",
-    npm: "https://www.npmjs.com/package/@ariian/lazy-commit",
-  },
-  {
-    slug: "lemme",
-    name: "lemme",
-    outcome:
-      "A natural-language CLI that translates plain English into shell commands via Claude, OpenAI, Groq, or Gemini — and runs them only after you confirm.",
-    tech: ["TypeScript", "Node.js", "CLI", "AI"],
-    github: "https://github.com/ary-na/lemme",
-    npm: "https://www.npmjs.com/package/lemme",
+      "A dotfile time machine CLI that snapshots tracked config files on a schedule and pushes them to a private GitHub repo, with one-command rollback.",
+    tech: ["TypeScript", "Node.js", "CLI", "simple-git", "launchd"],
+    github: "https://github.com/ary-na/dtm",
+    npm: "https://www.npmjs.com/package/@ariian/dtm",
   },
   {
     slug: "tsla-forecast",
@@ -92,7 +75,43 @@ export const SHIPPED: ShippedProject[] = [
     github: "https://github.com/ary-na/hart",
     demo: "https://hart-delta.vercel.app",
   },
+  {
+    slug: "shiny-spoon",
+    name: "shiny spoon",
+    outcome:
+      "A cloud-backed social platform built with Flask and FastAPI — image uploads, OAuth login, DynamoDB storage, S3 media, and a Lambda-powered welcome email flow.",
+    tech: ["Python", "Flask", "FastAPI", "AWS", "DynamoDB", "S3"],
+    github: "https://github.com/ary-na/shiny-spoon",
+  },
+  {
+    slug: "hushlink",
+    name: "hushlink",
+    outcome:
+      "Zero-knowledge one-time secret sharing — AES-256-GCM encrypted in the browser, stored in DynamoDB, destroyed on first read.",
+    tech: ["Next.js", "TypeScript", "DynamoDB", "Web Crypto", "Vercel"],
+    github: "https://github.com/ary-na/hushlink",
+  },
+  {
+    slug: "smart-board",
+    name: "smart board",
+    outcome:
+      "A desktop Kanban task manager with drag-and-drop boards and SQLite persistence, built in JavaFX.",
+    tech: ["Java", "JavaFX", "SQLite", "Desktop"],
+    github: "https://github.com/ary-na/Smart-Board",
+  },
+  {
+    slug: "spacewatch",
+    name: "spacewatch",
+    outcome:
+      "A lightweight macOS menu bar app that shows your current Space, auto-detects Space changes, and lets you rename Spaces with launch-at-login support.",
+    tech: ["Swift", "SwiftUI", "macOS", "Menu Bar"],
+    github: "https://github.com/ary-na/spacewatch",
+  },
 ];
+
+/** How many SHIPPED entries (from the front) surface on the homepage's
+ * "Selected work" preview. The /work page always shows the full list. */
+export const HOMEPAGE_SHIPPED_COUNT = 4;
 
 export const BLOG_PAGE_SIZE = 8;
 

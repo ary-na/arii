@@ -1,38 +1,38 @@
 ---
-import { PRIMARY_NAV, isNavActive } from "@/consts";
-import Wordmark from "./Wordmark.astro";
-import ThemeToggle from "./ThemeToggle.astro";
+import { PRIMARY_NAV, isNavActive } from '@/consts'
+import Wordmark from './Wordmark.astro'
+import ThemeToggle from './ThemeToggle.astro'
 
-const pathname = Astro.url.pathname;
+const pathname = Astro.url.pathname
 ---
 
 <header class="fixed top-0 right-0 left-0 z-50">
   <div
-    class="border-b border-(--border) bg-(--bg-primary)/85 shadow-(--box-shadow) backdrop-blur-md"
+    class="border-b border-(--border) bg-(--bg-primary)/75 shadow-(--box-shadow) backdrop-blur-xl"
   >
     <div
-      class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 md:px-10 lg:px-16"
+      class="flex h-16 w-full items-center justify-between px-6 md:px-10 lg:px-16"
     >
       <Wordmark />
 
       <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
         {
           PRIMARY_NAV.map((item) => {
-            const active = isNavActive(pathname, item.href);
+            const active = isNavActive(pathname, item.href)
             return (
               <a
                 href={item.href}
-                aria-current={active ? "page" : undefined}
+                aria-current={active ? 'page' : undefined}
                 class:list={[
-                  "rounded-md px-3 py-1.5 text-sm font-medium no-underline transition-colors duration-200",
+                  'nav-link rounded-md px-3 py-1.5 text-sm font-medium no-underline',
                   active
-                    ? "text-highlight"
-                    : "text-text-secondary hover:text-text-primary",
+                    ? 'text-highlight'
+                    : 'text-text-secondary hover:text-text-primary',
                 ]}
               >
                 {item.label}
               </a>
-            );
+            )
           })
         }
         <ThemeToggle class="ml-2" />
@@ -67,21 +67,21 @@ const pathname = Astro.url.pathname;
     <div class="flex flex-col gap-1 px-6 py-3">
       {
         PRIMARY_NAV.map((item) => {
-          const active = isNavActive(pathname, item.href);
+          const active = isNavActive(pathname, item.href)
           return (
             <a
               href={item.href}
-              aria-current={active ? "page" : undefined}
+              aria-current={active ? 'page' : undefined}
               class:list={[
-                "rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-all duration-200",
+                'rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-all duration-200',
                 active
-                  ? "text-highlight bg-(--highlight)/10"
-                  : "text-text-secondary hover:text-text-primary hover:bg-(--bg-secondary)",
+                  ? 'text-highlight bg-(--highlight)/10'
+                  : 'text-text-secondary hover:text-text-primary hover:bg-(--bg-secondary)',
               ]}
             >
               {item.label}
             </a>
-          );
+          )
         })
       }
     </div>
@@ -127,10 +127,29 @@ const pathname = Astro.url.pathname;
     transform: rotate(-45deg);
   }
 
+  .nav-link {
+    transition:
+      color 200ms ease,
+      background-color 180ms ease,
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .nav-link:hover {
+    transform: translateY(-2px) scale(1.05);
+    background-color: var(--bg-elevated);
+    box-shadow: var(--box-shadow);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     #mobile-menu,
-    .mobile-line {
+    .mobile-line,
+    .nav-link {
       transition: none;
+    }
+
+    .nav-link:hover {
+      transform: none;
     }
   }
 </style>
@@ -138,21 +157,21 @@ const pathname = Astro.url.pathname;
 <script>
   const initHeader = () => {
     const toggle = document.getElementById(
-      "mobile-toggle",
-    ) as HTMLButtonElement | null;
-    const menu = document.getElementById("mobile-menu") as HTMLElement | null;
+      'mobile-toggle',
+    ) as HTMLButtonElement | null
+    const menu = document.getElementById('mobile-menu') as HTMLElement | null
 
-    if (!toggle || !menu || toggle.dataset.bound === "true") return;
-    toggle.dataset.bound = "true";
+    if (!toggle || !menu || toggle.dataset.bound === 'true') return
+    toggle.dataset.bound = 'true'
 
-    toggle.addEventListener("click", () => {
-      const open = menu.classList.toggle("is-open");
-      toggle.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", String(open));
-      menu.style.setProperty("--menu-height", menu.scrollHeight + "px");
-    });
-  };
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('is-open')
+      toggle.classList.toggle('is-open', open)
+      toggle.setAttribute('aria-expanded', String(open))
+      menu.style.setProperty('--menu-height', menu.scrollHeight + 'px')
+    })
+  }
 
-  document.addEventListener("astro:page-load", initHeader);
-  initHeader();
+  document.addEventListener('astro:page-load', initHeader)
+  initHeader()
 </script>

@@ -20,7 +20,7 @@ There is no ESLint config and no test suite. `astro check` + `prettier` are the 
 
 **Manual post registries in `src/consts.ts`.** `SHIPPED` (project cards on the homepage and `/work`) and `FEATURED_POSTS` (legacy editorial slugs) are hardcoded — adding a new blog post file does **not** automatically surface it on the homepage. Update `SHIPPED` by hand when a project should appear. `/featured` 301s to `/work`.
 
-**Path aliases** (`tsconfig.json` + `astro.config.mjs`, keep both in sync): `@components/*`, `@layouts/*`, `@assets/*`, `@styles/*`, `@scripts/*`, `@/*` → `src/*`.
+**Path aliases** (`tsconfig.json` + `astro.config.ts`, keep both in sync): `@components/*`, `@layouts/*`, `@assets/*`, `@styles/*`, `@scripts/*`, `@/*` → `src/*`.
 
 **Style cascade.** Everything funnels through `src/styles/__root.css`, imported once from `BaseHead.astro`, in this order: `tailwindcss` → `@tailwindcss/typography` plugin → `@custom-variant dark` (class-based `.dark`) → `fonts.css` → `variables.css` (light tokens on `:root`) → `variables-dark.css` (`html.dark` plus a `prefers-color-scheme` fallback for no-JS) → `theme.css` (maps the raw `--bg-primary`/`--text-*`/etc. vars into Tailwind `@theme` tokens like `--color-surface-primary`) → `global.css`. Order matters: dark tokens must load after the light `:root` block to win the cascade.
 

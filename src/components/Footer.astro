@@ -54,17 +54,13 @@ const today = new Date();
                 >Connect</span
               >
               {
-                SOCIAL_LINKS.map((link) => (
+                SOCIAL_LINKS.filter(
+                  (link) => !link.href.startsWith("mailto:"),
+                ).map((link) => (
                   <a
                     href={link.href}
-                    target={
-                      link.href.startsWith("mailto:") ? undefined : "_blank"
-                    }
-                    rel={
-                      link.href.startsWith("mailto:")
-                        ? undefined
-                        : "noopener noreferrer"
-                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="text-text-secondary hover:text-highlight text-sm no-underline transition-colors duration-200"
                   >
                     {link.label}
@@ -79,7 +75,7 @@ const today = new Date();
           class="mt-10 flex flex-col gap-1 border-t border-(--border) pt-6 sm:flex-row sm:items-center sm:justify-between"
         >
           <p class="text-text-tertiary text-xs">
-            &copy; {today.getFullYear()}
+            &copy; {today.getFullYear() + " "}
             {SITE_AUTHOR}. All rights reserved.
           </p>
           <p class="text-text-tertiary text-xs">Built with Astro</p>
