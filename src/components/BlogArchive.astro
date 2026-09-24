@@ -1,29 +1,31 @@
 ---
-import SiteLayout from "@layouts/SiteLayout.astro";
-import type { CollectionEntry } from "astro:content";
-import FormattedDate from "./FormattedDate.astro";
-import PaginationNav from "./PaginationNav.astro";
+import SiteLayout from '@layouts/SiteLayout.astro'
+import type { CollectionEntry } from 'astro:content'
+import FormattedDate from './FormattedDate.astro'
+import PaginationNav from './PaginationNav.astro'
 
-type Post = CollectionEntry<"blog">;
+type Post = CollectionEntry<'blog'>
 
 interface Props {
-  archiveLabel: string;
-  archiveTitle: string;
-  countLabel: string;
-  countNumber?: number;
-  description: string;
-  canonicalPath?: string;
-  currentPage?: number;
-  hrefForPage?: (page: number) => string;
-  title: string;
-  totalPages?: number;
-  posts: Post[];
+  archiveLabel: string
+  archiveTitle: string
+  countLabel: string
+  countNumber?: number
+  description: string
+  canonicalPath?: string
+  noindex?: boolean
+  currentPage?: number
+  hrefForPage?: (page: number) => string
+  title: string
+  totalPages?: number
+  posts: Post[]
 }
 
 const {
   archiveLabel,
   archiveTitle,
   canonicalPath,
+  noindex,
   countLabel,
   countNumber,
   currentPage = 1,
@@ -32,19 +34,24 @@ const {
   title,
   totalPages = 1,
   posts,
-} = Astro.props;
+} = Astro.props
 
-const isFiltered = !!archiveTitle;
-const gridPosts = posts;
+const isFiltered = !!archiveTitle
+const gridPosts = posts
 ---
 
-<SiteLayout {title} {description} {canonicalPath}>
+<SiteLayout
+  {title}
+  {description}
+  {canonicalPath}
+  noindex={noindex || currentPage > 1}
+>
   <section class="page-container flex flex-col gap-8 py-16">
     <div class="flex flex-col gap-3">
       {
         isFiltered && (
           <a
-            href="/blog"
+            href="/blog/"
             class="text-text-secondary hover:text-highlight inline-flex w-fit items-center gap-1.5 text-sm no-underline transition-colors duration-200"
           >
             ← All writing
