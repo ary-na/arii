@@ -1,5 +1,5 @@
 ---
-title: 'syncback: git branch merge and sync cli tool'
+title: 'syncback: Git branch merge and sync CLI tool'
 description: 'A lightweight Node.js CLI for merging branches, pushing changes, handling stashes, and preventing merge conflicts'
 pubDate: 'May 18 2026'
 heroImage: '@assets/blog/syncback.webp'
@@ -25,7 +25,7 @@ I built syncback because the round trip of merging into main or release is somet
   npmLabel="npm"
 />
 
-## key features
+## Key features
 
 - Detects your current branch automatically as the merge source
 - Checks out the target, pulls latest, merges, pushes, and switches back
@@ -37,7 +37,7 @@ I built syncback because the round trip of merging into main or release is somet
 - `--no-push` flag to merge locally without pushing
 - `--from` flag to specify a source branch other than the current one
 
-## tech stack
+## Tech stack
 
 ```bash
 # core
@@ -49,13 +49,13 @@ typescript | node.js | chalk | commander
 simple-git
 ```
 
-## how it works
+## How it works
 
 The flow is split into small files that each do one job. `git.ts` wraps every git operation (checkout, pull, merge, push, stash) as individual async functions so each one can fail independently. `config.ts` takes the raw CLI flags from commander and validates them, throwing early if no target branch was provided. `index.ts` orchestrates the full round trip: detect source branch, stash if dirty, loop through each target, merge, push, return home, restore stash, print summary.
 
 The `finally` block inside the target loop is what makes the tool safe. Whether the merge succeeds or throws, that block always checks out the original branch before moving on. You cannot get stranded on the wrong branch no matter what goes wrong.
 
-## usage
+## Usage
 
 ```bash
 # install globally
@@ -77,7 +77,7 @@ syncback --into main --dry-run
 syncback --into main --no-push
 ```
 
-## highlights
+## Highlights
 
 The thing that makes this feel safe to use is the conflict handling. Most manual mistakes happen when a merge fails midway and you are left on the wrong branch with a dirty state trying to figure out what happened. syncback aborts the merge, checks you back out to where you started, and tells you exactly which target failed. The working tree stays clean and you are never left guessing.
 

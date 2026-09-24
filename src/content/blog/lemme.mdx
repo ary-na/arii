@@ -1,5 +1,5 @@
 ---
-title: 'lemme: natural language to shell commands cli'
+title: 'lemme: natural language to shell commands CLI'
 description: 'A natural language CLI that translates plain English into shell commands, powered by Claude, OpenAI, Groq, or Gemini'
 pubDate: 'May 20 2026'
 heroImage: '@assets/blog/lemme.webp'
@@ -27,7 +27,7 @@ I built lemme because I kept context switching out of the terminal to look up co
   npmLabel="npm"
 />
 
-## key features
+## Key features
 
 - Translates any natural language query into a shell command
 - Supports Claude (Anthropic), OpenAI, Groq, and Gemini (Google) as providers
@@ -40,7 +40,7 @@ I built lemme because I kept context switching out of the terminal to look up co
 - `lemme --version` or `lemme -v` to print the installed version
 - Auto-run mode for power users who want to skip the confirmation step
 
-## tech stack
+## Tech stack
 
 ```bash
 # core
@@ -52,13 +52,13 @@ typescript | node.js | chalk | ora
 @anthropic-ai/sdk | openai | groq-sdk | @google/genai
 ```
 
-## how it works
+## How it works
 
 The flow is split into small files that each do one job. `config.ts` handles reading and writing `~/.config/lemme/config.json` and auto-detects your shell and OS at setup time. `ai.ts` takes your query and config, picks the right SDK based on your provider, and sends it to the model with a strict system prompt that instructs it to return only the raw shell command with no explanation or markdown. `runner.ts` shows the command, waits for confirmation, then hands it to `child_process.exec`. `history.ts` appends an entry to the history file after every confirmed run if history is enabled.
 
 The system prompt is what keeps the output clean. It tells the model to return nothing but the exact command, and if the request cannot be expressed as a shell command, to return `ERROR:` followed by a reason. That error prefix is what lets the CLI detect a bad response and bail before showing anything to the user.
 
-## usage
+## Usage
 
 ```bash
 # install globally
@@ -86,7 +86,7 @@ lemme --version
 lemme -v
 ```
 
-## highlights
+## Highlights
 
 The confirm before run step was a deliberate decision. LLM output is non-deterministic and the same query can produce slightly different commands across runs. Treating generated shell commands as trusted and running them immediately is how things go wrong, especially for anything destructive. Showing the command first and waiting for a keypress adds almost no friction but means you always know what is about to run.
 

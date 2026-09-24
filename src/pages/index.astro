@@ -19,7 +19,7 @@ const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 )
 
-const latest = posts.slice(0, 4)
+const latest = posts.slice(0, 3)
 
 const pubDateBySlug = new Map(
   posts.map((post) => [post.id, post.data.pubDate.valueOf()]),
@@ -30,6 +30,7 @@ const shipped = [...SHIPPED]
       (pubDateBySlug.get(b.slug) ?? 0) - (pubDateBySlug.get(a.slug) ?? 0),
   )
   .slice(0, HOMEPAGE_SHIPPED_COUNT)
+const recent = shipped.slice(0, 2)
 ---
 
 <SiteLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -42,9 +43,21 @@ const shipped = [...SHIPPED]
         class="section-anchor flex flex-col pt-16 pb-12 lg:sticky lg:top-16 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto lg:py-20"
         aria-labelledby="hero-name"
       >
+        <div
+          class="mb-6 size-20 shrink-0 overflow-hidden rounded-full border border-(--border) shadow-(--box-shadow) lg:mb-8"
+        >
+          <img
+            src="/blog/about/arian.webp"
+            alt="Arian Najafi Yamchelo"
+            width="80"
+            height="80"
+            fetchpriority="high"
+            class="size-full origin-[28%_18%] scale-[1.85] object-cover object-[28%_18%]"
+          />
+        </div>
         <h1
           id="hero-name"
-          class="text-hero-name text-text-primary lg:mt-[calc((var(--text-section)-var(--text-hero-name))*0.466)] font-semibold tracking-[-0.045em]"
+          class="text-hero-name text-text-primary leading-[1.02] font-semibold tracking-[-0.045em]"
         >
           {SITE_AUTHOR}
         </h1>
@@ -57,6 +70,26 @@ const shipped = [...SHIPPED]
           Master’s in AI from Monash. Based in Melbourne. I ship full-stack
           products, CLIs, and machine learning systems, then write about the
           process.
+        </p>
+        <p class="text-text-secondary mt-3 max-w-md text-base leading-relaxed">
+          Recently shipped{' '}
+          {
+            recent.map((project, i) => (
+              <>
+                <a
+                  href={`/blog/${project.slug}/`}
+                  class="text-text-primary hover:text-highlight font-medium underline decoration-(--border) underline-offset-4"
+                >
+                  {project.name}
+                </a>
+                {i < recent.length - 2
+                  ? ', '
+                  : i === recent.length - 2
+                    ? ' and '
+                    : '.'}
+              </>
+            ))
+          }
         </p>
         <p class="status-chip mt-6 w-fit">
           <span
@@ -91,7 +124,7 @@ const shipped = [...SHIPPED]
           <div class="flex flex-col gap-4">
             {
               shipped.map((project, i) => (
-                <ProjectCard project={project} index={i} />
+                <ProjectCard project={project} index={i} showImage />
               ))
             }
           </div>
@@ -120,13 +153,18 @@ const shipped = [...SHIPPED]
                 <li data-animate style={`--animate-delay: ${i * 50}ms`}>
                   <a
                     href={`/blog/${post.id}/`}
-                    class="project-card group flex flex-col gap-1 rounded-xl border border-(--border) bg-(--bg-elevated) px-5 py-4 no-underline sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                    class="project-card group flex flex-col gap-1.5 rounded-xl border border-(--border) bg-(--bg-elevated) px-5 py-4 no-underline"
                   >
-                    <span class="text-text-primary group-hover:text-highlight text-[0.95rem] font-medium transition-colors">
-                      {post.data.title}
+                    <span class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                      <span class="text-text-primary group-hover:text-highlight text-[0.95rem] font-medium transition-colors">
+                        {post.data.title}
+                      </span>
+                      <span class="text-text-tertiary shrink-0 text-sm">
+                        <FormattedDate date={post.data.pubDate} />
+                      </span>
                     </span>
-                    <span class="text-text-tertiary shrink-0 text-sm">
-                      <FormattedDate date={post.data.pubDate} />
+                    <span class="text-text-secondary line-clamp-2 text-sm leading-relaxed first-letter:uppercase">
+                      {post.data.description}
                     </span>
                   </a>
                 </li>

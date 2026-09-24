@@ -53,6 +53,15 @@ const fullTitle =
       document.documentElement.classList.toggle('light', theme === 'light')
       document.documentElement.style.colorScheme = theme
     } catch (e) {}
+    // Scroll-in animations hide [data-animate] only under html.js-anim. If the
+    // observer script hasn't started within 2.5s, drop the class so content
+    // shows anyway.
+    document.documentElement.classList.add('js-anim')
+    setTimeout(function () {
+      if (!window.__ariiAnimReady) {
+        document.documentElement.classList.remove('js-anim')
+      }
+    }, 2500)
   })()
 </script>
 

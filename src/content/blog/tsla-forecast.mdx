@@ -1,6 +1,6 @@
 ---
-title: 'tsla forecast: lstm stock forecasting bot'
-description: 'a live Telegram bot for forecasting TSLA stock using a Bidirectional LSTM, sentiment analysis, and 17 engineered features, deployed on AWS EC2'
+title: 'TSLA Forecast: LSTM stock forecasting bot'
+description: 'A live Telegram bot for forecasting TSLA stock using a bidirectional LSTM, sentiment analysis, and 17 engineered features, deployed on AWS EC2'
 pubDate: 'Apr 12 2026'
 heroImage: '@assets/blog/tsla-forecast.webp'
 heroImageAlt: 'TSLA stock forecast predictions for the next seven days displayed in the Telegram bot interface'
@@ -30,7 +30,7 @@ A real-time TSLA stock forecasting system built on a Bidirectional LSTM. The mod
   githubLabel='github'
 />
 
-## Key Features
+## Key features
 
 - Bidirectional LSTM model trained on 15 years of TSLA historical data
 - 17 engineered features (OHLCV, technical indicators, macro data, sentiment, earnings calendar)
@@ -41,7 +41,7 @@ A real-time TSLA stock forecasting system built on a Bidirectional LSTM. The mod
 - Rate-limited Telegram bot (1 request per 10 minutes per user)
 - AWS EC2 deployment with persistent runtime
 
-## tech stack
+## Tech stack
 
 ```bash
 # model
@@ -58,7 +58,7 @@ vadersentiment | newsapi
 aws ec2 | telegram bot api | yfinance
 ```
 
-## feature engineering
+## Feature engineering
 
 the model is trained on 17 features across four groups.
 
@@ -79,7 +79,7 @@ vader compound score (daily news headlines)
 days until next TSLA earnings
 ```
 
-## highlights
+## Highlights
 
 a few screenshots from the bot, showcasing the forecast output and interface.
 

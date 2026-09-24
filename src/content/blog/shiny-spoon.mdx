@@ -1,6 +1,6 @@
 ---
-title: 'shiny spoon: flask fastapi social platform on aws'
-description: 'a cloud-backed social platform built with flask and fastapi, featuring posts with image uploads, oauth login, dynamodb storage, s3 media, and a lambda-powered welcome email system'
+title: 'Shiny Spoon: Flask and FastAPI social platform on AWS'
+description: 'A cloud-backed social platform built with Flask and FastAPI, featuring posts with image uploads, OAuth login, DynamoDB storage, S3 media, and a Lambda-powered welcome email system'
 pubDate: 'Oct 22 2022'
 updatedDate: 'Nov 21 2022'
 heroImage: '@assets/blog/shiny-spoon.webp'
@@ -36,7 +36,7 @@ A full-stack social platform split across three repositories: a Flask frontend, 
   githubLabel="github (lambda email function)"
 />
 
-## key features
+## Key features
 
 - Social feed with latest posts and weather widget
 - User authentication with session-based login
@@ -48,7 +48,7 @@ A full-stack social platform split across three repositories: a Flask frontend, 
 - DynamoDB storage with composite keys and GSI for active post queries
 - Lambda-triggered welcome email via Gmail API on signup
 
-## tech stack
+## Tech stack
 
 ```bash
 # frontend
@@ -70,7 +70,7 @@ aws dynamodb | aws s3 | aws lambda
 google oauth | facebook oauth | visual crossing weather api | gmail api
 ```
 
-## system architecture
+## System architecture
 
 The app runs across a full AWS stack with three main compute layers communicating over HTTP.
 
@@ -87,7 +87,7 @@ Requests from the internet hit Route 53 for DNS routing, then flow to Elastic Be
   </figcaption>
 </figure>
 
-## api architecture
+## API architecture
 
 the FastAPI backend exposes endpoints across three groups.
 
@@ -97,7 +97,7 @@ the FastAPI backend exposes endpoints across three groups.
 /utilities   # s3 uploads and pre-signed url generation
 ```
 
-## highlights
+## Highlights
 
 login, signup, home feed, and profile screens from the Flask app.
 

@@ -1,6 +1,6 @@
 ---
-title: 'spacewatch: macos menu bar spaces manager'
-description: 'a lightweight swiftui menu bar app that shows your current space name, auto-detects space changes, and lets you rename spaces with launch-at-login support'
+title: 'spacewatch: macOS menu bar Spaces manager'
+description: 'A lightweight SwiftUI menu bar app that shows your current Space name, auto-detects Space changes, and lets you rename Spaces with launch-at-login support'
 pubDate: 'Mar 25 2026'
 updatedDate: 'Apr 23 2026'
 heroImage: '@assets/blog/spacewatch.webp'
@@ -24,7 +24,7 @@ I use macOS Spaces heavily. Each desktop has a purpose: one for browsing, one fo
   githubLabel="github"
 />
 
-## key features
+## Key features
 
 - Shows current Space name in the menu bar
 - Auto-detects Space changes
@@ -33,7 +33,7 @@ I use macOS Spaces heavily. Each desktop has a purpose: one for browsing, one fo
 - Launch at login toggle
 - Persists labels locally with no external dependencies
 
-## tech stack
+## Tech stack
 
 ```bash
 # core
@@ -45,7 +45,7 @@ swift | swiftui | macos
 cgs private apis | nsworkspace | servicemanagement | userdefaults
 ```
 
-## how it works
+## How it works
 
 SpaceWatch listens for Space switches using `NSWorkspace.activeSpaceDidChangeNotification`. When a change fires, it identifies the active Space using private CGS APIs (`CGSMainConnectionID` and `CGSGetActiveSpace`), maps the Space ID to a saved label, and updates the menu bar title. If a Space has no label yet it gets assigned a default like `Space 1` and saved for next time.
 
@@ -53,11 +53,11 @@ Labels are stored as a simple array of dictionaries (`spaceID` and `name`) in `U
 
 Launch at login is handled through `SMAppService` — `register()` to enable, `unregister()` to disable, with the toggle state read from `SMAppService.mainApp.status` on launch.
 
-## architecture
+## Architecture
 
 The app is split into three clean parts. `SpaceManager` is the brain, an `ObservableObject` that handles detection, persistence, and label management, with state exposed via `@Published` so the UI stays reactive and dumb. `MenuView` renders the Space list, highlights the active one, and opens settings. `SettingsView` handles renaming, deletion, and the launch-at-login toggle.
 
-## highlights
+## Highlights
 
 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
   <figure>

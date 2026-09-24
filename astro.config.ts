@@ -33,6 +33,13 @@ const blogLastmods = readBlogLastmods()
 
 export default defineConfig({
   site: 'https://arii.dev',
+  markdown: {
+    shikiConfig: {
+      // Colors are applied per theme in global.css (html.dark switches).
+      themes: { light: 'github-light-default', dark: 'github-dark-default' },
+      defaultColor: false,
+    },
+  },
   redirects: {
     '/featured': '/work/',
   },

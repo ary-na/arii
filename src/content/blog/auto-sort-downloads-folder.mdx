@@ -1,6 +1,6 @@
 ---
-title: 'auto sort downloads folder: macos shortcut'
-description: 'a macos shortcut that automatically organises downloads into categorised subfolders by file type and content using ChatGPT'
+title: 'Auto Sort Downloads Folder: macOS Shortcut'
+description: 'A macOS Shortcut that automatically organises downloads into categorised subfolders by file type and content using ChatGPT'
 pubDate: 'May 12 2026'
 heroImage: '@assets/blog/auto-sort-downloads-folder.webp'
 heroImageAlt: 'macOS Shortcuts editor showing the downloads sorting automation'
@@ -21,7 +21,7 @@ A macOS Shortcut that keeps the Downloads folder organised by automatically sort
   demoLabel="download shortcut"
 />
 
-## categories
+## Categories
 
 I use six main categories to keep things simple and intuitive, but you can easily modify the shortcut to add more or change them as you like:
 
@@ -35,7 +35,7 @@ I use six main categories to keep things simple and intuitive, but you can easil
 └── Videos/
 ```
 
-## how it works
+## How it works
 
 The shortcut takes the contents of `~/Downloads` as input, filters out the destination folders and any `.download` files still in progress, then passes each remaining file to a ChatGPT model for classification.
 
@@ -107,7 +107,7 @@ Once ChatGPT returns the category, a simple if statement moves the file into the
   </figcaption>
 </figure>
 
-## automation setup
+## Automation setup
 
 <figure>
   <img
