@@ -1,5 +1,5 @@
 ---
-title: 'lazy-commit: ai-powered git commit message cli'
+title: 'lazy-commit: AI-powered Git commit message CLI'
 description: 'A tiny Node.js CLI for generating AI-powered conventional commit messages with dry-run mode, editing, and confirmation prompts'
 pubDate: 'May 14 2026'
 updatedDate: 'May 16 2026'
@@ -30,7 +30,7 @@ I built lazy-commit because writing commit messages is one of those small tasks 
 
 
 
-## key features
+## Key features
 
 - Reads staged diff via `git diff --staged`
 - Sends diff to an LLM with a strict conventional commits prompt
@@ -43,7 +43,7 @@ I built lazy-commit because writing commit messages is one of those small tasks 
 - Multi-provider support: OpenAI, Anthropic, Groq, Gemini
 - Exits early with a clear message if there are no staged changes
 
-## tech stack
+## Tech stack
 
 ```bash
 # core
@@ -55,13 +55,13 @@ typescript | node.js | readline | chalk
 openai (gpt-4o-mini) | anthropic (claude-haiku) | groq (llama3-8b) | gemini (gemini-1.5-flash)
 ```
 
-## how it works
+## How it works
 
 The flow is split into small files that each do one job. `git.ts` retrieves the staged diff and exits cleanly if the command fails. `prompt.ts` prints the suggested message and waits for input — `y` to commit, `n` to cancel, `r` to regenerate, or `e` to edit inline with the current message pre-filled. `config.ts` stores settings at `~/.config/lazy-commit/config.json` and runs a readline wizard when you call `lazy-commit config`. `providers/index.ts` builds the system prompt including any custom instructions or prefix rules, then routes to the chosen provider adapter.
 
 The CLI entry point in `index.ts` wires it all together: fetch diff, load config, generate message, confirm, commit. The confirmation loop runs until you either commit or cancel, so you can regenerate or edit as many times as you need without rerunning the command.
 
-## usage
+## Usage
 
 ```bash
 # install globally
@@ -81,7 +81,7 @@ lazy-commit --dry-run
 lazy-commit --version
 ```
 
-## highlights
+## Highlights
 
 The confirmation step is what makes this usable without anxiety. Automating a `git commit` sounds dangerous until there is always a prompt between the suggestion and the actual commit. That one step is the difference between a tool you trust and one you avoid.
 

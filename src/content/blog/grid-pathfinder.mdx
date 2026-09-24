@@ -1,6 +1,6 @@
 ---
-title: 'grid pathfinder: c++ grid path planning solver'
-description: 'a c++ grid-based path planning solver using forward search, manhattan-distance heuristics, and path backtracking'
+title: 'Grid Pathfinder: C++ grid path planning solver'
+description: 'A C++ grid-based path planning solver using forward search, Manhattan-distance heuristics, and path backtracking'
 pubDate: 'Dec 04 2022'
 updatedDate: 'Dec 02 2023'
 heroImage: '@assets/blog/grid-pathfinder.webp'
@@ -21,7 +21,7 @@ A C++ grid-based path planning solver built as a university assignment. It reads
 
 <ProjectLinks github="https://github.com/ary-na/apt-a1" githubLabel="github" />
 
-## key features
+## Key features
 
 - Reads a grid environment from standard input (`ROWS x COLS`)
 - Represents positions as `Node` objects with row, col, and distance traveled
@@ -31,13 +31,13 @@ A C++ grid-based path planning solver built as a university assignment. It reads
 - Outputs the final grid with movement symbols (`^`, `v`, `<`, `>`)
 - Includes `.env` and `.out` fixture files for verification
 
-## tech stack
+## Tech stack
 
 ```bash
 c++ | manual memory management | custom data structures
 ```
 
-## how it works
+## How it works
 
 The solver is built around four core pieces. The environment is a dynamically allocated `char**` grid with walls (`=`), empty cells (`.`), a start (`S`), and a goal (`G`). Each search node stores its position and how far it has traveled from the start. A `NodeList` container manages the frontier and explored sets. The `PathSolver` class runs the search and reconstructs the final path.
 

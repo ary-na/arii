@@ -20,7 +20,7 @@ I built dtm because I kept tweaking my `.zshrc`, breaking something weeks later,
 
 <ProjectLinks github="https://github.com/ary-na/dtm" npm="https://www.npmjs.com/package/@ariian/dtm" githubLabel="github" npmLabel="npm" />
 
-## key features
+## Key features
 
 - Automatically snapshots tracked dotfiles on a configurable schedule
 - Pushes every snapshot to a private GitHub repo via SSH or HTTPS
@@ -29,14 +29,14 @@ I built dtm because I kept tweaking my `.zshrc`, breaking something weeks later,
 - Scheduling handled by macOS launchd, no persistent background process
 - Stores config in `~/.config/dtm/` and snapshots in `~/.dtm/`
 
-## tech stack
+## Tech stack
 
 ```bash
 # core
 typescript | node.js | simple-git | execa | @inquirer/prompts | chalk | ora | commander
 ```
 
-## how it works
+## How it works
 
 The tool is built around a single core idea: `~/.dtm/` is just a git repository. Every snapshot is a commit, which means diffing, logging, and restoring are all just git operations under the hood.
 
@@ -50,7 +50,7 @@ The tool is built around a single core idea: `~/.dtm/` is just a git repository.
 
 `restore.ts` uses `git show HEAD~N:filename` to retrieve the file contents at a given snapshot, previews it in the terminal, asks for confirmation, then writes it back to the original path.
 
-## usage
+## Usage
 
 ```bash
 # install globally
@@ -103,7 +103,7 @@ dtm restore .zshrc -n 3
 # ✔ .zshrc restored successfully.
 ```
 
-## highlights
+## Highlights
 
 <Gallery>
   <figure>

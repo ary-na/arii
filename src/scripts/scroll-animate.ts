@@ -1,18 +1,25 @@
+declare global {
+  interface Window {
+    __ariiAnimReady?: boolean
+  }
+}
+
 export const initScrollAnimations = (): void => {
-  const elements = document.querySelectorAll<HTMLElement>('[data-animate]');
-  if (!elements.length) return;
+  window.__ariiAnimReady = true
+  const elements = document.querySelectorAll<HTMLElement>('[data-animate]')
+  if (!elements.length) return
 
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
         }
-      });
+      })
     },
     { threshold: 0.08, rootMargin: '0px 0px -30px 0px' },
-  );
+  )
 
-  elements.forEach((el) => observer.observe(el));
-};
+  elements.forEach((el) => observer.observe(el))
+}

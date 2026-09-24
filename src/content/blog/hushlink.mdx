@@ -1,6 +1,6 @@
 ---
 title: 'hushlink: zero-knowledge one-time secret sharing'
-description: 'a zero-knowledge secret sharing web app — AES-256-GCM encrypted in the browser, stored in DynamoDB, destroyed on first read'
+description: 'A zero-knowledge secret sharing web app — AES-256-GCM encrypted in the browser, stored in DynamoDB, destroyed on first read'
 pubDate: 'Jun 1 2026'
 heroImage: '@assets/blog/hushlink.webp'
 heroImageAlt: 'HushLink secret creation and reveal screens'
@@ -27,7 +27,7 @@ A personal project for sharing secrets safely — passwords, API keys, `.env` fi
   githubLabel="github"
 />
 
-## key features
+## Key features
 
 - AES-256-GCM encryption entirely in the browser before anything hits the server
 - One-time retrieval — DynamoDB `DeleteCommand` with `ReturnValues: ALL_OLD` is the fetch
@@ -37,7 +37,7 @@ A personal project for sharing secrets safely — passwords, API keys, `.env` fi
 - API key support with elevated rate limits for programmatic use
 - DynamoDB atomic counters for per-IP and per-key rate limiting that survive cold starts
 
-## tech stack
+## Tech stack
 
 ```bash
 # core
@@ -54,7 +54,7 @@ aws dynamodb | iam role auth | api key management
 web crypto api | pbkdf2 | aes-256-gcm | crockford base32
 ```
 
-## how it works
+## How it works
 
 **Encryption** (`lib/crypto.ts`): The browser generates a random 32-byte salt and 12-byte IV, derives an AES-256-GCM key from a Crockford base32 code using PBKDF2 at 310,000 iterations, and encrypts the plaintext. If a password is set, the content key is exported, encrypted with a second password-derived key, and the wrapped key travels alongside the ciphertext. The server receives only base64-encoded ciphertext — never the code, never the password, never the plaintext.
 
@@ -70,7 +70,7 @@ web crypto api | pbkdf2 | aes-256-gcm | crockford base32
 
 **API keys** (`lib/apikeys.ts`): Keys are 160-bit hex values prefixed `hl_`, stored as SHA-256 hashes in DynamoDB. Validation is a hash lookup — the raw key never persists anywhere.
 
-## highlights
+## Highlights
 
 <Gallery>
   <figure>

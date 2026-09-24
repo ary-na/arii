@@ -31,29 +31,29 @@ body {
 }
 
 @property --g1-x {
-  syntax: "<percentage>";
+  syntax: '<percentage>';
   inherits: false;
   initial-value: 12%;
 }
 @property --g1-y {
-  syntax: "<percentage>";
+  syntax: '<percentage>';
   inherits: false;
   initial-value: 20%;
 }
 @property --g2-x {
-  syntax: "<percentage>";
+  syntax: '<percentage>';
   inherits: false;
   initial-value: 88%;
 }
 @property --g2-y {
-  syntax: "<percentage>";
+  syntax: '<percentage>';
   inherits: false;
   initial-value: 70%;
 }
 
 /* Ambient background — single accent hue, two soft blobs, drifts on scroll */
 body::before {
-  content: "";
+  content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -133,6 +133,73 @@ h6 {
   }
 }
 
+/* Prose code — inline chips and framed blocks */
+.prose :where(code):not(:where(pre *))::before,
+.prose :where(code):not(:where(pre *))::after {
+  content: none;
+}
+
+.prose :where(code):not(:where(pre *)) {
+  padding: 0.125rem 0.375rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--bg-elevated);
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.code-block {
+  position: relative;
+}
+
+.prose pre.astro-code {
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+/* Shiki dual themes: light by default, dark under html.dark */
+.astro-code,
+.astro-code span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+html.dark .astro-code,
+html.dark .astro-code span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}
+
+.code-copy {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  padding: 0.125rem 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 150ms ease;
+  cursor: pointer;
+}
+
+.code-block:hover .code-copy,
+.code-copy:focus-visible {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .code-copy {
+    opacity: 1;
+  }
+}
+
 /* Image gallery — masonry columns */
 .gallery-grid {
   columns: 1;
@@ -178,7 +245,7 @@ h6 {
   opacity: 1;
   color: var(--highlight);
 }
-.toc-link[data-active="true"] {
+.toc-link[data-active='true'] {
   opacity: 1;
   color: var(--highlight);
   font-weight: 500;
@@ -224,11 +291,13 @@ h6 {
 
 /* Scroll-in animations */
 @media (prefers-reduced-motion: no-preference) {
-  [data-animate] {
+  /* Only hide once the boot script has confirmed JS is running (html.js-anim),
+     so content is never stuck invisible if the observer script fails. */
+  html.js-anim [data-animate]:not(.is-visible) {
     opacity: 0;
   }
 
-  [data-animate].is-visible {
+  html.js-anim [data-animate].is-visible {
     animation: scroll-fade-up 0.45s ease both;
     animation-delay: var(--animate-delay, 0ms);
   }

@@ -1,6 +1,6 @@
 ---
-import SiteLayout from "@layouts/SiteLayout.astro";
-import ProjectLink from "@components/ProjectLink.astro";
+import SiteLayout from '@layouts/SiteLayout.astro'
+import { CONTACT_EMAIL, CONTACT_MAILTO, LINKEDIN_LINK } from '@/consts'
 ---
 
 <SiteLayout
@@ -86,6 +86,20 @@ import ProjectLink from "@components/ProjectLink.astro";
       The best way to reach me is by email. Whether it's about a project, a
       question, or just to say hi — I'm happy to hear from you.
     </p>
-    <ProjectLink email="hi@arii.dev" emailLabel="hi@arii.dev" />
+    <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+      <a href={CONTACT_MAILTO} class="btn-primary">{CONTACT_EMAIL}</a>
+      {
+        LINKEDIN_LINK && (
+          <a
+            href={LINKEDIN_LINK.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-highlight text-sm font-medium no-underline hover:underline"
+          >
+            {LINKEDIN_LINK.label} ↗
+          </a>
+        )
+      }
+    </div>
   </article>
 </SiteLayout>

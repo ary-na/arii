@@ -80,7 +80,7 @@ const postURL = new URL(Astro.url.pathname, Astro.site).href
               )
             }
             <h1
-              class="text-[clamp(1.65rem,1.2rem+1.8vw,2.35rem)] font-semibold tracking-[-0.03em]"
+              class="text-[clamp(1.65rem,1.2rem+1.8vw,2.35rem)] leading-[1.15] font-semibold tracking-[-0.03em]"
             >
               {title}
             </h1>
@@ -88,7 +88,7 @@ const postURL = new URL(Astro.url.pathname, Astro.site).href
 
           {
             description && (
-              <p class="text-text-secondary border-l-2 border-(--highlight)/40 pl-4 text-sm leading-relaxed">
+              <p class="text-text-secondary text-lg leading-relaxed first-letter:uppercase">
                 {description}
               </p>
             )
@@ -210,4 +210,35 @@ const postURL = new URL(Astro.url.pathname, Astro.site).href
 
   document.addEventListener('astro:page-load', initToC)
   initToC()
+
+  function initCodeCopy() {
+    document
+      .querySelectorAll<HTMLPreElement>('.prose pre:not([data-copy])')
+      .forEach((pre) => {
+        pre.dataset.copy = ''
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.className = 'code-copy'
+        button.textContent = 'Copy'
+        button.setAttribute('aria-label', 'Copy code')
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(
+              pre.querySelector('code')?.innerText ?? pre.innerText,
+            )
+            button.textContent = 'Copied'
+          } catch {
+            button.textContent = 'Failed'
+          }
+          setTimeout(() => (button.textContent = 'Copy'), 1500)
+        })
+        const wrapper = document.createElement('div')
+        wrapper.className = 'code-block'
+        pre.replaceWith(wrapper)
+        wrapper.append(pre, button)
+      })
+  }
+
+  document.addEventListener('astro:page-load', initCodeCopy)
+  initCodeCopy()
 </script>

@@ -1,6 +1,6 @@
 ---
 title: 'husk: a macOS uninstaller that hunts down every leftover'
-description: 'a native macOS app uninstaller: confidence-scored leftover detection across containers, caches, preferences, and launch agents, sharing one engine between a SwiftUI GUI and a CLI'
+description: 'A native macOS app uninstaller: confidence-scored leftover detection across containers, caches, preferences, and launch agents, sharing one engine between a SwiftUI GUI and a CLI'
 pubDate: 'Aug 25 2026'
 heroImage: '@assets/blog/husk.webp'
 heroImageAlt: 'the husk app icon next to the husk wordmark on a dark background, with badges reading quarantine not delete, confidence scored, and gui plus cli one engine'
@@ -23,7 +23,7 @@ It ships as a SwiftUI app and a `husk` CLI. Both are a thin shell over the same 
 
 <ProjectLinks github="https://github.com/ary-na/husk" githubLabel="github" />
 
-## key features
+## Key features
 
 - Confidence-scored matching: `exact` (bundle ID or executable found in the file), `likely` (team ID or exact folder-name match), `possible` (fuzzy resemblance, opt-in only, never pre-selected)
 - Scans containers, caches, preferences (including ByHost), Group Containers, Application Scripts, Saved Application State, launch agents/daemons, and installer receipts via `pkgutil`
@@ -33,7 +33,7 @@ It ships as a SwiftUI app and a `husk` CLI. Both are a thin shell over the same 
 - Reduced-scan mode when Full Disk Access isn't granted: husk still runs and says plainly what it couldn't see, instead of quietly reporting a clean system
 - Same capability set in the CLI as the GUI, including `--dry-run`, `--json`, and `--include-shared`
 
-## tech stack
+## Tech stack
 
 ```bash
 # core
@@ -50,7 +50,7 @@ swift-argument-parser
 pkgutil | lsregister | pluginkit | fileproviderctl | tccutil | cfprefsd
 ```
 
-## how it works
+## How it works
 
 **Engine first, surfaces second.** `Package.swift` builds three targets off one library: `UninstallKit` does the scanning, matching, and removal logic; `HuskCLI` and `HuskApp` are both thin dependents of it. Any behavior fixed in the engine is fixed everywhere at once.
 
@@ -62,7 +62,7 @@ pkgutil | lsregister | pluginkit | fileproviderctl | tccutil | cfprefsd
 
 **Quarantine is always user-owned.** Everything moved to quarantine, including root-owned items relocated to `~/.husk-quarantine/` via an authorized helper, ends up `chown`'d to the invoking user, so the quarantine directory can be deleted without `sudo`. A `manifest.json` per run records the original path, size, and ownership of every item, which is what makes `husk restore` possible.
 
-## cli usage
+## CLI usage
 
 ```bash
 $ husk scan AppCleaner
@@ -110,7 +110,7 @@ Stale registrations
 
 That second block is the real output, unedited, including the caveat about `sfltool resetbtm` being a last resort. husk telling you a fix is incomplete, rather than reporting a clean sweep, is the same design principle as the GUI's reduced-scan banner: say what's actually true, even when the honest answer is "not fully."
 
-## highlights
+## Highlights
 
 App list, scan results with confidence tiers, and the Ghosts view for stale registrations.
 
