@@ -34,11 +34,16 @@ const blogLastmods = readBlogLastmods()
 export default defineConfig({
   site: 'https://arii.dev',
   redirects: {
-    '/featured': '/work',
+    '/featured': '/work/',
   },
   integrations: [
     mdx(),
     sitemap({
+      // Tag archives and paginated pages past page 1 are noindexed, and
+      // /page/1/ duplicates canonicalize to the unpaginated archive, so keep
+      // all of them out of the sitemap.
+      filter: (page) =>
+        !page.includes('/blog/tag/') && !/\/page\/\d+\/$/.test(page),
       serialize(item) {
         const slug = item.url.match(/\/blog\/([^/]+)\/$/)?.[1]
         const lastmod = slug ? blogLastmods[slug] : undefined

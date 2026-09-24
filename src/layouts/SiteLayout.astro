@@ -1,18 +1,19 @@
 ---
-import BaseHead from "@components/BaseHead.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
+import BaseHead from '@components/BaseHead.astro'
+import Header from '@components/Header.astro'
+import Footer from '@components/Footer.astro'
 
 interface Props {
-  title: string;
-  description: string;
-  image?: import("astro").ImageMetadata;
-  canonicalPath?: string;
-  contentClass?: string;
-  schema?: Record<string, unknown>;
-  type?: "website" | "article";
-  publishedTime?: string;
-  modifiedTime?: string;
+  title: string
+  description: string
+  image?: import('astro').ImageMetadata
+  canonicalPath?: string
+  contentClass?: string
+  schema?: Record<string, unknown>
+  type?: 'website' | 'article'
+  publishedTime?: string
+  modifiedTime?: string
+  noindex?: boolean
 }
 
 const {
@@ -25,7 +26,8 @@ const {
   type,
   publishedTime,
   modifiedTime,
-} = Astro.props;
+  noindex,
+} = Astro.props
 ---
 
 <!doctype html>
@@ -40,6 +42,7 @@ const {
       {type}
       {publishedTime}
       {modifiedTime}
+      {noindex}
     />
   </head>
   <body class="flex min-h-screen flex-col pt-16">
@@ -50,7 +53,7 @@ const {
       Skip to content
     </a>
     <Header />
-    <main id="main-content" class:list={["flex flex-1 flex-col", contentClass]}>
+    <main id="main-content" class:list={['flex flex-1 flex-col', contentClass]}>
       <slot />
     </main>
     <Footer />
@@ -58,7 +61,7 @@ const {
 </html>
 
 <script>
-  import { initScrollAnimations } from "@/scripts/scroll-animate";
-  document.addEventListener("astro:page-load", initScrollAnimations);
-  initScrollAnimations();
+  import { initScrollAnimations } from '@/scripts/scroll-animate'
+  document.addEventListener('astro:page-load', initScrollAnimations)
+  initScrollAnimations()
 </script>

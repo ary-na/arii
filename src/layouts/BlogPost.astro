@@ -1,13 +1,13 @@
 ---
-import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
-import FormattedDate from "@components/FormattedDate.astro";
-import SiteLayout from "./SiteLayout.astro";
-import ImageLightbox from "@components/ImageLightbox.astro";
-import ReadingTime from "@components/ReadingTime.astro";
-import { categoryHref, tagHref, SITE_AUTHOR } from "@/consts";
+import { Image } from 'astro:assets'
+import type { CollectionEntry } from 'astro:content'
+import FormattedDate from '@components/FormattedDate.astro'
+import SiteLayout from './SiteLayout.astro'
+import ImageLightbox from '@components/ImageLightbox.astro'
+import ReadingTime from '@components/ReadingTime.astro'
+import { categoryHref, tagHref, SITE_AUTHOR } from '@/consts'
 
-type Props = CollectionEntry<"blog">["data"] & { body?: string };
+type Props = CollectionEntry<'blog'>['data'] & { body?: string }
 const {
   title,
   description,
@@ -18,7 +18,8 @@ const {
   category,
   tags,
   body,
-} = Astro.props;
+} = Astro.props
+const postURL = new URL(Astro.url.pathname, Astro.site).href
 ---
 
 <SiteLayout
@@ -29,13 +30,19 @@ const {
   publishedTime={pubDate.toISOString()}
   modifiedTime={updatedDate?.toISOString()}
   schema={{
-    "@type": "BlogPosting",
+    '@type': 'BlogPosting',
     headline: title,
     description,
     datePublished: pubDate.toISOString(),
     ...(updatedDate && { dateModified: updatedDate.toISOString() }),
-    author: { "@type": "Person", name: SITE_AUTHOR },
-    ...(heroImage && { image: heroImage.src }),
+    url: postURL,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': postURL },
+    author: {
+      '@type': 'Person',
+      name: SITE_AUTHOR,
+      url: new URL('/about', Astro.site).href,
+    },
+    ...(heroImage && { image: new URL(heroImage.src, Astro.site).href }),
   }}
 >
   <ImageLightbox />
@@ -92,7 +99,7 @@ const {
           >
             <FormattedDate date={pubDate} />
             <span class="text-(--text-secondary)/30">·</span>
-            <ReadingTime body={body ?? ""} />
+            <ReadingTime body={body ?? ''} />
             {
               updatedDate && (
                 <>
@@ -128,7 +135,7 @@ const {
           }
           <div class="border-border border-t pt-6">
             <a
-              href="/blog"
+              href="/blog/"
               class="text-highlight text-sm font-medium no-underline hover:underline"
             >
               ← All writing
@@ -153,54 +160,54 @@ const {
 
 <script>
   function initToC() {
-    const nav = document.getElementById("toc-nav");
-    const sidebar = document.getElementById("toc-sidebar");
-    if (!nav || !sidebar) return;
+    const nav = document.getElementById('toc-nav')
+    const sidebar = document.getElementById('toc-sidebar')
+    if (!nav || !sidebar) return
 
-    nav.innerHTML = "";
+    nav.innerHTML = ''
 
     const headings = Array.from(
-      document.querySelectorAll<HTMLHeadingElement>("article h2, article h3"),
-    );
+      document.querySelectorAll<HTMLHeadingElement>('article h2, article h3'),
+    )
 
     if (headings.length < 2) {
-      sidebar.style.display = "none";
-      return;
+      sidebar.style.display = 'none'
+      return
     }
 
-    sidebar.style.display = "";
+    sidebar.style.display = ''
 
     headings.forEach((heading) => {
       if (!heading.id) {
         heading.id = heading
           .textContent!.toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, "");
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '')
       }
 
-      const link = document.createElement("a");
-      link.href = "#" + heading.id;
-      link.textContent = heading.textContent;
-      link.className = "toc-link" + (heading.tagName === "H3" ? " toc-h3" : "");
-      link.dataset.heading = heading.id;
-      link.dataset.active = "false";
-      nav.appendChild(link);
-    });
+      const link = document.createElement('a')
+      link.href = '#' + heading.id
+      link.textContent = heading.textContent
+      link.className = 'toc-link' + (heading.tagName === 'H3' ? ' toc-h3' : '')
+      link.dataset.heading = heading.id
+      link.dataset.active = 'false'
+      nav.appendChild(link)
+    })
 
     const updateActive = () => {
-      let activeId = headings[0]?.id ?? "";
+      let activeId = headings[0]?.id ?? ''
       for (const h of headings) {
-        if (h.getBoundingClientRect().top <= 120) activeId = h.id;
+        if (h.getBoundingClientRect().top <= 120) activeId = h.id
       }
-      nav.querySelectorAll<HTMLAnchorElement>(".toc-link").forEach((l) => {
-        l.dataset.active = String(l.dataset.heading === activeId);
-      });
-    };
+      nav.querySelectorAll<HTMLAnchorElement>('.toc-link').forEach((l) => {
+        l.dataset.active = String(l.dataset.heading === activeId)
+      })
+    }
 
-    window.addEventListener("scroll", updateActive, { passive: true });
-    updateActive();
+    window.addEventListener('scroll', updateActive, { passive: true })
+    updateActive()
   }
 
-  document.addEventListener("astro:page-load", initToC);
-  initToC();
+  document.addEventListener('astro:page-load', initToC)
+  initToC()
 </script>
