@@ -2,6 +2,7 @@
 import {
   CONTACT_EMAIL,
   CONTACT_MAILTO,
+  externalRel,
   PRIMARY_NAV,
   SITE_AUTHOR,
   SOCIAL_LINKS,
@@ -18,7 +19,7 @@ const today = new Date();
         <div class="flex flex-col gap-10 sm:flex-row sm:justify-between">
           <div class="flex max-w-xs flex-col gap-3">
             <Wordmark />
-            <p class="text-text-secondary text-sm leading-relaxed">
+            <p class="text-text-secondary text-[0.9375rem] leading-relaxed">
               Full-stack and ML/AI builder in Melbourne. Open to roles in SWE,
               ML, and full-stack.
             </p>
@@ -60,7 +61,7 @@ const today = new Date();
                   <a
                     href={link.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel={externalRel(link)}
                     class="text-text-secondary hover:text-highlight text-sm no-underline transition-colors duration-200"
                   >
                     {link.label}

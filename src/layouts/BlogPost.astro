@@ -5,7 +5,7 @@ import FormattedDate from '@components/FormattedDate.astro'
 import SiteLayout from './SiteLayout.astro'
 import ImageLightbox from '@components/ImageLightbox.astro'
 import ReadingTime from '@components/ReadingTime.astro'
-import { categoryHref, tagHref, SITE_AUTHOR } from '@/consts'
+import { categoryHref, tagHref, SITE_AUTHOR, IDENTITY_LINKS } from '@/consts'
 
 type Props = CollectionEntry<'blog'>['data'] & { body?: string }
 const {
@@ -40,7 +40,8 @@ const postURL = new URL(Astro.url.pathname, Astro.site).href
     author: {
       '@type': 'Person',
       name: SITE_AUTHOR,
-      url: new URL('/about', Astro.site).href,
+      url: new URL('/about/', Astro.site).href,
+      sameAs: IDENTITY_LINKS.map((link) => link.href),
     },
     ...(heroImage && { image: new URL(heroImage.src, Astro.site).href }),
   }}

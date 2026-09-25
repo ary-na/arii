@@ -16,7 +16,7 @@
   --color-text-secondary: var(--text-secondary);
   --color-text-tertiary: var(--text-tertiary);
 
-  --text-hero-name: clamp(2.35rem, 1.05rem + 5.2vw, 4.15rem);
-  --text-section: clamp(1.4rem, 1.18rem + 1vw, 1.85rem);
-  --text-card-title: clamp(1.05rem, 0.98rem + 0.4vw, 1.2rem);
+  --text-hero-name: clamp(1.875rem, 1.5rem + 1.5vw, 2.375rem);
+  --text-section: clamp(1.25rem, 1.12rem + 0.5vw, 1.5rem);
+  --text-card-title: clamp(1.02rem, 0.98rem + 0.2vw, 1.125rem);
 }
