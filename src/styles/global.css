@@ -30,64 +30,6 @@ body {
     color 200ms ease;
 }
 
-@property --g1-x {
-  syntax: '<percentage>';
-  inherits: false;
-  initial-value: 12%;
-}
-@property --g1-y {
-  syntax: '<percentage>';
-  inherits: false;
-  initial-value: 20%;
-}
-@property --g2-x {
-  syntax: '<percentage>';
-  inherits: false;
-  initial-value: 88%;
-}
-@property --g2-y {
-  syntax: '<percentage>';
-  inherits: false;
-  initial-value: 70%;
-}
-
-/* Ambient background — single accent hue, two soft blobs, drifts on scroll */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background-image:
-    radial-gradient(
-      ellipse 70% 55% at var(--g1-x) var(--g1-y),
-      color-mix(in srgb, var(--highlight) 9%, transparent),
-      transparent 65%
-    ),
-    radial-gradient(
-      ellipse 55% 45% at var(--g2-x) var(--g2-y),
-      color-mix(in srgb, var(--highlight) 5%, transparent),
-      transparent 60%
-    );
-  animation: bg-drift linear;
-  animation-timeline: scroll(root);
-}
-
-@keyframes bg-drift {
-  from {
-    --g1-x: 12%;
-    --g1-y: 20%;
-    --g2-x: 88%;
-    --g2-y: 70%;
-  }
-  to {
-    --g1-x: -8%;
-    --g1-y: -10%;
-    --g2-x: 108%;
-    --g2-y: 105%;
-  }
-}
-
 h1,
 h2,
 h3,
@@ -113,7 +55,7 @@ h6 {
   }
 
   .btn-primary {
-    @apply bg-highlight inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium text-white no-underline shadow-(--box-shadow) transition-[transform,background-color,box-shadow] duration-200 hover:bg-(--highlight);
+    @apply bg-highlight inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium text-white no-underline transition-[transform,background-color] duration-200 hover:bg-(--highlight);
   }
 
   .btn-primary:hover {
@@ -125,12 +67,31 @@ h6 {
   }
 
   .tech-chip {
-    @apply border-border bg-surface-secondary text-text-secondary rounded-full border px-2.5 py-0.5 text-[11px] font-medium tracking-wide;
+    @apply border-border bg-surface-secondary text-text-tertiary rounded-full border px-2.5 py-0.5 text-[11px] font-medium tracking-wide;
   }
 
   .status-chip {
-    @apply border-highlight/25 bg-highlight/10 text-highlight inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium;
+    @apply border-border bg-surface-elevated text-text-primary inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium;
   }
+}
+
+/* Prose on paper: body and meta meet the light-theme contrast floor. */
+html:not(.dark) .prose {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-lead: var(--text-secondary);
+  --tw-prose-links: var(--highlight);
+  --tw-prose-bold: var(--text-primary);
+  --tw-prose-counters: var(--text-tertiary);
+  --tw-prose-bullets: var(--text-tertiary);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--text-primary);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--text-tertiary);
+  --tw-prose-code: var(--text-primary);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+  font-size: 1rem;
 }
 
 /* Prose code — inline chips and framed blocks */
@@ -284,9 +245,6 @@ html.dark .astro-code span {
   .prose {
     max-width: none;
   }
-  body::before {
-    display: none;
-  }
 }
 
 /* Scroll-in animations */
@@ -323,17 +281,12 @@ html.dark .astro-code span {
   .project-card:hover {
     transform: translateY(-2px);
     border-color: color-mix(in srgb, var(--highlight) 45%, var(--border));
-    box-shadow: var(--box-shadow);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  body::before {
-    animation: none;
   }
 
   .project-card,

@@ -4,8 +4,24 @@
 export const SITE_TITLE = 'arii.dev'
 export const SITE_TAGLINE = 'Full-stack & ML/AI builder'
 export const SITE_AUTHOR = 'Arian Najafi Yamchelo'
-export const SITE_DESCRIPTION =
-  'Arian Najafi Yamchelo — full-stack and ML/AI builder in Melbourne. Master’s in AI from Monash. Open to roles in SWE, ML, and full-stack.'
+
+export const HOME_TITLE =
+  'Arian Najafi Yamchelo — Full-stack & ML/AI · Melbourne'
+export const HOME_DESCRIPTION =
+  'Master’s in AI from Monash. I ship full-stack products, CLIs, and ML systems, then write about the process. Open to SWE, ML, and full-stack roles.'
+
+export const ABOUT_TITLE = 'About — Arian Najafi Yamchelo'
+export const ABOUT_DESCRIPTION =
+  'Based in Melbourne. Master’s in AI from Monash. Full-stack, CLIs, and machine learning — open to roles where product and ML meet.'
+
+export const WORK_DESCRIPTION =
+  'Selected projects: husk, hushlink, dtm, TSLA forecast, and more. Full-stack apps, CLIs, and ML systems.'
+
+export const WRITING_DESCRIPTION =
+  'Notes on shipping: macOS tools, zero-knowledge apps, CLIs, and ML systems I’ve built.'
+
+/** RSS channel description. Matches the home meta description. */
+export const SITE_DESCRIPTION = HOME_DESCRIPTION
 
 export type NavItem = {
   href: string
@@ -37,6 +53,8 @@ export type ShippedProject = {
   github?: string
   demo?: string
   npm?: string
+  /** Scales sparse wordmark art inside the shared 16:10 thumbnail. */
+  thumbScale?: number
 }
 
 /** Homepage + /work project cards. Claims and links come from existing posts. */
@@ -74,6 +92,7 @@ export const SHIPPED: ShippedProject[] = [
     tech: ['Next.js', 'React', 'TypeScript', 'MongoDB', 'NextAuth'],
     github: 'https://github.com/ary-na/hart',
     demo: 'https://hart-delta.vercel.app',
+    thumbScale: 1.45,
   },
   {
     slug: 'shiny-spoon',
@@ -82,6 +101,7 @@ export const SHIPPED: ShippedProject[] = [
       'A cloud-backed social platform built with Flask and FastAPI — image uploads, OAuth login, DynamoDB storage, S3 media, and a Lambda-powered welcome email flow.',
     tech: ['Python', 'Flask', 'FastAPI', 'AWS', 'DynamoDB', 'S3'],
     github: 'https://github.com/ary-na/shiny-spoon',
+    thumbScale: 1.7,
   },
   {
     slug: 'hushlink',
@@ -160,6 +180,16 @@ export const GITHUB_LINK = SOCIAL_LINKS.find((link) => link.icon === 'github')
 export const LINKEDIN_LINK = SOCIAL_LINKS.find(
   (link) => link.icon === 'linkedin',
 )
+
+/** Profile URLs used for Person.sameAs and rel="me". */
+export const IDENTITY_LINKS = [GITHUB_LINK, LINKEDIN_LINK].filter(
+  (link): link is SocialLink => Boolean(link),
+)
+
+export const externalRel = (link: { icon?: string }) =>
+  link.icon === 'github' || link.icon === 'linkedin'
+    ? 'me noopener noreferrer'
+    : 'noopener noreferrer'
 
 // Internal hrefs always end in "/" to match the canonical URLs; the CloudFront
 // function 301s slashless paths, so links without it cost a redirect.

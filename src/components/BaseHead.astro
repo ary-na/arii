@@ -4,7 +4,12 @@
 import '@styles/__root.css'
 import type { ImageMetadata } from 'astro'
 import FallbackImage from '@assets/og-image.jpg'
-import { SITE_TITLE, SITE_TAGLINE, SITE_AUTHOR, SOCIAL_LINKS } from '@/consts'
+import {
+  SITE_TITLE,
+  SITE_TAGLINE,
+  SITE_AUTHOR,
+  IDENTITY_LINKS,
+} from '@/consts'
 
 interface Props {
   title: string
@@ -16,6 +21,7 @@ interface Props {
   publishedTime?: string
   modifiedTime?: string
   noindex?: boolean
+  exactTitle?: boolean
 }
 
 const {
@@ -28,10 +34,12 @@ const {
   publishedTime,
   modifiedTime,
   noindex = false,
+  exactTitle = false,
 } = Astro.props
 const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, Astro.site)
-const fullTitle =
-  title === SITE_TITLE
+const fullTitle = exactTitle
+  ? title
+  : title === SITE_TITLE
     ? `${SITE_TAGLINE} — ${SITE_TITLE}`
     : `${title} — ${SITE_TITLE}`
 ---
@@ -76,7 +84,7 @@ const fullTitle =
 />
 <meta
   name="theme-color"
-  content="#f4f5f8"
+  content="#f4f1ea"
   media="(prefers-color-scheme: light)"
 />
 <meta
@@ -174,9 +182,7 @@ const fullTitle =
             name: 'Monash University',
           },
           knowsAbout: ['AI', 'Machine Learning', 'Software Development'],
-          sameAs: SOCIAL_LINKS.filter((l) => l.href.startsWith('http')).map(
-            (l) => l.href,
-          ),
+          sameAs: IDENTITY_LINKS.map((l) => l.href),
         },
   )}
 />
