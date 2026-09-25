@@ -5,13 +5,14 @@ import ProjectCard from '@components/ProjectCard.astro'
 import {
   CONTACT_EMAIL,
   CONTACT_MAILTO,
+  externalRel,
   GITHUB_LINK,
+  HOME_DESCRIPTION,
+  HOME_TITLE,
   HOMEPAGE_SHIPPED_COUNT,
   LINKEDIN_LINK,
   SHIPPED,
   SITE_AUTHOR,
-  SITE_DESCRIPTION,
-  SITE_TITLE,
 } from '@/consts'
 import { getCollection } from 'astro:content'
 
@@ -33,18 +34,18 @@ const shipped = [...SHIPPED]
 const recent = shipped.slice(0, 2)
 ---
 
-<SiteLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<SiteLayout title={HOME_TITLE} description={HOME_DESCRIPTION} exactTitle>
   <div class="page-container-wide">
     <div
       class="lg:grid lg:grid-cols-[minmax(0,22.5rem)_minmax(0,1fr)] lg:items-start lg:gap-16 xl:gap-24"
     >
       {/* Hero — sticky identity column on large screens */}
       <section
-        class="section-anchor flex flex-col pt-16 pb-12 lg:sticky lg:top-16 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto lg:py-20"
+        class="section-anchor flex flex-col pt-16 pb-12 lg:sticky lg:top-16 lg:self-start lg:py-14"
         aria-labelledby="hero-name"
       >
         <div
-          class="mb-6 size-36 shrink-0 overflow-hidden rounded-full border border-(--border) shadow-(--box-shadow) lg:mb-8"
+          class="mb-6 size-36 shrink-0 overflow-hidden rounded-full border border-(--border) shadow-(--box-shadow)"
         >
           <img
             src="/blog/about/arian.webp"
@@ -62,7 +63,7 @@ const recent = shipped.slice(0, 2)
           {SITE_AUTHOR}
         </h1>
         <p
-          class="text-text-primary mt-4 text-lg font-medium tracking-tight sm:text-xl"
+          class="text-text-primary mt-3 text-base font-medium tracking-tight sm:text-lg"
         >
           Full-stack + ML/AI builder
         </p>
@@ -163,7 +164,7 @@ const recent = shipped.slice(0, 2)
                         <FormattedDate date={post.data.pubDate} />
                       </span>
                     </span>
-                    <span class="text-text-secondary line-clamp-2 text-sm leading-relaxed first-letter:uppercase">
+                    <span class="text-text-secondary line-clamp-2 text-[0.9375rem] leading-relaxed first-letter:uppercase">
                       {post.data.description}
                     </span>
                   </a>
@@ -189,7 +190,7 @@ const recent = shipped.slice(0, 2)
             </a>
           </div>
           <div
-            class="text-text-secondary max-w-2xl space-y-4 text-[0.95rem] leading-relaxed"
+            class="text-text-secondary max-w-2xl space-y-4 text-base leading-relaxed"
           >
             <p>
               My name is Arian. I'm based in Melbourne, Australia, and I build
@@ -227,9 +228,9 @@ const recent = shipped.slice(0, 2)
             Contact
           </h2>
           <div
-            class="mt-6 rounded-xl border border-(--border) bg-(--bg-elevated) p-6 shadow-(--box-shadow)"
+            class="mt-6 rounded-xl border border-(--border) bg-(--bg-elevated) p-6"
           >
-            <p class="text-text-secondary text-[0.95rem] leading-relaxed">
+            <p class="text-text-secondary text-base leading-relaxed">
               Open to roles in SWE, ML, and full-stack. The best way to reach me
               is by email.
             </p>
@@ -240,7 +241,7 @@ const recent = shipped.slice(0, 2)
                   <a
                     href={GITHUB_LINK.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel={externalRel(GITHUB_LINK)}
                     class="text-highlight text-sm font-medium no-underline hover:underline"
                   >
                     {GITHUB_LINK.label} ↗
@@ -252,7 +253,7 @@ const recent = shipped.slice(0, 2)
                   <a
                     href={LINKEDIN_LINK.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel={externalRel(LINKEDIN_LINK)}
                     class="text-highlight text-sm font-medium no-underline hover:underline"
                   >
                     {LINKEDIN_LINK.label} ↗

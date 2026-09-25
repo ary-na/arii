@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 import BlogArchive from "@components/BlogArchive.astro";
-import { BLOG_PAGE_SIZE, blogPageHref, SITE_DESCRIPTION } from "@/consts";
+import { BLOG_PAGE_SIZE, blogPageHref, WRITING_DESCRIPTION } from "@/consts";
 
 type BlogPostEntry = CollectionEntry<"blog">;
 
@@ -39,7 +39,7 @@ const countLabel = "All posts";
   countLabel={countLabel}
   countNumber={page.total}
   currentPage={page.currentPage}
-  description={SITE_DESCRIPTION}
+  description={WRITING_DESCRIPTION}
   canonicalPath={canonicalPath}
   hrefForPage={blogPageHref}
   posts={page.data as BlogPostEntry[]}

@@ -1,14 +1,18 @@
 ---
 import SiteLayout from '@layouts/SiteLayout.astro'
-import { CONTACT_EMAIL, CONTACT_MAILTO, LINKEDIN_LINK } from '@/consts'
+import {
+  ABOUT_DESCRIPTION,
+  ABOUT_TITLE,
+  CONTACT_EMAIL,
+  CONTACT_MAILTO,
+  externalRel,
+  LINKEDIN_LINK,
+} from '@/consts'
 ---
 
-<SiteLayout
-  title="About"
-  description="Melbourne-based developer with a Master’s in AI, writing about code, AI, and the things I'm building"
->
+<SiteLayout title={ABOUT_TITLE} description={ABOUT_DESCRIPTION} exactTitle>
   <article class="page-container py-16 md:py-20">
-    <p class="text-highlight text-sm font-medium">About</p>
+    <p class="text-text-tertiary text-sm font-medium">About</p>
     <h1 class="text-section mt-2 font-semibold">Arian Najafi Yamchelo</h1>
 
     <div class="mt-10 grid items-start gap-8 md:grid-cols-[auto_1fr] md:gap-10">
@@ -60,9 +64,9 @@ import { CONTACT_EMAIL, CONTACT_MAILTO, LINKEDIN_LINK } from '@/consts'
     <h2 class="text-section mt-14 font-semibold">Education</h2>
     <div class="mt-6 grid gap-4 sm:grid-cols-2">
       <div
-        class="rounded-xl border border-(--border) bg-(--bg-elevated) p-5 shadow-(--box-shadow)"
+        class="rounded-xl border border-(--border) bg-(--bg-elevated) p-5"
       >
-        <p class="text-highlight text-sm font-medium">Monash University</p>
+        <p class="text-text-tertiary text-sm font-medium">Monash University</p>
         <p class="text-text-primary mt-2 font-medium">
           Master of Computer Science with Distinction
         </p>
@@ -70,9 +74,9 @@ import { CONTACT_EMAIL, CONTACT_MAILTO, LINKEDIN_LINK } from '@/consts'
         <p class="text-text-tertiary mt-3 text-sm">Mar 2024 – May 2026</p>
       </div>
       <div
-        class="rounded-xl border border-(--border) bg-(--bg-elevated) p-5 shadow-(--box-shadow)"
+        class="rounded-xl border border-(--border) bg-(--bg-elevated) p-5"
       >
-        <p class="text-highlight text-sm font-medium">RMIT University</p>
+        <p class="text-text-tertiary text-sm font-medium">RMIT University</p>
         <p class="text-text-primary mt-2 font-medium">
           Bachelor of Information Technology with Distinction
         </p>
@@ -93,7 +97,7 @@ import { CONTACT_EMAIL, CONTACT_MAILTO, LINKEDIN_LINK } from '@/consts'
           <a
             href={LINKEDIN_LINK.href}
             target="_blank"
-            rel="noopener noreferrer"
+            rel={externalRel(LINKEDIN_LINK)}
             class="text-highlight text-sm font-medium no-underline hover:underline"
           >
             {LINKEDIN_LINK.label} ↗
