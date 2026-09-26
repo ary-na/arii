@@ -73,8 +73,8 @@ export type ShippedProject = {
   /** Editorial weight. Omitted entries render as numbered rows. */
   weight?: 'featured' | 'secondary'
   /**
-   * Interim case copy for featured and secondary entries.
-   * Swap these three lines when final copy lands — the layout does not hard-code them.
+   * Locked case copy for featured and secondary entries.
+   * The layout reads these three strings and does not rewrite them.
    */
   arc?: ProjectArc
   /** Product shot. Shown when present, which is the featured entry. */
@@ -94,10 +94,10 @@ export const SHIPPED: ShippedProject[] = [
       'A native macOS uninstaller that scores leftover files and quarantines them instead of guessing.',
     arc: {
       problem:
-        'Dragging an app to the Trash leaves caches, preferences, and launch agents behind. Most uninstallers guess from folder names and can delete the wrong thing.',
+        'Uninstalling a Mac app often leaves containers, prefs, and launch agents behind. Finder’s drag-to-trash doesn’t clean that up.',
       built:
-        'A native macOS uninstaller: a SwiftUI app and a CLI on one engine. It scores each leftover by how sure the match is, and moves files to quarantine instead of deleting them.',
-      why: 'You can remove an app and still put anything back if a match was wrong.',
+        'A native macOS uninstaller with one shared engine for a SwiftUI app and a CLI, scoring leftovers so you can review before delete.',
+      why: 'Gives people a clear, confidence-scored cleanup instead of hunting Library folders by hand.',
     },
     shot: {
       src: '/blog/husk/scan-appcleaner.webp',
@@ -152,12 +152,12 @@ export const SHIPPED: ShippedProject[] = [
       'A web app for sending a secret once, encrypted in the browser and deleted on first open.',
     arc: {
       problem:
-        'Passwords and keys sent in chat or email stay in those logs. A lot of secret-link tools can read the secret on the server too.',
+        'Sharing a password or API key in chat or email leaves a copy sitting in someone’s history.',
       built:
-        'A web app that locks the secret in the browser before it is uploaded, keeps only that locked copy, and destroys it the moment someone opens the link.',
-      why: 'You can pass a credential once, without leaving a copy behind or trusting the server with the plaintext.',
+        'A one-time secret link: encrypted in the browser before it leaves the device, stored briefly, destroyed on first open.',
+      why: 'Lets you hand someone a secret without leaving a permanent trail in Slack, mail, or notes.',
     },
-    tech: ['Next.js', 'TypeScript', 'Encryption'],
+    tech: ['Next.js', 'TypeScript', 'DynamoDB', 'Web Crypto', 'Vercel'],
     github: 'https://github.com/ary-na/hushlink',
   },
   {

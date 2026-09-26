@@ -59,11 +59,16 @@ const writeupFor = (project: ShippedProject) => `/blog/${project.slug}/`
               <dd>{project.arc.built}</dd>
             </div>
             <div>
-              <dt>Why</dt>
+              <dt>Why it matters</dt>
               <dd>{project.arc.why}</dd>
             </div>
           </dl>
         )}
+        <ul class="quiet-chips mt-5">
+          {project.tech.map((item) => (
+            <li class="quiet-chip">{item}</li>
+          ))}
+        </ul>
         {project.shot && (
           <figure class="mt-6 border border-(--border)">
             <img
@@ -76,7 +81,6 @@ const writeupFor = (project: ShippedProject) => `/blog/${project.slug}/`
             />
           </figure>
         )}
-        <p class="meta mt-4">{caption(project)}</p>
         <ProjectLink
           variant="card"
           writeup={writeupFor(project)}
@@ -114,12 +118,16 @@ const writeupFor = (project: ShippedProject) => `/blog/${project.slug}/`
               <dd>{project.arc.built}</dd>
             </div>
             <div>
-              <dt>Why</dt>
+              <dt>Why it matters</dt>
               <dd>{project.arc.why}</dd>
             </div>
           </dl>
         )}
-        <p class="meta mt-4">{caption(project)}</p>
+        <ul class="quiet-chips mt-5">
+          {project.tech.map((item) => (
+            <li class="quiet-chip">{item}</li>
+          ))}
+        </ul>
         <ProjectLink
           variant="card"
           writeup={writeupFor(project)}

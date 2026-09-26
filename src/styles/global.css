@@ -118,6 +118,26 @@ h6 {
     color: var(--highlight);
   }
 
+  .quiet-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .quiet-chip {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0.15rem 0.45rem;
+  }
+
   /* Legacy chip class — magazine caption, not a pill. */
   .tech-chip {
     @apply text-text-tertiary font-mono text-[0.6875rem] tracking-[0.12em] uppercase;
