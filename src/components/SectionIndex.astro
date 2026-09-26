@@ -1,0 +1,28 @@
+---
+interface Props {
+  index: string
+  label: string
+  headingId: string
+  href?: string
+  linkLabel?: string
+}
+
+const { index, label, headingId, href, linkLabel } = Astro.props
+---
+
+<div class="flex items-baseline justify-between gap-4 border-t border-(--border) pt-5">
+  <h2 id={headingId} class="flex items-baseline gap-3 text-text-primary">
+    <span class="folio">{index}</span>
+    <span class="text-xs font-medium tracking-[0.16em] uppercase">{label}</span>
+  </h2>
+  {
+    href && linkLabel && (
+      <a
+        href={href}
+        class="text-highlight shrink-0 text-sm no-underline hover:underline"
+      >
+        {linkLabel}
+      </a>
+    )
+  }
+</div>

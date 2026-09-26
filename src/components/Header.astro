@@ -8,7 +8,7 @@ const pathname = Astro.url.pathname
 
 <header class="fixed top-0 right-0 left-0 z-50">
   <div
-    class="border-b border-(--border) bg-(--bg-primary)/75 shadow-(--box-shadow) backdrop-blur-xl"
+    class="border-b border-(--border) bg-(--bg-primary)"
   >
     <div
       class="flex h-16 w-full items-center justify-between px-6 md:px-10 lg:px-16"
@@ -44,7 +44,7 @@ const pathname = Astro.url.pathname
           id="mobile-toggle"
           aria-label="Toggle menu"
           aria-expanded="false"
-          class="text-text-primary relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-(--border) bg-(--bg-elevated) transition"
+          class="text-text-primary relative flex h-9 w-9 cursor-pointer items-center justify-center border border-(--border) transition"
         >
           <span
             class="mobile-line mobile-line--top absolute block h-0.5 w-4 rounded-full bg-current transition-all duration-300 ease-out"
@@ -75,8 +75,8 @@ const pathname = Astro.url.pathname
               class:list={[
                 'rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-all duration-200',
                 active
-                  ? 'text-highlight bg-(--highlight)/10'
-                  : 'text-text-secondary hover:text-text-primary hover:bg-(--bg-secondary)',
+                  ? 'text-highlight'
+                  : 'text-text-secondary hover:text-text-primary',
               ]}
             >
               {item.label}
@@ -128,17 +128,7 @@ const pathname = Astro.url.pathname
   }
 
   .nav-link {
-    transition:
-      color 200ms ease,
-      background-color 180ms ease,
-      transform 180ms ease,
-      box-shadow 180ms ease;
-  }
-
-  .nav-link:hover {
-    transform: translateY(-2px) scale(1.05);
-    background-color: var(--bg-elevated);
-    box-shadow: var(--box-shadow);
+    transition: color 200ms ease;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -148,9 +138,6 @@ const pathname = Astro.url.pathname
       transition: none;
     }
 
-    .nav-link:hover {
-      transform: none;
-    }
   }
 </style>
 

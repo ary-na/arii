@@ -74,7 +74,7 @@ const postURL = new URL(Astro.url.pathname, Astro.site).href
               category && (
                 <a
                   href={categoryHref(category)}
-                  class="text-highlight w-fit text-xs font-medium tracking-wide no-underline hover:underline"
+                  class="meta w-fit no-underline hover:text-highlight"
                 >
                   {category}
                 </a>
