@@ -1,12 +1,12 @@
 /* src/styles/variables.css */
 :root {
-  --highlight: #3450c7;
+  --highlight: #1e3a5f;
   --bg-primary: #f4f1ea;
-  --bg-secondary: #e7e1d6;
-  --bg-elevated: #fffcf7;
-  --text-primary: #1c1916;
-  --text-secondary: #3d3a36;
-  --text-tertiary: #5c574f;
-  --border: color-mix(in srgb, #1c1916 14%, transparent);
-  --box-shadow: 0 1px 2px rgba(28, 25, 22, 0.05);
+  --bg-secondary: #e8e2d6;
+  --bg-elevated: #faf7f2;
+  --text-primary: #1a1814;
+  --text-secondary: #3f3b36;
+  --text-tertiary: #5e584f;
+  --border: color-mix(in srgb, #1a1814 16%, transparent);
+  --box-shadow: none;
 }

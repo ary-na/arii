@@ -1,0 +1,179 @@
+---
+import { getCollection } from 'astro:content'
+import ProjectLink from './ProjectLink.astro'
+import { SHIPPED, type ShippedProject } from '@/consts'
+
+interface Props {
+  /** Cap the index. Featured and secondary always stay; rows fill what remains. */
+  limit?: number
+}
+
+const { limit } = Astro.props
+
+const posts = await getCollection('blog')
+const pubDateBySlug = new Map(
+  posts.map((post) => [post.id, post.data.pubDate.valueOf()]),
+)
+
+const ranked = [...SHIPPED].sort(
+  (a, b) =>
+    (pubDateBySlug.get(b.slug) ?? 0) - (pubDateBySlug.get(a.slug) ?? 0),
+)
+
+const featured = ranked.filter((project) => project.weight === 'featured')
+const secondary = ranked.filter((project) => project.weight === 'secondary')
+const rowBudget =
+  limit === undefined
+    ? ranked.length
+    : Math.max(0, limit - featured.length - secondary.length)
+const rows = ranked
+  .filter((project) => project.weight !== 'featured' && project.weight !== 'secondary')
+  .slice(0, rowBudget)
+
+const folio = (n: number) => String(n).padStart(2, '0')
+const caption = (project: ShippedProject) => project.tech.slice(0, 4).join(' · ')
+const writeupFor = (project: ShippedProject) => `/blog/${project.slug}/`
+---
+
+<div class="work-grid">
+  {
+    featured.map((project, i) => (
+      <article class="work-featured min-w-0" data-animate>
+        <p class="folio">{folio(i + 1)}</p>
+        <h3 class="font-display text-project-title text-text-primary mt-2 leading-[1.05] font-[560] tracking-[-0.02em]">
+          <a
+            href={writeupFor(project)}
+            class="text-text-primary hover:text-highlight no-underline"
+          >
+            {project.name}
+          </a>
+        </h3>
+        {project.arc && (
+          <dl class="project-arc mt-6">
+            <div>
+              <dt>Problem</dt>
+              <dd>{project.arc.problem}</dd>
+            </div>
+            <div>
+              <dt>Built</dt>
+              <dd>{project.arc.built}</dd>
+            </div>
+            <div>
+              <dt>{project.arc.whyLabel ?? 'Why it matters'}</dt>
+              <dd>{project.arc.why}</dd>
+            </div>
+          </dl>
+        )}
+        <ul class="quiet-chips mt-5">
+          {project.tech.map((item) => (
+            <li class="quiet-chip">{item}</li>
+          ))}
+        </ul>
+        {project.shot && (
+          <figure class="mt-6 border border-(--border)">
+            <img
+              src={project.shot.src}
+              alt={project.shot.alt}
+              width={project.shot.width}
+              height={project.shot.height}
+              loading="lazy"
+              class="aspect-[3/2] w-full object-cover object-left-top"
+            />
+          </figure>
+        )}
+        <ProjectLink
+          variant="card"
+          writeup={writeupFor(project)}
+          github={project.github}
+          demo={project.demo}
+          npm={project.npm}
+        />
+      </article>
+    ))
+  }
+  {
+    secondary.map((project, i) => (
+      <article
+        class="work-secondary min-w-0"
+        data-animate
+        style={`--animate-delay: ${(i + 1) * 60}ms`}
+      >
+        <p class="folio">{folio(featured.length + i + 1)}</p>
+        <h3 class="font-display text-project-title text-text-primary mt-2 leading-[1.05] font-[560] tracking-[-0.02em]">
+          <a
+            href={writeupFor(project)}
+            class="text-text-primary hover:text-highlight no-underline"
+          >
+            {project.name}
+          </a>
+        </h3>
+        {project.arc && (
+          <dl class="project-arc mt-6">
+            <div>
+              <dt>Problem</dt>
+              <dd>{project.arc.problem}</dd>
+            </div>
+            <div>
+              <dt>Built</dt>
+              <dd>{project.arc.built}</dd>
+            </div>
+            <div>
+              <dt>{project.arc.whyLabel ?? 'Why it matters'}</dt>
+              <dd>{project.arc.why}</dd>
+            </div>
+          </dl>
+        )}
+        <ul class="quiet-chips mt-5">
+          {project.tech.map((item) => (
+            <li class="quiet-chip">{item}</li>
+          ))}
+        </ul>
+        <ProjectLink
+          variant="card"
+          writeup={writeupFor(project)}
+          github={project.github}
+          demo={project.demo}
+          npm={project.npm}
+        />
+      </article>
+    ))
+  }
+  {
+    rows.length > 0 && (
+      <ol class="work-rows border-t border-(--border)">
+        {rows.map((project, i) => (
+          <li
+            class="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-x-3 border-b border-(--border) py-5"
+            data-animate
+            style={`--animate-delay: ${i * 40}ms`}
+          >
+            <span class="folio pt-1">
+              {folio(featured.length + secondary.length + i + 1)}
+            </span>
+            <div class="min-w-0">
+              <h3 class="font-display text-row-title text-text-primary leading-tight font-[520] tracking-[-0.02em]">
+                <a
+                  href={writeupFor(project)}
+                  class="text-text-primary hover:text-highlight no-underline"
+                >
+                  {project.name}
+                </a>
+              </h3>
+              <p class="text-text-secondary mt-1.5 max-w-[68ch] text-[0.9375rem] leading-relaxed">
+                {project.summary}
+              </p>
+              <p class="meta mt-2">{caption(project)}</p>
+              <ProjectLink
+                variant="card"
+                writeup={writeupFor(project)}
+                github={project.github}
+                demo={project.demo}
+                npm={project.npm}
+              />
+            </div>
+          </li>
+        ))}
+      </ol>
+    )
+  }
+</div>
