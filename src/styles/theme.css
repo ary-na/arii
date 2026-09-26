@@ -1,7 +1,8 @@
 /* src/styles/theme.css */
 @theme {
   --font-body: "DMSans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "DMSans", ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    "Fraunces", "Iowan Old Style", Palatino, "Palatino Linotype", serif;
   --font-mono: "DMMono", ui-monospace, monospace;
 
   --color-surface-primary: var(--bg-primary);
@@ -16,7 +17,9 @@
   --color-text-secondary: var(--text-secondary);
   --color-text-tertiary: var(--text-tertiary);
 
-  --text-hero-name: clamp(1.875rem, 1.5rem + 1.5vw, 2.375rem);
+  --text-hero-name: clamp(2.5rem, 1rem + 4.8vw, 4.75rem);
+  --text-project-title: clamp(1.85rem, 1.35rem + 1.15vw, 2.5rem);
+  --text-row-title: clamp(1.35rem, 1.2rem + 0.4vw, 1.6rem);
   --text-section: clamp(1.25rem, 1.12rem + 0.5vw, 1.5rem);
   --text-card-title: clamp(1.02rem, 0.98rem + 0.2vw, 1.125rem);
 }

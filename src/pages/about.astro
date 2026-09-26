@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '@layouts/SiteLayout.astro'
+import Portrait from '@components/Portrait.astro'
 import {
   ABOUT_DESCRIPTION,
   ABOUT_TITLE,
@@ -11,86 +12,77 @@ import {
 ---
 
 <SiteLayout title={ABOUT_TITLE} description={ABOUT_DESCRIPTION} exactTitle>
-  <article class="page-container py-16 md:py-20">
-    <p class="text-text-tertiary text-sm font-medium">About</p>
-    <h1 class="text-section mt-2 font-semibold">Arian Najafi Yamchelo</h1>
+  <article class="page-container py-14 md:py-20">
+    <p class="meta">About</p>
 
-    <div class="mt-10 grid items-start gap-8 md:grid-cols-[auto_1fr] md:gap-10">
-      <div
-        class="size-40 shrink-0 overflow-hidden rounded-full border border-(--border) shadow-(--box-shadow) md:size-44"
-      >
-        <img
-          src="/blog/about/arian.webp"
-          alt="Arian Najafi Yamchelo"
-          width="176"
-          height="176"
-          class="size-full origin-[28%_18%] scale-[1.85] object-cover object-[28%_18%]"
-        />
-      </div>
-      <div class="prose dark:prose-invert max-w-none">
-        <h2>Who I am</h2>
-        <p>
-          My name is Arian. I'm based in Melbourne, Australia, and I build
-          things with code. I started out curious about how software works, and
-          over time that curiosity turned into a deeper interest in programming,
-          problem solving, and building systems that are actually useful.
-        </p>
+    <div class="mt-8 grid items-start gap-8 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-10">
+      <Portrait class="w-40 md:w-full" />
+      <div>
+        <h1
+          class="font-display text-text-primary text-[clamp(2.25rem,1.4rem+2.4vw,3.25rem)] leading-[1.05] font-[560] tracking-[-0.03em]"
+        >
+          Arian Najafi Yamchelo
+        </h1>
+        <div class="prose dark:prose-invert mt-8 max-w-[68ch]">
+          <h2>Who I am</h2>
+          <p>
+            My name is Arian. I'm based in Melbourne, Australia, and I build
+            things with code. I started out curious about how software works,
+            and over time that curiosity turned into a deeper interest in
+            programming, problem solving, and building systems that are
+            actually useful.
+          </p>
 
-        <p>
-          I have a habit of over engineering things and getting too deep into
-          details until a project becomes too complicated to finish. Lately I
-          have been working on changing that by focusing on shipping simple,
-          imperfect things instead of waiting for a perfect version that never
-          gets released.
-        </p>
+          <p>
+            I have a habit of over engineering things and getting too deep into
+            details until a project becomes too complicated to finish. Lately I
+            have been working on changing that by focusing on shipping simple,
+            imperfect things instead of waiting for a perfect version that never
+            gets released.
+          </p>
 
-        <p>
-          This site is where I write about what I'm learning, building, and
-          thinking about.
-        </p>
+          <p>
+            This site is where I write about what I'm learning, building, and
+            thinking about.
+          </p>
 
-        <h2>What I do</h2>
-        <p>
-          I work across software development and AI/ML. I enjoy building
-          full-stack web applications, training and deploying machine learning
-          models, and exploring where those two meet. I recently finished a
-          Master’s in Artificial Intelligence at Monash, and I’m based in
-          Melbourne. I’m open to roles where I can keep building on both the
-          product and ML side.
-        </p>
+          <h2>What I do</h2>
+          <p>
+            I work across software development and AI/ML. I enjoy building
+            full-stack web applications, training and deploying machine
+            learning models, and exploring where those two meet. I recently
+            finished a Master’s in Artificial Intelligence at Monash, and I’m
+            based in Melbourne. I’m open to roles where I can keep building on
+            both the product and ML side.
+          </p>
+        </div>
       </div>
     </div>
 
-    <h2 class="text-section mt-14 font-semibold">Education</h2>
-    <div class="mt-6 grid gap-4 sm:grid-cols-2">
-      <div
-        class="rounded-xl border border-(--border) bg-(--bg-elevated) p-5"
-      >
-        <p class="text-text-tertiary text-sm font-medium">Monash University</p>
+    <h2 class="text-section mt-16 font-semibold">Education</h2>
+    <div class="mt-6 border-t border-(--border)">
+      <div class="border-b border-(--border) py-5">
+        <p class="meta">Monash University · Mar 2024 – May 2026</p>
         <p class="text-text-primary mt-2 font-medium">
           Master of Computer Science with Distinction
         </p>
         <p class="text-text-secondary mt-1 text-sm">Artificial Intelligence</p>
-        <p class="text-text-tertiary mt-3 text-sm">Mar 2024 – May 2026</p>
       </div>
-      <div
-        class="rounded-xl border border-(--border) bg-(--bg-elevated) p-5"
-      >
-        <p class="text-text-tertiary text-sm font-medium">RMIT University</p>
+      <div class="border-b border-(--border) py-5">
+        <p class="meta">RMIT University · Mar 2021 – Jan 2024</p>
         <p class="text-text-primary mt-2 font-medium">
           Bachelor of Information Technology with Distinction
         </p>
         <p class="text-text-secondary mt-1 text-sm">Minor in Digital Design</p>
-        <p class="text-text-tertiary mt-3 text-sm">Mar 2021 – Jan 2024</p>
       </div>
     </div>
 
-    <h2 class="text-section mt-14 font-semibold">Get in touch</h2>
+    <h2 class="text-section mt-16 font-semibold">Get in touch</h2>
     <p class="text-text-secondary mt-4 max-w-xl">
       The best way to reach me is by email. Whether it's about a project, a
       question, or just to say hi — I'm happy to hear from you.
     </p>
-    <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+    <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
       <a href={CONTACT_MAILTO} class="btn-primary">{CONTACT_EMAIL}</a>
       {
         LINKEDIN_LINK && (
@@ -98,9 +90,9 @@ import {
             href={LINKEDIN_LINK.href}
             target="_blank"
             rel={externalRel(LINKEDIN_LINK)}
-            class="text-highlight text-sm font-medium no-underline hover:underline"
+            class="quiet-link"
           >
-            {LINKEDIN_LINK.label} ↗
+            {LINKEDIN_LINK.label}
           </a>
         )
       }

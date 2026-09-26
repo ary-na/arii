@@ -3,27 +3,26 @@
    The inline boot script in BaseHead applies .dark / .light before paint. */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --highlight: #8b9cff;
-    --bg-primary: #0b0c12;
-    --bg-secondary: #15161f;
-    --bg-elevated: #12131b;
-    --text-primary: #f3f4f8;
-    --text-secondary: #c5c8d4;
-    --text-tertiary: #9aa0b2;
-    --border: color-mix(in srgb, #f3f4f8 11%, transparent);
-    --box-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.45), 0 12px 32px rgba(0, 0, 0, 0.28);
+    --highlight: #c5d2e6;
+    --bg-primary: #141311;
+    --bg-secondary: #1e1c18;
+    --bg-elevated: #1a1916;
+    --text-primary: #f4f1ea;
+    --text-secondary: #cfc6b8;
+    --text-tertiary: #9c9488;
+    --border: color-mix(in srgb, #f4f1ea 14%, transparent);
+    --box-shadow: none;
   }
 }
 
 html.dark {
-  --highlight: #8b9cff;
-  --bg-primary: #0b0c12;
-  --bg-secondary: #15161f;
-  --bg-elevated: #12131b;
-  --text-primary: #f3f4f8;
-  --text-secondary: #c5c8d4;
-  --text-tertiary: #9aa0b2;
-  --border: color-mix(in srgb, #f3f4f8 11%, transparent);
-  --box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 12px 32px rgba(0, 0, 0, 0.28);
+  --highlight: #c5d2e6;
+  --bg-primary: #141311;
+  --bg-secondary: #1e1c18;
+  --bg-elevated: #1a1916;
+  --text-primary: #f4f1ea;
+  --text-secondary: #cfc6b8;
+  --text-tertiary: #9c9488;
+  --border: color-mix(in srgb, #f4f1ea 14%, transparent);
+  --box-shadow: none;
 }

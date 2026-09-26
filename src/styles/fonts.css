@@ -39,3 +39,12 @@
   font-style: italic;
   font-display: swap;
 }
+
+/* Display only: name and project titles. SOFT/WONK/opsz/wght variable. */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/Fraunces-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

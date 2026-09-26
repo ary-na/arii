@@ -1,0 +1,19 @@
+---
+interface Props {
+  class?: string
+  priority?: boolean
+}
+
+const { class: className, priority = false } = Astro.props
+---
+
+<figure class:list={['portrait', className]}>
+  <img
+    src="/blog/about/arian.webp"
+    alt="Arian Najafi Yamchelo"
+    width="720"
+    height="900"
+    fetchpriority={priority ? 'high' : 'auto'}
+    decoding={priority ? 'sync' : 'async'}
+  />
+</figure>
