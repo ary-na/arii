@@ -59,7 +59,7 @@ const writeupFor = (project: ShippedProject) => `/blog/${project.slug}/`
               <dd>{project.arc.built}</dd>
             </div>
             <div>
-              <dt>Why it matters</dt>
+              <dt>{project.arc.whyLabel ?? 'Why it matters'}</dt>
               <dd>{project.arc.why}</dd>
             </div>
           </dl>
@@ -118,7 +118,7 @@ const writeupFor = (project: ShippedProject) => `/blog/${project.slug}/`
               <dd>{project.arc.built}</dd>
             </div>
             <div>
-              <dt>Why it matters</dt>
+              <dt>{project.arc.whyLabel ?? 'Why it matters'}</dt>
               <dd>{project.arc.why}</dd>
             </div>
           </dl>

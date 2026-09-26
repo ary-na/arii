@@ -50,6 +50,8 @@ export type ProjectArc = {
   problem: string
   built: string
   why: string
+  /** Beat label for `why`. Featured cases use the longer heading. */
+  whyLabel?: string
 }
 
 export type ProjectShot = {
@@ -151,11 +153,10 @@ export const SHIPPED: ShippedProject[] = [
     summary:
       'A web app for sending a secret once, encrypted in the browser and deleted on first open.',
     arc: {
-      problem:
-        'Sharing a password or API key in chat or email leaves a copy sitting in someone’s history.',
-      built:
-        'A one-time secret link: encrypted in the browser before it leaves the device, stored briefly, destroyed on first open.',
-      why: 'Lets you hand someone a secret without leaving a permanent trail in Slack, mail, or notes.',
+      problem: 'Secrets shared in chat or email stick around in history.',
+      built: 'One-time links, encrypted in the browser, gone after first open.',
+      why: 'Hand someone a secret without leaving a permanent trail.',
+      whyLabel: 'Why',
     },
     tech: ['Next.js', 'TypeScript', 'DynamoDB', 'Web Crypto', 'Vercel'],
     github: 'https://github.com/ary-na/hushlink',
