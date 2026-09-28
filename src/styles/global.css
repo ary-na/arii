@@ -148,7 +148,7 @@ h6 {
   }
 }
 
-/* Editorial portrait: 4:5 window on the landscape source, centered on the face. */
+/* Color 4:5 headshot. The frame matches the file, so object-position does not crop. */
 .portrait {
   aspect-ratio: 4 / 5;
   overflow: hidden;
@@ -161,9 +161,7 @@ h6 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Full source height is visible; 31% keeps the face in frame. */
   object-position: 31% 18%;
-  filter: grayscale(1) sepia(0.32) contrast(1.05);
 }
 
 .work-grid {
