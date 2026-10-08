@@ -59,7 +59,7 @@ const gridPosts = posts
         )
       }
       <div class="flex flex-col gap-2">
-        <p class="meta">Writing</p>
+        <p class="text-text-tertiary text-sm font-medium">Writing</p>
         <h1 class="text-section font-semibold">
           {isFiltered ? archiveTitle : archiveLabel}
         </h1>
@@ -72,27 +72,22 @@ const gridPosts = posts
 
     {
       gridPosts.length > 0 && (
-        <ul class="border-t border-(--border)">
+        <ul class="flex flex-col gap-3">
           {gridPosts.map((post, i) => (
-            <li data-animate style={`--animate-delay: ${i * 40}ms`} class="border-b border-(--border)">
+            <li data-animate style={`--animate-delay: ${i * 50}ms`}>
               <a
                 href={`/blog/${post.id}/`}
-                class="group grid gap-1 py-4 no-underline sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline sm:gap-x-8"
+                class="project-card group flex flex-col gap-1 rounded-xl border border-(--border) bg-(--bg-elevated) px-5 py-4 no-underline sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
               >
-                <span class="text-text-primary group-hover:text-highlight text-base leading-snug">
+                <span class="text-text-primary group-hover:text-highlight text-[0.95rem] font-medium transition-colors">
                   {post.data.title}
                 </span>
-                <span class="text-text-tertiary flex shrink-0 items-baseline gap-4 sm:justify-end">
+                <span class="text-text-tertiary flex shrink-0 items-baseline gap-4 text-sm">
                   {post.data.category && (
-                    <span class="meta hidden sm:inline">{post.data.category}</span>
+                    <span class="hidden sm:inline">{post.data.category}</span>
                   )}
                   <FormattedDate date={post.data.pubDate} />
                 </span>
-                {post.data.description && (
-                  <span class="text-text-secondary max-w-[68ch] text-[0.9375rem] leading-relaxed sm:col-span-2">
-                    {post.data.description}
-                  </span>
-                )}
               </a>
             </li>
           ))}
