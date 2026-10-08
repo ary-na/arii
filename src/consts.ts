@@ -45,94 +45,51 @@ export const FEATURED_POSTS: string[] = [
   'hart',
 ]
 
-/** Problem → built → why. The work index renders these three strings and nothing else from the case block. */
-export type ProjectArc = {
-  problem: string
-  built: string
-  why: string
-  /** Beat label for `why`. Featured cases use the longer heading. */
-  whyLabel?: string
-}
-
-export type ProjectShot = {
-  src: string
-  alt: string
-  width: number
-  height: number
-}
-
 export type ShippedProject = {
   slug: string
   name: string
-  /** One-line dek for numbered index rows. */
-  summary: string
+  outcome: string
   tech: string[]
   github?: string
   demo?: string
   npm?: string
   /** Scales sparse wordmark art inside the shared 16:10 thumbnail. */
   thumbScale?: number
-  /** Editorial weight. Omitted entries render as numbered rows. */
-  weight?: 'featured' | 'secondary'
-  /**
-   * Locked case copy for featured and secondary entries.
-   * The layout reads these three strings and does not rewrite them.
-   */
-  arc?: ProjectArc
-  /** Product shot. Shown when present, which is the featured entry. */
-  shot?: ProjectShot
 }
 
-/**
- * Homepage + /work index. `weight` pins the editorial grid;
- * everything else is a numbered row. `arc` is the only case copy the layout reads.
- */
+/** Homepage + /work project cards. Claims and links come from existing posts. */
 export const SHIPPED: ShippedProject[] = [
   {
     slug: 'husk',
     name: 'husk',
-    weight: 'featured',
-    summary:
-      'A native macOS uninstaller that scores leftover files and quarantines them instead of guessing.',
-    arc: {
-      problem:
-        'Uninstalling a Mac app often leaves containers, prefs, and launch agents behind. Finder’s drag-to-trash doesn’t clean that up.',
-      built:
-        'A native macOS uninstaller with one shared engine for a SwiftUI app and a CLI, scoring leftovers so you can review before delete.',
-      why: 'Gives people a clear, confidence-scored cleanup instead of hunting Library folders by hand.',
-    },
-    shot: {
-      src: '/blog/husk/scan-appcleaner.webp',
-      alt: 'husk scan of AppCleaner, listing leftover files grouped by how confident the match is',
-      width: 1800,
-      height: 1264,
-    },
+    outcome:
+      'A native macOS uninstaller with confidence-scored leftover detection, sharing one engine between a SwiftUI GUI and a CLI.',
     tech: ['Swift', 'SwiftUI', 'macOS', 'CLI'],
     github: 'https://github.com/ary-na/husk',
   },
   {
     slug: 'dtm',
     name: 'dtm',
-    summary:
-      'A CLI that snapshots your config files to a private GitHub repo and rolls any file back with one command.',
-    tech: ['TypeScript', 'Node.js', 'CLI'],
+    outcome:
+      'A dotfile time machine CLI that snapshots tracked config files on a schedule and pushes them to a private GitHub repo, with one-command rollback.',
+    tech: ['TypeScript', 'Node.js', 'CLI', 'simple-git', 'launchd'],
     github: 'https://github.com/ary-na/dtm',
     npm: 'https://www.npmjs.com/package/@ariian/dtm',
   },
   {
     slug: 'tsla-forecast',
     name: 'tsla forecast',
-    summary:
-      'A Telegram bot that forecasts the next week of TSLA from price history, market context, and news tone.',
-    tech: ['Python', 'Machine learning', 'Telegram', 'AWS'],
+    outcome:
+      'A Telegram bot for TSLA forecasts using a Bidirectional LSTM, sentiment analysis, and 17 engineered features, deployed on AWS EC2.',
+    tech: ['Python', 'LSTM', 'Machine Learning', 'AWS EC2'],
     github: 'https://github.com/ary-na/tsla-forecast',
   },
   {
     slug: 'hart',
     name: 'hart',
-    summary:
-      'A Next.js artwork portfolio and shop with accounts, a contact form, and a protected admin dashboard.',
-    tech: ['Next.js', 'TypeScript', 'MongoDB'],
+    outcome:
+      'A Next.js artwork portfolio and shop with Google OAuth, role-based access, a contact form, and a protected admin dashboard.',
+    tech: ['Next.js', 'React', 'TypeScript', 'MongoDB', 'NextAuth'],
     github: 'https://github.com/ary-na/hart',
     demo: 'https://hart-delta.vercel.app',
     thumbScale: 1.45,
@@ -140,47 +97,40 @@ export const SHIPPED: ShippedProject[] = [
   {
     slug: 'shiny-spoon',
     name: 'shiny spoon',
-    summary:
-      'A photo-sharing app with login, image uploads, and a welcome email when someone joins.',
-    tech: ['Python', 'Flask', 'FastAPI', 'AWS'],
+    outcome:
+      'A cloud-backed social platform built with Flask and FastAPI — image uploads, OAuth login, DynamoDB storage, S3 media, and a Lambda-powered welcome email flow.',
+    tech: ['Python', 'Flask', 'FastAPI', 'AWS', 'DynamoDB', 'S3'],
     github: 'https://github.com/ary-na/shiny-spoon',
     thumbScale: 1.7,
   },
   {
     slug: 'hushlink',
     name: 'hushlink',
-    weight: 'secondary',
-    summary:
-      'A web app for sending a secret once, encrypted in the browser and deleted on first open.',
-    arc: {
-      problem: 'Secrets shared in chat or email stick around in history.',
-      built: 'One-time links, encrypted in the browser, gone after first open.',
-      why: 'Hand someone a secret without leaving a permanent trail.',
-      whyLabel: 'Why',
-    },
+    outcome:
+      'Zero-knowledge one-time secret sharing — AES-256-GCM encrypted in the browser, stored in DynamoDB, destroyed on first read.',
     tech: ['Next.js', 'TypeScript', 'DynamoDB', 'Web Crypto', 'Vercel'],
     github: 'https://github.com/ary-na/hushlink',
   },
   {
     slug: 'smart-board',
     name: 'smart board',
-    summary:
-      'A desktop Kanban board with drag-and-drop lists and a local database.',
-    tech: ['Java', 'JavaFX', 'SQLite'],
+    outcome:
+      'A desktop Kanban task manager with drag-and-drop boards and SQLite persistence, built in JavaFX.',
+    tech: ['Java', 'JavaFX', 'SQLite', 'Desktop'],
     github: 'https://github.com/ary-na/Smart-Board',
   },
   {
     slug: 'spacewatch',
     name: 'spacewatch',
-    summary:
-      'A macOS menu bar app that shows your current Space and lets you rename it.',
-    tech: ['Swift', 'SwiftUI', 'macOS'],
+    outcome:
+      'A lightweight macOS menu bar app that shows your current Space, auto-detects Space changes, and lets you rename Spaces with launch-at-login support.',
+    tech: ['Swift', 'SwiftUI', 'macOS', 'Menu Bar'],
     github: 'https://github.com/ary-na/spacewatch',
   },
 ]
 
-/** Homepage editorial index length: featured + secondary, then quiet rows up to this count.
- * The /work page always shows the full list. */
+/** How many SHIPPED entries (from the front) surface on the homepage's
+ * "Selected work" preview. The /work page always shows the full list. */
 export const HOMEPAGE_SHIPPED_COUNT = 4
 
 export const BLOG_PAGE_SIZE = 8
